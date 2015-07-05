@@ -31,6 +31,8 @@ namespace ecom.presentation.website.Models
         public string SecondNumber { get; set; }
         public int SpecialityID { get; set; }
         public bool IsActive { get; set; }
+        public string Qualification { get; set; }
+        public Nullable<decimal> Fee { get; set; }
     
         public virtual City City { get; set; }
         public virtual CityLocation CityLocation { get; set; }

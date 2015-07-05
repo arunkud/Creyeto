@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ecom.presentation.website.Models;
 
 namespace ecom.presentation.website.Controllers
 {
-	[Authorize]
     public class DoctorsController : Controller
     {
         private DoctorEntities db = new DoctorEntities();
@@ -53,7 +50,7 @@ namespace ecom.presentation.website.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,NameEN,ContactNumber,Latitude,Longitude,CityID,CityLocationID,SecondNumber,SpecialityID,IsActive")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "ID,NameEN,ContactNumber,Latitude,Longitude,CityID,CityLocationID,SecondNumber,SpecialityID,IsActive,Qualification,Fee")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +88,7 @@ namespace ecom.presentation.website.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,NameEN,ContactNumber,Latitude,Longitude,CityID,CityLocationID,SecondNumber,SpecialityID,IsActive")] Doctor doctor)
+        public ActionResult Edit([Bind(Include = "ID,NameEN,ContactNumber,Latitude,Longitude,CityID,CityLocationID,SecondNumber,SpecialityID,IsActive,Qualification,Fee")] Doctor doctor)
         {
             if (ModelState.IsValid)
             {
@@ -130,37 +127,6 @@ namespace ecom.presentation.website.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-		[HttpPost]
-		public async Task<JsonResult> UploadHomeReport(string id)
-		{
-			try
-			{
-				foreach (string file in Request.Files)
-				{
-					var fileContent = Request.Files[file];
-					if (fileContent != null && fileContent.ContentLength > 0)
-					{
-						// get a stream
-						var stream = fileContent.InputStream;
-						// and optionally write the file to disk
-						var fileName = Path.GetFileName(file);
-						var path = Path.Combine(Server.MapPath("~/App_Data/Images"), fileName);
-						using (var fileStream = System.IO.File.Create(path))
-						{
-							stream.CopyTo(fileStream);
-						}
-					}
-				}
-			}
-			catch (Exception)
-			{
-				Response.StatusCode = (int)HttpStatusCode.BadRequest;
-				return Json("Upload failed");
-			}
-
-			return Json("File uploaded successfully");
-		}
 
         protected override void Dispose(bool disposing)
         {
