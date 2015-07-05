@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.arunkumar.test10" >
+
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission." />
+
+    <permission
+        android:name="com.example.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <receiver
+            android:name="com.heygo.arunkumar.gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <category android:name="com.example.gcm" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.javapapers.android.gcm.chat" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.heygo.arunkumar.gcm.GcmIntentService" />
+
+        <activity
+            android:name="com.heygo.arunkumar.activity.LogOnActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.heygo.arunkumar.activity.FindContacts"
+            android:label="@string/title_activity_add_contact_sample" >
+        </activity>
+        <activity
+            android:name="com.heygo.arunkumar.activity.PrivateOneToOne"
+            android:label="@string/title_activity_private_one_to_one" >
+        </activity>
+        <activity
+            android:name="com.heygo.arunkumar.activity.GCMAccountsActivity"
+            android:label="@string/title_activity_gcmsample" >
+        </activity>
+        <activity
+            android:name="com.heygo.arunkumar.activity.ChatHomeActivity"
+            android:label="@string/title_activity_chat_home" >
+        </activity>
+    </application>
+</manifest>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9f62081d6a534a4fa171f9c6dbab56ac" Name="Diagram1">
+        <EntityTypeShape EntityType="DoctorModel.Appointment" Width="1.5" PointX="12" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.Appointment_status" Width="1.5" PointX="9.75" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.City" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.CityLocation" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.Country" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.Doctor" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.DoctorInsurance" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.DoctorReview" Width="1.5" PointX="9.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.DoctorSchedule" Width="1.5" PointX="9.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.Hospital" Width="1.5" PointX="10.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.Insurance" Width="1.5" PointX="10.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoctorModel.Specialization" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="DoctorModel.FK_appointment_AppointmentStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_appointment_doctor_schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_city_country" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_city_location_city" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_Doctor_city" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_Hospital_city" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_Doctor_CityLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_Hospital_CityLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_doctor_insurance_doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_doctor_review_doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_doctor_schedule_doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_Doctor_specialization" ManuallyRouted="false" />
+        <AssociationConnector Association="DoctorModel.FK_doctor_insurance_insurance" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ecom.presentation.website.Models.DoctorSchedule>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ConfigLayout .cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Day)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MorningStartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MorningSlots)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MorningEndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AfternoonStartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AfternoonSlots)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AfternoonEndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EveningStartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EveningSlots)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EveningEndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Updated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Doctor.NameEN)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Day)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MorningStartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MorningSlots)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MorningEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AfternoonStartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AfternoonSlots)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AfternoonEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EveningStartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EveningSlots)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EveningEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Updated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Doctor.NameEN)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
