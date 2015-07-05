@@ -56,18 +56,19 @@ namespace ecom.presentation.website.Views.Search
 					//(x.SpecialityID == specialityID || x.SpecialityID == null))
 					DoctorEntities dbContext = new DoctorEntities();
 					var doctors = from d in dbContext.Doctors
-									join c in dbContext.Cities on d.CityID equals c.ID into cd
-									from c in cd.DefaultIfEmpty()
-								  where (d.CityID == cityId || d.CityLocationID == cityLocationId) &&
-								  d.SpecialityID == specialityId &&
-								  d.IsActive == true
-								  select new
-								  {
-									  Name = d.NameEN,
-									  Phone = d.ContactNumber,
-									  Place = !string.IsNullOrEmpty(d.CityLocation != null ? d.CityLocation.NameEN : null) 
-												? d.CityLocation.NameEN : !string.IsNullOrEmpty(d.City != null ? d.City.NameEN : null) ? d.City.NameEN : null
-								  };
+									join c in dbContext.Cities on d.CityID equals c.ID into cd from c in cd.DefaultIfEmpty()
+									where (d.CityID == cityId || d.CityLocationID == cityLocationId) &&
+									d.SpecialityID == specialityId &&
+									d.IsActive == true
+									select new
+									{
+										Name = d.NameEN,
+										Phone = d.ContactNumber,
+										Place = !string.IsNullOrEmpty(d.CityLocation != null ? d.CityLocation.NameEN : null) 
+												? d.CityLocation.NameEN : !string.IsNullOrEmpty(d.City != null ? d.City.NameEN : null) ? d.City.NameEN : null,
+										Fee = d.Fee,
+
+									};
 
 					return Json(doctors.ToList());
 				}

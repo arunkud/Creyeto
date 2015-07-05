@@ -128,7 +128,7 @@ function saveAvatar() {
 
     $.ajax({
         type: "POST",
-        url: "/Avatar/Save",
+        url: "/Doctors/Save",
         traditional: true,
         data: {
             w: img.css('width'),

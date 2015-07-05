@@ -4,7 +4,7 @@
 @Styles.Render("~/Content/jcrop")
 @Styles.Render("~/Content/avatar")
 <section id="avatar-upload-box">
-    @using (Ajax.BeginForm("_Upload", "Avatar",
+    @using (Ajax.BeginForm("_Upload", "Doctors",
         new AjaxOptions() { HttpMethod = "POST" },
         new { enctype = "multipart/form-data", id = "avatar-upload-form" }))
     {

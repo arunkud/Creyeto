@@ -1,19 +1,19 @@
 ﻿@model ecom.presentation.website.Models.Doctor
 
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_ConfigLayout .cshtml";
-}
-
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
+<h4>Doctor</h4>
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-10">
+            @{ Html.RenderPartial("_Upload"); }
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Doctor</h4>
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.NameEN, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
