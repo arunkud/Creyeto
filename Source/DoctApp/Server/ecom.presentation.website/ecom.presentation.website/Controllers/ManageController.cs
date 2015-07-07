@@ -10,7 +10,7 @@ using ecom.presentation.website.Models;
 
 namespace ecom.presentation.website.Controllers
 {
-    [Authorize]
+	[Authorize(Roles = "Admin")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

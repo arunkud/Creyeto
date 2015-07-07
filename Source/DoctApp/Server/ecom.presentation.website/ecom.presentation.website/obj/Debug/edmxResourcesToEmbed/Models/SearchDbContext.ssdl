@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SearchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DoctorView">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="NameEN" />
+      <PropertyRef Name="ContactNumber" />
+      <PropertyRef Name="ReviewCount" />
+      <PropertyRef Name="SpecialityID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Qualification" Type="varchar" MaxLength="150" />
+    <Property Name="Location" Type="varchar" MaxLength="200" />
+    <Property Name="Latitude" Type="varchar" MaxLength="50" />
+    <Property Name="Longitude" Type="varchar" MaxLength="50" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Fee" Type="money" />
+    <Property Name="ReviewCount" Type="int" Nullable="false" />
+    <Property Name="HasImage" Type="bit" />
+    <Property Name="CityID" Type="int" />
+    <Property Name="CityLocationID" Type="int" />
+    <Property Name="SpecialityID" Type="int" Nullable="false" />
+  </EntityType>
+  <Function Name="GetAllDoctors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cityID" Type="int" Mode="In" />
+    <Parameter Name="cityLocationID" Type="int" Mode="In" />
+    <Parameter Name="specialityID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetAvailableSlots" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DoctorID" Type="int" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+  </Function>
+  <EntityContainer Name="SearchModelStoreContainer">
+    <EntitySet Name="DoctorView" EntityType="Self.DoctorView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DoctorView].[ID] AS [ID], 
+    [DoctorView].[NameEN] AS [NameEN], 
+    [DoctorView].[Qualification] AS [Qualification], 
+    [DoctorView].[Location] AS [Location], 
+    [DoctorView].[Latitude] AS [Latitude], 
+    [DoctorView].[Longitude] AS [Longitude], 
+    [DoctorView].[ContactNumber] AS [ContactNumber], 
+    [DoctorView].[Fee] AS [Fee], 
+    [DoctorView].[ReviewCount] AS [ReviewCount], 
+    [DoctorView].[HasImage] AS [HasImage], 
+    [DoctorView].[CityID] AS [CityID], 
+    [DoctorView].[CityLocationID] AS [CityLocationID], 
+    [DoctorView].[SpecialityID] AS [SpecialityID]
+    FROM [dbo].[DoctorView] AS [DoctorView]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

@@ -171,6 +171,7 @@
     <Compile Include="Controllers\HospitalsController.cs" />
     <Compile Include="Controllers\InsurancesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SpecializationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -233,6 +234,12 @@
     <Compile Include="Models\DoctorSchedule.cs">
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DoctorView.cs">
+      <DependentUpon>SearchDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllDoctors_Result.cs">
+      <DependentUpon>SearchDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Hospital.cs">
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
@@ -243,6 +250,21 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Qualification.cs">
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SearchDbContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchDbContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SearchDbContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SearchDbContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchDbContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Specialization.cs">
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
@@ -288,6 +310,23 @@
     </Content>
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <EntityDeploy Include="Models\SearchDbContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SearchDbContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SearchDbContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SearchDbContext.edmx</DependentUpon>
+      <LastGenOutput>SearchDbContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SearchDbContext.edmx.diagram">
+      <DependentUpon>SearchDbContext.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\SearchDbContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SearchDbContext.edmx</DependentUpon>
+      <LastGenOutput>SearchDbContext.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\SmartASPNET.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -407,6 +446,8 @@
     <Content Include="Views\Doctors\Edit.cshtml" />
     <Content Include="Views\Doctors\Index.cshtml" />
     <Content Include="Views\Doctors\_Upload.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

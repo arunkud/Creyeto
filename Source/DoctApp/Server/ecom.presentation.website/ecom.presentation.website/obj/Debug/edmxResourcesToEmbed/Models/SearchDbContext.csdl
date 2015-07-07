@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SearchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DoctorView">
+    <Key>
+      <PropertyRef Name="NameEN" />
+      <PropertyRef Name="ContactNumber" />
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ReviewCount" />
+      <PropertyRef Name="SpecialityID" />
+    </Key>
+    <Property Name="NameEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fee" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Qualification" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ReviewCount" Type="Int32" Nullable="false" />
+    <Property Name="HasImage" Type="Boolean" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="CityLocationID" Type="Int32" />
+    <Property Name="SpecialityID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="ecomEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DoctorViews" EntityType="Self.DoctorView" />
+    <FunctionImport Name="GetAllDoctors" ReturnType="Collection(SearchModel.GetAllDoctors_Result)">
+      <Parameter Name="cityID" Mode="In" Type="Int32" />
+      <Parameter Name="cityLocationID" Mode="In" Type="Int32" />
+      <Parameter Name="specialityID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAvailableSlots">
+      <Parameter Name="DoctorID" Mode="In" Type="Int32" />
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetAllDoctors_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="NameEN" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Qualification" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="Location" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Latitude" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Longitude" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ContactNumber" Nullable="false" MaxLength="12" />
+    <Property Type="Decimal" Name="Fee" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="ReviewCount" Nullable="false" />
+    <Property Type="Boolean" Name="HasImage" Nullable="true" />
+  </ComplexType>
+</Schema>

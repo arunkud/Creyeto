@@ -12,6 +12,7 @@ using ecom.presentation.website.Models;
 
 namespace ecom.presentation.website.Controllers
 {
+	[Authorize(Roles = "Admin")]
     public class DoctorsController : Controller
     {
 		private const int AvatarStoredWidth = 100;  // ToDo - Change the size of the stored avatar image

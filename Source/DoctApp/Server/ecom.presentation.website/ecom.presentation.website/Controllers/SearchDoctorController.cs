@@ -10,7 +10,7 @@ using ecom.presentation.website.Models;
 
 namespace ecom.presentation.website.Views.Search
 {
-	[Authorize]
+	
     public class SearchDoctorController : Controller
     {
 		public static int _checkSumSalt = Convert.ToInt32(ConfigurationManager.AppSettings["salt"].ToString());
@@ -51,23 +51,21 @@ namespace ecom.presentation.website.Views.Search
 
 				if (IsValidCheckSum(cityId, cityLocationId, specialityId, checkSumVal))
 				{
-					//.Where(x => (x.CityID == cityId || x.CityID == null) &&
-					//(x.CityLocationID == cityLocationId || x.CityLocationID == null) &&
-					//(x.SpecialityID == specialityID || x.SpecialityID == null))
-					DoctorEntities dbContext = new DoctorEntities();
-					var doctors = from d in dbContext.Doctors
-									join c in dbContext.Cities on d.CityID equals c.ID into cd from c in cd.DefaultIfEmpty()
-									where (d.CityID == cityId || d.CityLocationID == cityLocationId) &&
-									d.SpecialityID == specialityId &&
-									d.IsActive == true
+					ecomEntities dbContext = new ecomEntities();
+					var doctors = from d in dbContext.DoctorViews
+								  where ((d.CityID == cityId || d.CityLocationID == cityLocationId) && d.SpecialityID == specialityId)
 									select new
 									{
-										Name = d.NameEN,
-										Phone = d.ContactNumber,
-										Place = !string.IsNullOrEmpty(d.CityLocation != null ? d.CityLocation.NameEN : null) 
-												? d.CityLocation.NameEN : !string.IsNullOrEmpty(d.City != null ? d.City.NameEN : null) ? d.City.NameEN : null,
-										Fee = d.Fee,
-
+										id = d.ID,
+										name = d.NameEN,
+										phone = d.ContactNumber,
+										place = d.Location,
+										fee = d.Fee,
+										lt = d.Latitude,
+										lg = d.Longitude,
+										qual = d.Qualification,
+										review = d.ReviewCount,
+										hi = d.HasImage,										
 									};
 
 					return Json(doctors.ToList());

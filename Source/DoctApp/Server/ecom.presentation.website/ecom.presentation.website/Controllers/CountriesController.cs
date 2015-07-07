@@ -10,7 +10,7 @@ using ecom.presentation.website.Models;
 
 namespace ecom.presentation.website.Views.Config
 {
-	[Authorize]
+	[Authorize(Roles = "Admin")]
     public class CountriesController : Controller
     {
         private DoctorEntities db = new DoctorEntities();
