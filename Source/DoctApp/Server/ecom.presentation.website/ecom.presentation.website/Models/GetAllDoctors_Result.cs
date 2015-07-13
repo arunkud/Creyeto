@@ -16,12 +16,15 @@ namespace ecom.presentation.website.Models
         public int ID { get; set; }
         public string NameEN { get; set; }
         public string Qualification { get; set; }
-        public string Location { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
         public string ContactNumber { get; set; }
         public Nullable<decimal> Fee { get; set; }
         public int ReviewCount { get; set; }
-        public Nullable<bool> HasImage { get; set; }
+        public bool HasImage { get; set; }
+        public int LikeCount { get; set; }
+        public Nullable<System.DateTime> ExperienceFrom { get; set; }
+        public string Location { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
+        public Nullable<double> Distance { get; set; }
     }
 }

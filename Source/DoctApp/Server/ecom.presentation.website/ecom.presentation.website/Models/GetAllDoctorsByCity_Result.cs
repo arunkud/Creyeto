@@ -10,33 +10,20 @@
 namespace ecom.presentation.website.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Doctor
+    public partial class GetAllDoctorsByCity_Result
     {
-        public Doctor()
-        {
-            this.DoctorReviews = new HashSet<DoctorReview>();
-            this.DoctorSchedules = new HashSet<DoctorSchedule>();
-            this.UserLikes = new HashSet<UserLike>();
-        }
-    
         public int ID { get; set; }
         public string NameEN { get; set; }
         public string Qualification { get; set; }
+        public string ContactNumber { get; set; }
         public Nullable<decimal> Fee { get; set; }
-        public int SpecialityID { get; set; }
-        public bool HasImage { get; set; }
-        public bool IsActive { get; set; }
         public int ReviewCount { get; set; }
+        public bool HasImage { get; set; }
         public int LikeCount { get; set; }
         public Nullable<System.DateTime> ExperienceFrom { get; set; }
-        public int HospitalID { get; set; }
-    
-        public virtual Hospital Hospital { get; set; }
-        public virtual ICollection<DoctorReview> DoctorReviews { get; set; }
-        public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; }
-        public virtual Specialization Specialization { get; set; }
-        public virtual ICollection<UserLike> UserLikes { get; set; }
+        public string Location { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
     }
 }

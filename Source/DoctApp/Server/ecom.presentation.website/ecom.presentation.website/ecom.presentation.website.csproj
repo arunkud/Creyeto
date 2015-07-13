@@ -161,18 +161,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DoctorsController.cs" />
-    <Compile Include="Controllers\CitiesController.cs" />
-    <Compile Include="Controllers\CityLocationsController.cs" />
-    <Compile Include="Controllers\DoctorInsurancesController.cs" />
     <Compile Include="Controllers\DoctorReviewsController.cs" />
-    <Compile Include="Controllers\DoctorSchedulesController.cs" />
+    <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HospitalsController.cs" />
-    <Compile Include="Controllers\InsurancesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\SpecializationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,9 +218,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DoctorDbModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\DoctorInsurance.cs">
-      <DependentUpon>DoctorDbModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DoctorReview.cs">
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
@@ -235,12 +225,18 @@
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DoctorView.cs">
-      <DependentUpon>SearchDbContext.tt</DependentUpon>
+      <DependentUpon>DoctorDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllDoctorsByCity_Result.cs">
+      <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetAllDoctors_Result.cs">
-      <DependentUpon>SearchDbContext.tt</DependentUpon>
+      <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hospital.cs">
+      <DependentUpon>DoctorDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HospitalInsurance.cs">
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -251,33 +247,17 @@
     <Compile Include="Models\Qualification.cs">
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SearchDbContext.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SearchDbContext.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SearchDbContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SearchDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SearchDbContext.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SearchDbContext.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\Specialization.cs">
       <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchDoctors.ashx.cs">
-      <DependentUpon>SearchDoctors.ashx</DependentUpon>
+    <Compile Include="Models\UserLike.cs">
+      <DependentUpon>DoctorDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\SearchDoctor.cs" />
     <Compile Include="Search\SearchRequestModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\SearchDoctorController.cs" />
-    <Compile Include="Controllers\CountriesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -291,6 +271,8 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <EntityDeploy Include="Models\DoctorDbModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DoctorDbModel.Designer.cs</LastGenOutput>
@@ -308,25 +290,6 @@
       <DependentUpon>DoctorDbModel.edmx</DependentUpon>
       <LastGenOutput>DoctorDbModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <EntityDeploy Include="Models\SearchDbContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SearchDbContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\SearchDbContext.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SearchDbContext.edmx</DependentUpon>
-      <LastGenOutput>SearchDbContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\SearchDbContext.edmx.diagram">
-      <DependentUpon>SearchDbContext.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\SearchDbContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SearchDbContext.edmx</DependentUpon>
-      <LastGenOutput>SearchDbContext.cs</LastGenOutput>
-    </Content>
     <None Include="Properties\PublishProfiles\SmartASPNET.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -342,6 +305,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\maplocator.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
@@ -363,9 +327,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Doctors\About.cshtml" />
+    <Content Include="Views\Doctors\Contact.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -387,60 +350,12 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_ConfigLayout .cshtml" />
-    <Content Include="Views\Home\Configure.cshtml" />
-    <Content Include="Views\Countries\Create.cshtml" />
-    <Content Include="Views\Countries\Delete.cshtml" />
-    <Content Include="Views\Countries\Details.cshtml" />
-    <Content Include="Views\Countries\Edit.cshtml" />
-    <Content Include="Views\Countries\Index.cshtml" />
-    <Content Include="Views\Cities\Create.cshtml" />
-    <Content Include="Views\Cities\Delete.cshtml" />
-    <Content Include="Views\Cities\Details.cshtml" />
-    <Content Include="Views\Cities\Edit.cshtml" />
-    <Content Include="Views\Cities\Index.cshtml" />
-    <Content Include="Views\CityLocations\Create.cshtml" />
-    <Content Include="Views\CityLocations\Delete.cshtml" />
-    <Content Include="Views\CityLocations\Details.cshtml" />
-    <Content Include="Views\CityLocations\Edit.cshtml" />
-    <Content Include="Views\CityLocations\Index.cshtml" />
-    <Content Include="Views\DoctorInsurances\Create.cshtml" />
-    <Content Include="Views\DoctorInsurances\Delete.cshtml" />
-    <Content Include="Views\DoctorInsurances\Details.cshtml" />
-    <Content Include="Views\DoctorInsurances\Edit.cshtml" />
-    <Content Include="Views\DoctorInsurances\Index.cshtml" />
-    <Content Include="Views\DoctorReviews\Create.cshtml" />
-    <Content Include="Views\DoctorReviews\Delete.cshtml" />
-    <Content Include="Views\DoctorReviews\Details.cshtml" />
-    <Content Include="Views\DoctorReviews\Edit.cshtml" />
-    <Content Include="Views\DoctorReviews\Index.cshtml" />
-    <Content Include="Views\DoctorSchedules\Create.cshtml" />
-    <Content Include="Views\DoctorSchedules\Delete.cshtml" />
-    <Content Include="Views\DoctorSchedules\Details.cshtml" />
-    <Content Include="Views\DoctorSchedules\Edit.cshtml" />
-    <Content Include="Views\DoctorSchedules\Index.cshtml" />
-    <Content Include="Views\Hospitals\Create.cshtml" />
-    <Content Include="Views\Hospitals\Delete.cshtml" />
-    <Content Include="Views\Hospitals\Details.cshtml" />
-    <Content Include="Views\Hospitals\Edit.cshtml" />
-    <Content Include="Views\Hospitals\Index.cshtml" />
-    <Content Include="Views\Insurances\Create.cshtml" />
-    <Content Include="Views\Insurances\Delete.cshtml" />
-    <Content Include="Views\Insurances\Details.cshtml" />
-    <Content Include="Views\Insurances\Edit.cshtml" />
-    <Content Include="Views\Insurances\Index.cshtml" />
-    <Content Include="Views\Specializations\Create.cshtml" />
-    <Content Include="Views\Specializations\Delete.cshtml" />
-    <Content Include="Views\Specializations\Details.cshtml" />
-    <Content Include="Views\Specializations\Edit.cshtml" />
-    <Content Include="Views\Specializations\Index.cshtml" />
     <Content Include="Views\SearchDoctor\Index.cshtml" />
-    <Content Include="SearchDoctors.ashx" />
     <Compile Include="Search\AjaxRouter.cs" />
     <Compile Include="Search\AjaxTask.cs" />
     <Compile Include="Search\NullAjaxTask.cs" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Scripts\jquery.form.min.js.map" />
-    <Content Include="Views\Doctors\Create.cshtml" />
     <Content Include="Views\Doctors\Delete.cshtml" />
     <Content Include="Views\Doctors\Details.cshtml" />
     <Content Include="Views\Doctors\Edit.cshtml" />
@@ -448,6 +363,12 @@
     <Content Include="Views\Doctors\_Upload.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Doctors\Create.cshtml" />
+    <Content Include="Views\DoctorReviews\Create.cshtml" />
+    <Content Include="Views\DoctorReviews\Delete.cshtml" />
+    <Content Include="Views\DoctorReviews\Details.cshtml" />
+    <Content Include="Views\DoctorReviews\Edit.cshtml" />
+    <Content Include="Views\DoctorReviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

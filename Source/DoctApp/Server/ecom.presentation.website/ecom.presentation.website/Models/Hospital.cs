@@ -14,18 +14,24 @@ namespace ecom.presentation.website.Models
     
     public partial class Hospital
     {
+        public Hospital()
+        {
+            this.Doctors = new HashSet<Doctor>();
+            this.HospitalInsurances = new HashSet<HospitalInsurance>();
+        }
+    
         public int ID { get; set; }
         public string NameEN { get; set; }
         public string Address { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
         public string ContactNumber { get; set; }
         public string SecondNumber { get; set; }
-        public Nullable<int> CityID { get; set; }
         public Nullable<int> CityLocationID { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
         public bool IsActive { get; set; }
     
-        public virtual City City { get; set; }
         public virtual CityLocation CityLocation { get; set; }
+        public virtual ICollection<Doctor> Doctors { get; set; }
+        public virtual ICollection<HospitalInsurance> HospitalInsurances { get; set; }
     }
 }

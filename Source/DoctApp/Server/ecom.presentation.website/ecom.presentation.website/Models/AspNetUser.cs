@@ -18,6 +18,8 @@ namespace ecom.presentation.website.Models
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
+            this.DoctorReviews = new HashSet<DoctorReview>();
+            this.UserLikes = new HashSet<UserLike>();
             this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
@@ -36,6 +38,8 @@ namespace ecom.presentation.website.Models
     
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual ICollection<DoctorReview> DoctorReviews { get; set; }
+        public virtual ICollection<UserLike> UserLikes { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }
 }

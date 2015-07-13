@@ -5,15 +5,12 @@
     Layout = "~/Views/Shared/_ConfigLayout .cshtml";
 }
 
-<h2>Index</h2>
+<h2></h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserID)
+            @Html.DisplayNameFor(model => model.Doctor.NameEN)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Review)
@@ -22,10 +19,7 @@
             @Html.DisplayNameFor(model => model.Rating)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Doctor.NameEN)
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
         </th>
         <th></th>
     </tr>
@@ -33,7 +27,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UserID)
+            @Html.DisplayFor(modelItem => item.Doctor.NameEN)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Review)
@@ -42,10 +36,7 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Doctor.NameEN)
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
@@ -56,3 +47,6 @@
 }
 
 </table>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>

@@ -16,7 +16,7 @@ namespace ecom.presentation.website.Models
     {
         public Insurance()
         {
-            this.DoctorInsurances = new HashSet<DoctorInsurance>();
+            this.HospitalInsurances = new HashSet<HospitalInsurance>();
         }
     
         public int ID { get; set; }
@@ -25,6 +25,6 @@ namespace ecom.presentation.website.Models
         public System.DateTime Updated { get; set; }
         public bool IsActive { get; set; }
     
-        public virtual ICollection<DoctorInsurance> DoctorInsurances { get; set; }
+        public virtual ICollection<HospitalInsurance> HospitalInsurances { get; set; }
     }
 }

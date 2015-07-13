@@ -14,14 +14,14 @@ namespace ecom.presentation.website.Models
     
     public partial class DoctorView
     {
-        public string NameEN { get; set; }
-        public string Location { get; set; }
-        public string ContactNumber { get; set; }
-        public Nullable<decimal> Fee { get; set; }
         public int ID { get; set; }
+        public string NameEN { get; set; }
         public string Qualification { get; set; }
+        public string Location { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+        public string ContactNumber { get; set; }
+        public Nullable<decimal> Fee { get; set; }
         public int ReviewCount { get; set; }
         public Nullable<bool> HasImage { get; set; }
         public Nullable<int> CityID { get; set; }

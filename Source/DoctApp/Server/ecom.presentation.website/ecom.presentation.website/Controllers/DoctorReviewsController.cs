@@ -10,15 +10,14 @@ using ecom.presentation.website.Models;
 
 namespace ecom.presentation.website.Controllers
 {
-	[Authorize(Roles = "Admin")]
     public class DoctorReviewsController : Controller
     {
-        private DoctorEntities db = new DoctorEntities();
+        private Entities db = new Entities();
 
         // GET: DoctorReviews
         public ActionResult Index()
         {
-            var doctorReviews = db.DoctorReviews.Include(d => d.Doctor);
+            var doctorReviews = db.DoctorReviews.Include(d => d.AspNetUser).Include(d => d.Doctor);
             return View(doctorReviews.ToList());
         }
 
@@ -40,6 +39,7 @@ namespace ecom.presentation.website.Controllers
         // GET: DoctorReviews/Create
         public ActionResult Create()
         {
+            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
             ViewBag.DoctorID = new SelectList(db.Doctors, "ID", "NameEN");
             return View();
         }
@@ -58,6 +58,7 @@ namespace ecom.presentation.website.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", doctorReview.UserID);
             ViewBag.DoctorID = new SelectList(db.Doctors, "ID", "NameEN", doctorReview.DoctorID);
             return View(doctorReview);
         }
@@ -74,6 +75,7 @@ namespace ecom.presentation.website.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", doctorReview.UserID);
             ViewBag.DoctorID = new SelectList(db.Doctors, "ID", "NameEN", doctorReview.DoctorID);
             return View(doctorReview);
         }
@@ -91,6 +93,7 @@ namespace ecom.presentation.website.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email", doctorReview.UserID);
             ViewBag.DoctorID = new SelectList(db.Doctors, "ID", "NameEN", doctorReview.DoctorID);
             return View(doctorReview);
         }

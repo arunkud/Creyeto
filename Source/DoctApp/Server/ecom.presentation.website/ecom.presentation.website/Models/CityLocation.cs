@@ -16,19 +16,17 @@ namespace ecom.presentation.website.Models
     {
         public CityLocation()
         {
-            this.Doctors = new HashSet<Doctor>();
             this.Hospitals = new HashSet<Hospital>();
         }
     
         public int ID { get; set; }
         public string NameEN { get; set; }
         public int CityID { get; set; }
-        public string Latitude { get; set; }
-        public byte[] Longitude { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
         public bool IsActive { get; set; }
     
         public virtual City City { get; set; }
-        public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual ICollection<Hospital> Hospitals { get; set; }
     }
 }

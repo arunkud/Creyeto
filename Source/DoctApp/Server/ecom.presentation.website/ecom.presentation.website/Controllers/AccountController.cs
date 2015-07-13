@@ -172,7 +172,7 @@ namespace ecom.presentation.website.Controllers
 					// var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 					// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-					return RedirectToAction("Index", "Home");
+					return RedirectToAction("Index", "Doctors");
 				}
 				AddErrors(result);
 			}
@@ -400,7 +400,7 @@ namespace ecom.presentation.website.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Doctors");
         }
 
         //
@@ -457,7 +457,7 @@ namespace ecom.presentation.website.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Doctors");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

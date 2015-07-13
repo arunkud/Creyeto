@@ -21,7 +21,7 @@ namespace ecom.presentation.website.Models
     
         public int ID { get; set; }
         public int DoctorID { get; set; }
-        public string Day { get; set; }
+        public string DayInWeek { get; set; }
         public System.TimeSpan Duration { get; set; }
         public Nullable<System.TimeSpan> MorningStartTime { get; set; }
         public Nullable<int> MorningSlots { get; set; }

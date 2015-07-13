@@ -5,42 +5,23 @@
     Layout = "~/Views/Shared/_ConfigLayout .cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2></h2>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NameEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContactNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecondNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Qualification)
+            Doctor
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Fee)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.City.NameEN)
+            Contacts
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CityLocation.NameEN)
+            Reviews
+        </th>
+        <th>
+            Likes
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Specialization.NameEN)
@@ -51,34 +32,21 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.NameEN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Latitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Longitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
+            @Html.DisplayFor(modelItem => item.NameEN) 
             @Html.DisplayFor(modelItem => item.Qualification)
+            <i>(@Html.DisplayFor(modelItem => item.Hospital.NameEN))</i>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Fee)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.City.NameEN)
+            @Html.DisplayFor(modelItem => item.Hospital.ContactNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CityLocation.NameEN)
+            @Html.DisplayFor(modelItem => item.LikeCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReviewCount)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Specialization.NameEN)
@@ -92,3 +60,6 @@
 }
 
 </table>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>

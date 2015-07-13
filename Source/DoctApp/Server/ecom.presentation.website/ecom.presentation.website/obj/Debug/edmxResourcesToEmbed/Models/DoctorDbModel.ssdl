@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DoctorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="ecomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -89,6 +89,8 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="CountryID" Type="int" Nullable="false" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="CityLocation">
@@ -98,8 +100,8 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NameEN" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="CityID" Type="int" Nullable="false" />
-    <Property Name="Latitude" Type="varchar" MaxLength="50" />
-    <Property Name="Longitude" Type="varbinary" MaxLength="50" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Country">
@@ -119,35 +121,23 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Qualification" Type="varchar" MaxLength="150" />
-    <Property Name="ContactNumber" Type="varchar" MaxLength="12" Nullable="false" />
-    <Property Name="Latitude" Type="varchar" MaxLength="50" />
-    <Property Name="Longitude" Type="varchar" MaxLength="50" />
     <Property Name="Fee" Type="money" />
-    <Property Name="CityID" Type="int" />
-    <Property Name="CityLocationID" Type="int" />
-    <Property Name="SecondNumber" Type="varchar" MaxLength="12" />
     <Property Name="SpecialityID" Type="int" Nullable="false" />
+    <Property Name="HasImage" Type="bit" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="DoctorInsurance">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="InsuranceID" Type="int" Nullable="false" />
-    <Property Name="DoctorID" Type="int" Nullable="false" />
-    <Property Name="IsActive" Type="bit" Nullable="false" />
-    <Property Name="Created" Type="smalldatetime" Nullable="false" />
-    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+    <Property Name="ReviewCount" Type="int" Nullable="false" />
+    <Property Name="LikeCount" Type="int" Nullable="false" />
+    <Property Name="ExperienceFrom" Type="smalldatetime" />
+    <Property Name="HospitalID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="DoctorReview">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
     <Property Name="DoctorID" Type="int" Nullable="false" />
-    <Property Name="Review" Type="varchar" MaxLength="500" />
+    <Property Name="Review" Type="text" />
     <Property Name="Rating" Type="smallint" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
   </EntityType>
@@ -157,7 +147,7 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DoctorID" Type="int" Nullable="false" />
-    <Property Name="Day" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="DayInWeek" Type="varchar" MaxLength="3" Nullable="false" />
     <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
     <Property Name="MorningStartTime" Type="time" Precision="7" />
     <Property Name="MorningSlots" Type="int" />
@@ -179,13 +169,23 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NameEN" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="Address" Type="varchar" MaxLength="250" />
-    <Property Name="Latitude" Type="varchar" MaxLength="50" />
-    <Property Name="Longitude" Type="varchar" MaxLength="50" />
     <Property Name="ContactNumber" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="SecondNumber" Type="varchar" MaxLength="10" />
-    <Property Name="CityID" Type="int" />
     <Property Name="CityLocationID" Type="int" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HospitalInsurance">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InsuranceID" Type="int" Nullable="false" />
+    <Property Name="HospitalID" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Insurance">
     <Key>
@@ -210,8 +210,43 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NameEN" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserLike">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DoctorID" Type="int" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DoctorView">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="NameEN" />
+      <PropertyRef Name="ContactNumber" />
+      <PropertyRef Name="ReviewCount" />
+      <PropertyRef Name="SpecialityID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Qualification" Type="varchar" MaxLength="150" />
+    <Property Name="Location" Type="varchar" MaxLength="200" />
+    <Property Name="Latitude" Type="varchar" MaxLength="50" />
+    <Property Name="Longitude" Type="varchar" MaxLength="50" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Fee" Type="money" />
+    <Property Name="ReviewCount" Type="int" Nullable="false" />
+    <Property Name="HasImage" Type="bit" />
+    <Property Name="CityID" Type="int" />
+    <Property Name="CityLocationID" Type="int" />
+    <Property Name="SpecialityID" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_appointment_AppointmentStatus">
     <End Role="Appointment_status" Type="Self.Appointment_status" Multiplicity="1" />
@@ -317,50 +352,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Doctor_city">
-    <End Role="City" Type="Self.City" Multiplicity="0..1" />
+  <Association Name="FK_Doctor_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
     <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="City">
+      <Principal Role="Hospital">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="Doctor">
-        <PropertyRef Name="CityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Doctor_CityLocation">
-    <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="0..1" />
-    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CityLocation">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Doctor">
-        <PropertyRef Name="CityLocationID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_doctor_insurance_doctor">
-    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
-    <End Role="DoctorInsurance" Type="Self.DoctorInsurance" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Doctor">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="DoctorInsurance">
-        <PropertyRef Name="DoctorID" />
+        <PropertyRef Name="HospitalID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_doctor_insurance_insurance">
     <End Role="Insurance" Type="Self.Insurance" Multiplicity="1" />
-    <End Role="DoctorInsurance" Type="Self.DoctorInsurance" Multiplicity="*" />
+    <End Role="HospitalInsurance" Type="Self.HospitalInsurance" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Insurance">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="DoctorInsurance">
+      <Dependent Role="HospitalInsurance">
         <PropertyRef Name="InsuranceID" />
       </Dependent>
     </ReferentialConstraint>
@@ -401,15 +412,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Hospital_city">
-    <End Role="City" Type="Self.City" Multiplicity="0..1" />
-    <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
+  <Association Name="FK_DoctorInsurance_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="HospitalInsurance" Type="Self.HospitalInsurance" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="City">
+      <Principal Role="Hospital">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Hospital">
-        <PropertyRef Name="CityID" />
+      <Dependent Role="HospitalInsurance">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorReview_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="DoctorReview" Type="Self.DoctorReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DoctorReview">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -425,7 +448,111 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DoctorModelStoreContainer">
+  <Association Name="FK_UserLike_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="UserLike" Type="Self.UserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLike">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLike_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="UserLike" Type="Self.UserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserLike">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AddDoctorReview" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="DoctorId" Type="int" Mode="In" />
+    <Parameter Name="ReviewText" Type="text" Mode="In" />
+    <Parameter Name="Rating" Type="int" Mode="In" />
+    <Parameter Name="Like" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="AddNewDoctor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NameEN" Type="varchar" Mode="In" />
+    <Parameter Name="Qualification" Type="varchar" Mode="In" />
+    <Parameter Name="Fee" Type="money" Mode="In" />
+    <Parameter Name="SpecialityID" Type="int" Mode="In" />
+    <Parameter Name="HasImage" Type="bit" Mode="In" />
+    <Parameter Name="IsActive" Type="bit" Mode="In" />
+    <Parameter Name="ExperienceFrom" Type="smalldatetime" Mode="In" />
+    <Parameter Name="HospitalID" Type="int" Mode="In" />
+    <Parameter Name="Duration" Type="time" Mode="In" />
+    <Parameter Name="SundayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="SundayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="SundayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="SundayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="SundayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="SundayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="MondayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="MondayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="MondayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="MondayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="MondayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="MondayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="FridayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="FridayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="FridayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="FridayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="FridayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="FridayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayEveningEndTime" Type="time" Mode="In" />
+  </Function>
+  <Function Name="GetAllDoctors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SpecialityID" Type="int" Mode="In" />
+    <Parameter Name="Latitude" Type="float" Mode="In" />
+    <Parameter Name="Longitude" Type="float" Mode="In" />
+  </Function>
+  <Function Name="GetAllDoctorsByCity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SpecialityID" Type="int" Mode="In" />
+    <Parameter Name="CityID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UpdateDoctorSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DoctorID" Type="int" Mode="In" />
+    <Parameter Name="DayInWeek" Type="varchar" Mode="In" />
+    <Parameter Name="Duration" Type="time" Mode="In" />
+    <Parameter Name="MorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="MorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="AfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="AfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="EveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="EveningEndTime" Type="time" Mode="In" />
+  </Function>
+  <EntityContainer Name="ecomModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Appointment_status" EntityType="Self.Appointment_status" Schema="dbo" store:Type="Tables" />
@@ -438,13 +565,31 @@
     <EntitySet Name="CityLocation" EntityType="Self.CityLocation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="DoctorInsurance" EntityType="Self.DoctorInsurance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DoctorReview" EntityType="Self.DoctorReview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DoctorSchedule" EntityType="Self.DoctorSchedule" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Hospital" EntityType="Self.Hospital" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HospitalInsurance" EntityType="Self.HospitalInsurance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Insurance" EntityType="Self.Insurance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLike" EntityType="Self.UserLike" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorView" EntityType="Self.DoctorView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DoctorView].[ID] AS [ID], 
+    [DoctorView].[NameEN] AS [NameEN], 
+    [DoctorView].[Qualification] AS [Qualification], 
+    [DoctorView].[Location] AS [Location], 
+    [DoctorView].[Latitude] AS [Latitude], 
+    [DoctorView].[Longitude] AS [Longitude], 
+    [DoctorView].[ContactNumber] AS [ContactNumber], 
+    [DoctorView].[Fee] AS [Fee], 
+    [DoctorView].[ReviewCount] AS [ReviewCount], 
+    [DoctorView].[HasImage] AS [HasImage], 
+    [DoctorView].[CityID] AS [CityID], 
+    [DoctorView].[CityLocationID] AS [CityLocationID], 
+    [DoctorView].[SpecialityID] AS [SpecialityID]
+    FROM [dbo].[DoctorView] AS [DoctorView]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_appointment_AppointmentStatus" Association="Self.FK_appointment_AppointmentStatus">
       <End Role="Appointment_status" EntitySet="Appointment_status" />
       <End Role="Appointment" EntitySet="Appointment" />
@@ -477,21 +622,13 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
-    <AssociationSet Name="FK_Doctor_city" Association="Self.FK_Doctor_city">
-      <End Role="City" EntitySet="City" />
+    <AssociationSet Name="FK_Doctor_Hospital" Association="Self.FK_Doctor_Hospital">
+      <End Role="Hospital" EntitySet="Hospital" />
       <End Role="Doctor" EntitySet="Doctor" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Doctor_CityLocation" Association="Self.FK_Doctor_CityLocation">
-      <End Role="CityLocation" EntitySet="CityLocation" />
-      <End Role="Doctor" EntitySet="Doctor" />
-    </AssociationSet>
-    <AssociationSet Name="FK_doctor_insurance_doctor" Association="Self.FK_doctor_insurance_doctor">
-      <End Role="Doctor" EntitySet="Doctor" />
-      <End Role="DoctorInsurance" EntitySet="DoctorInsurance" />
     </AssociationSet>
     <AssociationSet Name="FK_doctor_insurance_insurance" Association="Self.FK_doctor_insurance_insurance">
       <End Role="Insurance" EntitySet="Insurance" />
-      <End Role="DoctorInsurance" EntitySet="DoctorInsurance" />
+      <End Role="HospitalInsurance" EntitySet="HospitalInsurance" />
     </AssociationSet>
     <AssociationSet Name="FK_doctor_review_doctor" Association="Self.FK_doctor_review_doctor">
       <End Role="Doctor" EntitySet="Doctor" />
@@ -505,13 +642,25 @@
       <End Role="Specialization" EntitySet="Specialization" />
       <End Role="Doctor" EntitySet="Doctor" />
     </AssociationSet>
-    <AssociationSet Name="FK_Hospital_city" Association="Self.FK_Hospital_city">
-      <End Role="City" EntitySet="City" />
+    <AssociationSet Name="FK_DoctorInsurance_Hospital" Association="Self.FK_DoctorInsurance_Hospital">
       <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="HospitalInsurance" EntitySet="HospitalInsurance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorReview_AspNetUsers" Association="Self.FK_DoctorReview_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="DoctorReview" EntitySet="DoctorReview" />
     </AssociationSet>
     <AssociationSet Name="FK_Hospital_CityLocation" Association="Self.FK_Hospital_CityLocation">
       <End Role="CityLocation" EntitySet="CityLocation" />
       <End Role="Hospital" EntitySet="Hospital" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLike_AspNetUsers" Association="Self.FK_UserLike_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UserLike" EntitySet="UserLike" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLike_Doctor" Association="Self.FK_UserLike_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="UserLike" EntitySet="UserLike" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -12,8 +12,7 @@ using ecom.presentation.website.Models;
 
 namespace ecom.presentation.website.Controllers
 {
-	[Authorize(Roles = "Admin")]
-    public class DoctorsController : Controller
+	public class DoctorsController : Controller
     {
 		private const int AvatarStoredWidth = 100;  // ToDo - Change the size of the stored avatar image
 		private const int AvatarStoredHeight = 100; // ToDo - Change the size of the stored avatar image
@@ -24,37 +23,51 @@ namespace ecom.presentation.website.Controllers
 		private const string AvatarPath = "/Images";
 
 		private readonly string[] _imageFileExtensions = { ".jpg", ".png", ".gif", ".jpeg" };
-        private DoctorEntities db = new DoctorEntities();
+		private Entities db = new Entities();
 
         // GET: Doctors
         public ActionResult Index()
         {
-            var doctors = db.Doctors.Include(d => d.City).Include(d => d.CityLocation).Include(d => d.Specialization);
-            return View(doctors.ToList());
+			var doctors = db.Doctors.Include(d => d.Hospital).Include(d => d.Specialization);
+			return View(doctors.ToList());
         }
+
+		public ActionResult About()
+		{
+			ViewBag.Message = "Your application description page.";
+
+			return View();
+		}
+
+		public ActionResult Contact()
+		{
+			ViewBag.Message = "Your contact page.";
+
+			return View();
+		}
 
         // GET: Doctors/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(doctor);
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Doctor doctor = db.Doctors.Find(id);
+			if (doctor == null)
+			{
+				return HttpNotFound();
+			}
+			return View(doctor);
         }
 
         // GET: Doctors/Create
-        public ActionResult Create()
+		[Authorize(Roles = "Admin")]
+		public ActionResult Create()
         {
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "NameEN");
-            ViewBag.CityLocationID = new SelectList(db.CityLocations, "ID", "NameEN");
-            ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN");
-            return View();
+			ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "NameEN");
+			ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN");
+			return View();
         }
 
         // POST: Doctors/Create
@@ -62,37 +75,37 @@ namespace ecom.presentation.website.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "ID,NameEN,ContactNumber,Latitude,Longitude,CityID,CityLocationID,SecondNumber,SpecialityID,IsActive,Qualification,Fee")] Doctor doctor)
         {
-            if (ModelState.IsValid)
-            {
-                db.Doctors.Add(doctor);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+			if (ModelState.IsValid)
+			{
+				db.Doctors.Add(doctor);
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
 
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "NameEN", doctor.CityID);
-            ViewBag.CityLocationID = new SelectList(db.CityLocations, "ID", "NameEN", doctor.CityLocationID);
-            ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN", doctor.SpecialityID);
-            return View(doctor);
+			ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "NameEN", doctor.HospitalID);
+			ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN", doctor.SpecialityID);
+			return View(doctor);
         }
 
         // GET: Doctors/Edit/5
+		[Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "NameEN", doctor.CityID);
-            ViewBag.CityLocationID = new SelectList(db.CityLocations, "ID", "NameEN", doctor.CityLocationID);
-            ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN", doctor.SpecialityID);
-            return View(doctor);
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Doctor doctor = db.Doctors.Find(id);
+			if (doctor == null)
+			{
+				return HttpNotFound();
+			}
+			ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "NameEN", doctor.HospitalID);
+			ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN", doctor.SpecialityID);
+			return View(doctor);
         }
 
         // POST: Doctors/Edit/5
@@ -100,44 +113,46 @@ namespace ecom.presentation.website.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "ID,NameEN,ContactNumber,Latitude,Longitude,CityID,CityLocationID,SecondNumber,SpecialityID,IsActive,Qualification,Fee")] Doctor doctor)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(doctor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CityID = new SelectList(db.Cities, "ID", "NameEN", doctor.CityID);
-            ViewBag.CityLocationID = new SelectList(db.CityLocations, "ID", "NameEN", doctor.CityLocationID);
-            ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN", doctor.SpecialityID);
-            return View(doctor);
+			if (ModelState.IsValid)
+			{
+				db.Entry(doctor).State = EntityState.Modified;
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "NameEN", doctor.HospitalID);
+			ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN", doctor.SpecialityID);
+			return View(doctor);
         }
 
         // GET: Doctors/Delete/5
+		[Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(doctor);
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Doctor doctor = db.Doctors.Find(id);
+			if (doctor == null)
+			{
+				return HttpNotFound();
+			}
+			return View(doctor);
         }
 
         // POST: Doctors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Doctor doctor = db.Doctors.Find(id);
-            db.Doctors.Remove(doctor);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+			Doctor doctor = db.Doctors.Find(id);
+			db.Doctors.Remove(doctor);
+			db.SaveChanges();
+			return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -156,12 +171,14 @@ namespace ecom.presentation.website.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "Admin")]
 		public ActionResult _Upload()
 		{
 			return PartialView();
 		}
 
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin")]
 		public ActionResult _Upload(IEnumerable<HttpPostedFileBase> files)
 		{
 			if (files == null || !files.Any()) return Json(new { success = false, errorMessage = "No file uploaded." });
@@ -173,6 +190,7 @@ namespace ecom.presentation.website.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "Admin")]
 		public ActionResult Save(string t, string l, string h, string w, string fileName)
 		{
 			try

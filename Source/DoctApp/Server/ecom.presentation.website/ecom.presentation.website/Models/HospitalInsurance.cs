@@ -12,16 +12,16 @@ namespace ecom.presentation.website.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DoctorInsurance
+    public partial class HospitalInsurance
     {
         public int ID { get; set; }
         public int InsuranceID { get; set; }
-        public int DoctorID { get; set; }
+        public int HospitalID { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime Created { get; set; }
         public System.DateTime Updated { get; set; }
     
-        public virtual Doctor Doctor { get; set; }
+        public virtual Hospital Hospital { get; set; }
         public virtual Insurance Insurance { get; set; }
     }
 }
