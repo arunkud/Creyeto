@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DoctorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="ecomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
   <EntityType Name="Appointment">
     <Key>
       <PropertyRef Name="ID" />
@@ -24,6 +34,57 @@
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Appointments" Relationship="Self.FK_appointment_AppointmentStatus" FromRole="Appointment_status" ToRole="Appointment" />
   </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="DoctorReviews" Relationship="Self.FK_DoctorReview_AspNetUsers" FromRole="AspNetUsers" ToRole="DoctorReview" />
+    <NavigationProperty Name="UserLikes" Relationship="Self.FK_UserLike_AspNetUsers" FromRole="AspNetUsers" ToRole="UserLike" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
   <EntityType Name="City">
     <Key>
       <PropertyRef Name="ID" />
@@ -31,11 +92,11 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NameEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CountryID" Type="Int32" Nullable="false" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Country" Relationship="Self.FK_city_country" FromRole="City" ToRole="Country" />
     <NavigationProperty Name="CityLocations" Relationship="Self.FK_city_location_city" FromRole="City" ToRole="CityLocation" />
-    <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_city" FromRole="City" ToRole="Doctor" />
-    <NavigationProperty Name="Hospitals" Relationship="Self.FK_Hospital_city" FromRole="City" ToRole="Hospital" />
   </EntityType>
   <EntityType Name="CityLocation">
     <Key>
@@ -44,11 +105,10 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NameEN" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CityID" Type="Int32" Nullable="false" />
-    <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Longitude" Type="Binary" MaxLength="50" FixedLength="false" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="City" Relationship="Self.FK_city_location_city" FromRole="CityLocation" ToRole="City" />
-    <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_CityLocation" FromRole="CityLocation" ToRole="Doctor" />
     <NavigationProperty Name="Hospitals" Relationship="Self.FK_Hospital_CityLocation" FromRole="CityLocation" ToRole="Hospital" />
   </EntityType>
   <EntityType Name="Country">
@@ -68,46 +128,32 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NameEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="ContactNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CityID" Type="Int32" />
-    <Property Name="CityLocationID" Type="Int32" />
-    <Property Name="SecondNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Qualification" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Fee" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="SpecialityID" Type="Int32" Nullable="false" />
+    <Property Name="HasImage" Type="Boolean" Nullable="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="City" Relationship="Self.FK_Doctor_city" FromRole="Doctor" ToRole="City" />
-    <NavigationProperty Name="CityLocation" Relationship="Self.FK_Doctor_CityLocation" FromRole="Doctor" ToRole="CityLocation" />
-    <NavigationProperty Name="DoctorInsurances" Relationship="Self.FK_doctor_insurance_doctor" FromRole="Doctor" ToRole="DoctorInsurance" />
+    <Property Name="ReviewCount" Type="Int32" Nullable="false" />
+    <Property Name="LikeCount" Type="Int32" Nullable="false" />
+    <Property Name="ExperienceFrom" Type="DateTime" Precision="0" />
+    <Property Name="HospitalID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK_Doctor_Hospital" FromRole="Doctor" ToRole="Hospital" />
     <NavigationProperty Name="DoctorReviews" Relationship="Self.FK_doctor_review_doctor" FromRole="Doctor" ToRole="DoctorReview" />
     <NavigationProperty Name="DoctorSchedules" Relationship="Self.FK_doctor_schedule_doctor" FromRole="Doctor" ToRole="DoctorSchedule" />
     <NavigationProperty Name="Specialization" Relationship="Self.FK_Doctor_specialization" FromRole="Doctor" ToRole="Specialization" />
-    <Property Name="Qualification" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="Fee" Type="Decimal" Precision="19" Scale="4" />
-  </EntityType>
-  <EntityType Name="DoctorInsurance">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="InsuranceID" Type="Int32" Nullable="false" />
-    <Property Name="DoctorID" Type="Int32" Nullable="false" />
-    <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Updated" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="Doctor" Relationship="Self.FK_doctor_insurance_doctor" FromRole="DoctorInsurance" ToRole="Doctor" />
-    <NavigationProperty Name="Insurance" Relationship="Self.FK_doctor_insurance_insurance" FromRole="DoctorInsurance" ToRole="Insurance" />
+    <NavigationProperty Name="UserLikes" Relationship="Self.FK_UserLike_Doctor" FromRole="Doctor" ToRole="UserLike" />
   </EntityType>
   <EntityType Name="DoctorReview">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="DoctorID" Type="Int32" Nullable="false" />
-    <Property Name="Review" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Rating" Type="Int16" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_DoctorReview_AspNetUsers" FromRole="DoctorReview" ToRole="AspNetUsers" />
     <NavigationProperty Name="Doctor" Relationship="Self.FK_doctor_review_doctor" FromRole="DoctorReview" ToRole="Doctor" />
   </EntityType>
   <EntityType Name="DoctorSchedule">
@@ -116,7 +162,7 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DoctorID" Type="Int32" Nullable="false" />
-    <Property Name="Day" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DayInWeek" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Duration" Type="Time" Nullable="false" Precision="7" />
     <Property Name="MorningStartTime" Type="Time" Precision="7" />
     <Property Name="MorningSlots" Type="Int32" />
@@ -140,15 +186,28 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NameEN" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ContactNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SecondNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="CityID" Type="Int32" />
     <Property Name="CityLocationID" Type="Int32" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="Longitude" Type="Double" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="City" Relationship="Self.FK_Hospital_city" FromRole="Hospital" ToRole="City" />
     <NavigationProperty Name="CityLocation" Relationship="Self.FK_Hospital_CityLocation" FromRole="Hospital" ToRole="CityLocation" />
+    <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_Hospital" FromRole="Hospital" ToRole="Doctor" />
+    <NavigationProperty Name="HospitalInsurances" Relationship="Self.FK_DoctorInsurance_Hospital" FromRole="Hospital" ToRole="HospitalInsurance" />
+  </EntityType>
+  <EntityType Name="HospitalInsurance">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InsuranceID" Type="Int32" Nullable="false" />
+    <Property Name="HospitalID" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Updated" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK_DoctorInsurance_Hospital" FromRole="HospitalInsurance" ToRole="Hospital" />
+    <NavigationProperty Name="Insurance" Relationship="Self.FK_doctor_insurance_insurance" FromRole="HospitalInsurance" ToRole="Insurance" />
   </EntityType>
   <EntityType Name="Insurance">
     <Key>
@@ -159,16 +218,59 @@
     <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Updated" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="DoctorInsurances" Relationship="Self.FK_doctor_insurance_insurance" FromRole="Insurance" ToRole="DoctorInsurance" />
+    <NavigationProperty Name="HospitalInsurances" Relationship="Self.FK_doctor_insurance_insurance" FromRole="Insurance" ToRole="HospitalInsurance" />
+  </EntityType>
+  <EntityType Name="Qualification">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameEN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Specialization">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="NameEN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NameEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_specialization" FromRole="Specialization" ToRole="Doctor" />
+  </EntityType>
+  <EntityType Name="UserLike">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DoctorID" Type="Int32" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Updated" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserLike_AspNetUsers" FromRole="UserLike" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK_UserLike_Doctor" FromRole="UserLike" ToRole="Doctor" />
+  </EntityType>
+  <EntityType Name="DoctorView">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="NameEN" />
+      <PropertyRef Name="ContactNumber" />
+      <PropertyRef Name="ReviewCount" />
+      <PropertyRef Name="SpecialityID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="NameEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Qualification" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fee" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ReviewCount" Type="Int32" Nullable="false" />
+    <Property Name="HasImage" Type="Boolean" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="CityLocationID" Type="Int32" />
+    <Property Name="SpecialityID" Type="Int32" Nullable="false" />
   </EntityType>
   <Association Name="FK_appointment_AppointmentStatus">
     <End Role="Appointment_status" Type="Self.Appointment_status" Multiplicity="1" />
@@ -191,6 +293,58 @@
       </Principal>
       <Dependent Role="Appointment">
         <PropertyRef Name="ScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorReview_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+    <End Role="DoctorReview" Type="Self.DoctorReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DoctorReview">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLike_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="UserLike" Type="Self.UserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLike">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -218,42 +372,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Doctor_city">
-    <End Role="City" Type="Self.City" Multiplicity="0..1" />
-    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="City">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Doctor">
-        <PropertyRef Name="CityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Hospital_city">
-    <End Role="City" Type="Self.City" Multiplicity="0..1" />
-    <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="City">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Hospital">
-        <PropertyRef Name="CityID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Doctor_CityLocation">
-    <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="0..1" />
-    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CityLocation">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Doctor">
-        <PropertyRef Name="CityLocationID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Hospital_CityLocation">
     <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="0..1" />
     <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
@@ -266,15 +384,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_doctor_insurance_doctor">
-    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
-    <End Role="DoctorInsurance" Type="Self.DoctorInsurance" Multiplicity="*" />
+  <Association Name="FK_Doctor_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Doctor">
+      <Principal Role="Hospital">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="DoctorInsurance">
-        <PropertyRef Name="DoctorID" />
+      <Dependent Role="Doctor">
+        <PropertyRef Name="HospitalID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -314,31 +432,67 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserLike_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="UserLike" Type="Self.UserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserLike">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorInsurance_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="HospitalInsurance" Type="Self.HospitalInsurance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HospitalInsurance">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_doctor_insurance_insurance">
     <End Role="Insurance" Type="Self.Insurance" Multiplicity="1" />
-    <End Role="DoctorInsurance" Type="Self.DoctorInsurance" Multiplicity="*" />
+    <End Role="HospitalInsurance" Type="Self.HospitalInsurance" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Insurance">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="DoctorInsurance">
+      <Dependent Role="HospitalInsurance">
         <PropertyRef Name="InsuranceID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DoctorEntities" annotation:LazyLoadingEnabled="true">
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
     <EntitySet Name="Appointments" EntityType="Self.Appointment" />
     <EntitySet Name="Appointment_status" EntityType="Self.Appointment_status" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
     <EntitySet Name="Cities" EntityType="Self.City" />
     <EntitySet Name="CityLocations" EntityType="Self.CityLocation" />
     <EntitySet Name="Countries" EntityType="Self.Country" />
     <EntitySet Name="Doctors" EntityType="Self.Doctor" />
-    <EntitySet Name="DoctorInsurances" EntityType="Self.DoctorInsurance" />
     <EntitySet Name="DoctorReviews" EntityType="Self.DoctorReview" />
     <EntitySet Name="DoctorSchedules" EntityType="Self.DoctorSchedule" />
     <EntitySet Name="Hospitals" EntityType="Self.Hospital" />
+    <EntitySet Name="HospitalInsurances" EntityType="Self.HospitalInsurance" />
     <EntitySet Name="Insurances" EntityType="Self.Insurance" />
+    <EntitySet Name="Qualifications" EntityType="Self.Qualification" />
     <EntitySet Name="Specializations" EntityType="Self.Specialization" />
+    <EntitySet Name="UserLikes" EntityType="Self.UserLike" />
+    <EntitySet Name="DoctorViews" EntityType="Self.DoctorView" />
     <AssociationSet Name="FK_appointment_AppointmentStatus" Association="Self.FK_appointment_AppointmentStatus">
       <End Role="Appointment_status" EntitySet="Appointment_status" />
       <End Role="Appointment" EntitySet="Appointments" />
@@ -346,6 +500,22 @@
     <AssociationSet Name="FK_appointment_doctor_schedule" Association="Self.FK_appointment_doctor_schedule">
       <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
       <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorReview_AspNetUsers" Association="Self.FK_DoctorReview_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="DoctorReview" EntitySet="DoctorReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLike_AspNetUsers" Association="Self.FK_UserLike_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UserLike" EntitySet="UserLikes" />
     </AssociationSet>
     <AssociationSet Name="FK_city_country" Association="Self.FK_city_country">
       <End Role="Country" EntitySet="Countries" />
@@ -355,25 +525,13 @@
       <End Role="City" EntitySet="Cities" />
       <End Role="CityLocation" EntitySet="CityLocations" />
     </AssociationSet>
-    <AssociationSet Name="FK_Doctor_city" Association="Self.FK_Doctor_city">
-      <End Role="City" EntitySet="Cities" />
-      <End Role="Doctor" EntitySet="Doctors" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Hospital_city" Association="Self.FK_Hospital_city">
-      <End Role="City" EntitySet="Cities" />
-      <End Role="Hospital" EntitySet="Hospitals" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Doctor_CityLocation" Association="Self.FK_Doctor_CityLocation">
-      <End Role="CityLocation" EntitySet="CityLocations" />
-      <End Role="Doctor" EntitySet="Doctors" />
-    </AssociationSet>
     <AssociationSet Name="FK_Hospital_CityLocation" Association="Self.FK_Hospital_CityLocation">
       <End Role="CityLocation" EntitySet="CityLocations" />
       <End Role="Hospital" EntitySet="Hospitals" />
     </AssociationSet>
-    <AssociationSet Name="FK_doctor_insurance_doctor" Association="Self.FK_doctor_insurance_doctor">
+    <AssociationSet Name="FK_Doctor_Hospital" Association="Self.FK_Doctor_Hospital">
+      <End Role="Hospital" EntitySet="Hospitals" />
       <End Role="Doctor" EntitySet="Doctors" />
-      <End Role="DoctorInsurance" EntitySet="DoctorInsurances" />
     </AssociationSet>
     <AssociationSet Name="FK_doctor_review_doctor" Association="Self.FK_doctor_review_doctor">
       <End Role="Doctor" EntitySet="Doctors" />
@@ -387,126 +545,130 @@
       <End Role="Specialization" EntitySet="Specializations" />
       <End Role="Doctor" EntitySet="Doctors" />
     </AssociationSet>
+    <AssociationSet Name="FK_UserLike_Doctor" Association="Self.FK_UserLike_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="UserLike" EntitySet="UserLikes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorInsurance_Hospital" Association="Self.FK_DoctorInsurance_Hospital">
+      <End Role="Hospital" EntitySet="Hospitals" />
+      <End Role="HospitalInsurance" EntitySet="HospitalInsurances" />
+    </AssociationSet>
     <AssociationSet Name="FK_doctor_insurance_insurance" Association="Self.FK_doctor_insurance_insurance">
       <End Role="Insurance" EntitySet="Insurances" />
-      <End Role="DoctorInsurance" EntitySet="DoctorInsurances" />
+      <End Role="HospitalInsurance" EntitySet="HospitalInsurances" />
     </AssociationSet>
-    <EntitySet Name="C__MigrationHistory" EntityType="DoctorModel.C__MigrationHistory" />
-    <EntitySet Name="AspNetRoles" EntityType="DoctorModel.AspNetRole" />
-    <EntitySet Name="AspNetUserClaims" EntityType="DoctorModel.AspNetUserClaim" />
-    <EntitySet Name="AspNetUserLogins" EntityType="DoctorModel.AspNetUserLogin" />
-    <EntitySet Name="AspNetUsers" EntityType="DoctorModel.AspNetUser" />
-    <EntitySet Name="Qualifications" EntityType="DoctorModel.Qualification" />
-    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DoctorModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
-    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DoctorModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-    </AssociationSet>
-    <AssociationSet Name="AspNetUserRoles" Association="DoctorModel.AspNetUserRoles">
-      <End Role="AspNetRole" EntitySet="AspNetRoles" />
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-    </AssociationSet>
+    <FunctionImport Name="AddDoctorReview">
+      <Parameter Name="UserID" Mode="In" Type="String" />
+      <Parameter Name="DoctorId" Mode="In" Type="Int32" />
+      <Parameter Name="ReviewText" Mode="In" Type="String" />
+      <Parameter Name="Rating" Mode="In" Type="Int32" />
+      <Parameter Name="Like" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="AddNewDoctor">
+      <Parameter Name="NameEN" Mode="In" Type="String" />
+      <Parameter Name="Qualification" Mode="In" Type="String" />
+      <Parameter Name="Fee" Mode="In" Type="Decimal" />
+      <Parameter Name="SpecialityID" Mode="In" Type="Int32" />
+      <Parameter Name="HasImage" Mode="In" Type="Boolean" />
+      <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+      <Parameter Name="ExperienceFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="HospitalID" Mode="In" Type="Int32" />
+      <Parameter Name="Duration" Mode="In" Type="Time" />
+      <Parameter Name="SundayMorningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="SundayMorningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="SundayAfernoonStartTime" Mode="In" Type="Time" />
+      <Parameter Name="SundayAfernoonEndTime" Mode="In" Type="Time" />
+      <Parameter Name="SundayEveningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="SundayEveningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="MondayMorningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="MondayMorningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="MondayAfernoonStartTime" Mode="In" Type="Time" />
+      <Parameter Name="MondayAfernoonEndTime" Mode="In" Type="Time" />
+      <Parameter Name="MondayEveningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="MondayEveningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="TuesdayMorningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="TuesdayMorningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="TuesdayAfernoonStartTime" Mode="In" Type="Time" />
+      <Parameter Name="TuesdayAfernoonEndTime" Mode="In" Type="Time" />
+      <Parameter Name="TuesdayEveningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="TuesdayEveningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="WednesdayMorningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="WednesdayMorningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="WednesdayAfernoonStartTime" Mode="In" Type="Time" />
+      <Parameter Name="WednesdayAfernoonEndTime" Mode="In" Type="Time" />
+      <Parameter Name="WednesdayEveningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="WednesdayEveningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="ThursdayMorningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="ThursdayMorningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="ThursdayAfernoonStartTime" Mode="In" Type="Time" />
+      <Parameter Name="ThursdayAfernoonEndTime" Mode="In" Type="Time" />
+      <Parameter Name="ThursdayEveningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="ThursdayEveningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="FridayMorningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="FridayMorningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="FridayAfernoonStartTime" Mode="In" Type="Time" />
+      <Parameter Name="FridayAfernoonEndTime" Mode="In" Type="Time" />
+      <Parameter Name="FridayEveningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="FridayEveningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="SaturdayMorningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="SaturdayMorningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="SaturdayAfernoonStartTime" Mode="In" Type="Time" />
+      <Parameter Name="SaturdayAfernoonEndTime" Mode="In" Type="Time" />
+      <Parameter Name="SaturdayEveningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="SaturdayEveningEndTime" Mode="In" Type="Time" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllDoctors" ReturnType="Collection(ecomModel.GetAllDoctors_Result)">
+      <Parameter Name="SpecialityID" Mode="In" Type="Int32" />
+      <Parameter Name="Latitude" Mode="In" Type="Double" />
+      <Parameter Name="Longitude" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllDoctorsByCity" ReturnType="Collection(ecomModel.GetAllDoctorsByCity_Result)">
+      <Parameter Name="SpecialityID" Mode="In" Type="Int32" />
+      <Parameter Name="CityID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateDoctorSchedule">
+      <Parameter Name="DoctorID" Mode="In" Type="Int32" />
+      <Parameter Name="DayInWeek" Mode="In" Type="String" />
+      <Parameter Name="Duration" Mode="In" Type="Time" />
+      <Parameter Name="MorningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="MorningEndTime" Mode="In" Type="Time" />
+      <Parameter Name="AfernoonStartTime" Mode="In" Type="Time" />
+      <Parameter Name="AfernoonEndTime" Mode="In" Type="Time" />
+      <Parameter Name="EveningStartTime" Mode="In" Type="Time" />
+      <Parameter Name="EveningEndTime" Mode="In" Type="Time" />
+    </FunctionImport>
   </EntityContainer>
-  <EntityType Name="C__MigrationHistory">
-    <Key>
-      <PropertyRef Name="MigrationId" />
-      <PropertyRef Name="ContextKey" />
-    </Key>
-    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="AspNetRole">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUsers" Relationship="DoctorModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
-  </EntityType>
-  <EntityType Name="AspNetUserClaim">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUser" Relationship="DoctorModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
-  </EntityType>
-  <EntityType Name="AspNetUserLogin">
-    <Key>
-      <PropertyRef Name="LoginProvider" />
-      <PropertyRef Name="ProviderKey" />
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUser" Relationship="DoctorModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
-  </EntityType>
-  <EntityType Name="AspNetUser">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUserClaims" Relationship="DoctorModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
-    <NavigationProperty Name="AspNetUserLogins" Relationship="DoctorModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-    <NavigationProperty Name="AspNetRoles" Relationship="DoctorModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-  </EntityType>
-  <EntityType Name="Qualification">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="NameEN" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="IsActive" Type="Boolean" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-    <End Type="DoctorModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="DoctorModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUser">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="AspNetUserClaim">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-    <End Type="DoctorModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="DoctorModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUser">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="AspNetUserLogin">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="AspNetUserRoles">
-    <End Type="DoctorModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-    <End Type="DoctorModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-  </Association>
+  <ComplexType Name="GetAllDoctors_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="NameEN" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Qualification" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="ContactNumber" Nullable="false" MaxLength="10" />
+    <Property Type="Decimal" Name="Fee" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="ReviewCount" Nullable="false" />
+    <Property Type="Boolean" Name="HasImage" Nullable="false" />
+    <Property Type="Int32" Name="LikeCount" Nullable="false" />
+    <Property Type="DateTime" Name="ExperienceFrom" Nullable="true" Precision="16" />
+    <Property Type="String" Name="Location" Nullable="false" MaxLength="302" />
+    <Property Type="Double" Name="Latitude" Nullable="true" />
+    <Property Type="Double" Name="Longitude" Nullable="true" />
+    <Property Type="Double" Name="Distance" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAllDoctorsByCity_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="NameEN" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Qualification" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="ContactNumber" Nullable="false" MaxLength="10" />
+    <Property Type="Decimal" Name="Fee" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="ReviewCount" Nullable="false" />
+    <Property Type="Boolean" Name="HasImage" Nullable="false" />
+    <Property Type="Int32" Name="LikeCount" Nullable="false" />
+    <Property Type="DateTime" Name="ExperienceFrom" Nullable="true" Precision="16" />
+    <Property Type="String" Name="Location" Nullable="false" MaxLength="302" />
+    <Property Type="Double" Name="Latitude" Nullable="true" />
+    <Property Type="Double" Name="Longitude" Nullable="true" />
+  </ComplexType>
 </Schema>

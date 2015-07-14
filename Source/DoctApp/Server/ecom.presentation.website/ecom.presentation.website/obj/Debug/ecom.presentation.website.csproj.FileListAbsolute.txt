@@ -160,6 +160,6 @@ I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentatio
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Microsoft.Owin.Security.Google.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Microsoft.Owin.Security.Twitter.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.csprojResolveAssemblyReference.cache
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.pdb
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.csprojResolveAssemblyReference.cache
