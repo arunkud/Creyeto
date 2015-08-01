@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using ecom.presentation.website.Models;
+using ecom.presentation.website.Utility;
 
 namespace ecom.presentation.website.Controllers
 {
@@ -34,14 +35,14 @@ namespace ecom.presentation.website.Controllers
 
 		public ActionResult About()
 		{
-			ViewBag.Message = "Your application description page.";
+			ViewBag.Message = "Who we are.";
 
 			return View();
 		}
 
 		public ActionResult Contact()
 		{
-			ViewBag.Message = "Your contact page.";
+			ViewBag.Message = "Creyeto Inc.";
 
 			return View();
 		}
@@ -76,13 +77,23 @@ namespace ecom.presentation.website.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "ID,NameEN,ContactNumber,Latitude,Longitude,CityID,CityLocationID,SecondNumber,SpecialityID,IsActive,Qualification,Fee")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "ID,NameEN,HospitalID, SpecialityID,ExperienceFrom,IsActive,Qualification,Fee")] Doctor doctor)
         {
-			if (ModelState.IsValid)
+            ScheduleHelper.UpdateScheduleTimeStampInfo(doctor, Request);
+            if (ModelState.IsValid && doctor.HospitalID != 0 && doctor.SpecialityID != 0)
 			{
 				db.Doctors.Add(doctor);
-				db.SaveChanges();
-				return RedirectToAction("Index");
+                db.AddNewDoctor(doctor.NameEN, doctor.Qualification, doctor.Fee, doctor.SpecialityID,
+                    doctor.HasImage, true, doctor.ExperienceFrom, doctor.HospitalID, new TimeSpan(0, 15, 0),
+                    doctor.SundayMorningStartTime, doctor.SundayMorningEndTime, doctor.SundayAfternoonStartTime, doctor.SundayAfternoonEndTime, doctor.SundayEveningStartTime, doctor.SundayEveningEndTime,
+                    doctor.MondayMorningStartTime, doctor.MondayMorningEndTime, doctor.MondayAfternoonStartTime, doctor.MondayAfternoonEndTime, doctor.MondayEveningStartTime, doctor.MondayEveningEndTime,
+                    doctor.TuesdayMorningStartTime, doctor.TuesdayMorningEndTime, doctor.TuesdayAfternoonStartTime, doctor.TuesdayAfternoonEndTime, doctor.TuesdayEveningStartTime, doctor.TuesdayEveningEndTime,
+                    doctor.WednesdayMorningStartTime, doctor.WednesdayMorningEndTime, doctor.WednesdayAfternoonStartTime, doctor.WednesdayAfternoonEndTime, doctor.WednesdayEveningStartTime, doctor.WednesdayEveningEndTime,
+                    doctor.ThursdayMorningStartTime, doctor.ThursdayMorningEndTime, doctor.ThursdayAfternoonStartTime, doctor.ThursdayAfternoonEndTime, doctor.ThursdayEveningStartTime, doctor.ThursdayEveningEndTime,
+                    doctor.FridayMorningStartTime, doctor.FridayMorningEndTime, doctor.FridayAfternoonStartTime, doctor.FridayAfternoonEndTime, doctor.FridayEveningStartTime, doctor.FridayEveningEndTime,
+                    doctor.SaturdayMorningStartTime, doctor.SaturdayMorningEndTime, doctor.SaturdayAfternoonStartTime, doctor.SaturdayAfternoonEndTime, doctor.SaturdayEveningStartTime, doctor.SaturdayEveningEndTime);
+                db.SaveChanges();
+                return RedirectToAction("Index");
 			}
 
 			ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "NameEN", doctor.HospitalID);
@@ -91,7 +102,7 @@ namespace ecom.presentation.website.Controllers
         }
 
         // GET: Doctors/Edit/5
-		[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
 			if (id == null)
@@ -103,8 +114,11 @@ namespace ecom.presentation.website.Controllers
 			{
 				return HttpNotFound();
 			}
+
+            ScheduleHelper.GetScheduleTimeStamp(doctor);
 			ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "NameEN", doctor.HospitalID);
 			ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN", doctor.SpecialityID);
+
 			return View(doctor);
         }
 
@@ -114,11 +128,33 @@ namespace ecom.presentation.website.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "ID,NameEN,ContactNumber,Latitude,Longitude,CityID,CityLocationID,SecondNumber,SpecialityID,IsActive,Qualification,Fee")] Doctor doctor)
+        public ActionResult Edit([Bind(Include = "ID,NameEN,HospitalID, SpecialityID,ExperienceFrom,IsActive,Qualification,Fee")] Doctor doctor)
         {
-			if (ModelState.IsValid)
+            ScheduleHelper.UpdateScheduleTimeStampInfo(doctor, Request);
+            if (ModelState.IsValid)
 			{
-				db.Entry(doctor).State = EntityState.Modified;
+                db.UpdateDoctorSchedule(doctor.ID, "SUN", new TimeSpan(0, 15, 0),
+                    doctor.SundayMorningStartTime, doctor.SundayMorningEndTime, doctor.SundayAfternoonStartTime, doctor.SundayAfternoonEndTime, doctor.SundayEveningStartTime, doctor.SundayEveningEndTime);
+
+                db.UpdateDoctorSchedule(doctor.ID, "MON", new TimeSpan(0, 15, 0),
+                    doctor.MondayMorningStartTime, doctor.MondayMorningEndTime, doctor.MondayAfternoonStartTime, doctor.MondayAfternoonEndTime, doctor.MondayEveningStartTime, doctor.MondayEveningEndTime);
+
+                db.UpdateDoctorSchedule(doctor.ID, "TUE", new TimeSpan(0, 15, 0),
+                    doctor.TuesdayMorningStartTime, doctor.TuesdayMorningEndTime, doctor.TuesdayAfternoonStartTime, doctor.TuesdayAfternoonEndTime, doctor.TuesdayEveningStartTime, doctor.TuesdayEveningEndTime);
+
+                db.UpdateDoctorSchedule(doctor.ID, "WED", new TimeSpan(0, 15, 0),
+                    doctor.WednesdayMorningStartTime, doctor.WednesdayMorningEndTime, doctor.WednesdayAfternoonStartTime, doctor.WednesdayAfternoonEndTime, doctor.WednesdayEveningStartTime, doctor.WednesdayEveningEndTime);
+
+                db.UpdateDoctorSchedule(doctor.ID, "THU", new TimeSpan(0, 15, 0),
+                    doctor.ThursdayMorningStartTime, doctor.ThursdayMorningEndTime, doctor.ThursdayAfternoonStartTime, doctor.ThursdayAfternoonEndTime, doctor.ThursdayEveningStartTime, doctor.ThursdayEveningEndTime);
+
+                db.UpdateDoctorSchedule(doctor.ID, "FRI", new TimeSpan(0, 15, 0),
+                    doctor.FridayMorningStartTime, doctor.FridayMorningEndTime, doctor.FridayAfternoonStartTime, doctor.FridayAfternoonEndTime, doctor.FridayEveningStartTime, doctor.FridayEveningEndTime);
+
+                db.UpdateDoctorSchedule(doctor.ID, "SAT", new TimeSpan(0, 15, 0),
+                    doctor.SaturdayMorningStartTime, doctor.SaturdayMorningEndTime, doctor.SaturdayAfternoonStartTime, doctor.SaturdayAfternoonEndTime, doctor.SaturdayEveningStartTime, doctor.SaturdayEveningEndTime);
+
+                db.Entry(doctor).State = EntityState.Modified;
 				db.SaveChanges();
 				return RedirectToAction("Index");
 			}

@@ -162,4 +162,8 @@ I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentatio
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.pdb
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\PagedList.dll
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\PagedList.Mvc.dll
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\PagedList.xml
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\PagedList.Mvc.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.csprojResolveAssemblyReference.cache

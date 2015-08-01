@@ -117,6 +117,7 @@
     <EntitySetMapping Name="Doctors">
       <EntityTypeMapping TypeName="ecomModel.Doctor">
         <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
           <ScalarProperty Name="Qualification" ColumnName="Qualification" />
@@ -168,6 +169,9 @@
     <EntitySetMapping Name="Hospitals">
       <EntityTypeMapping TypeName="ecomModel.Hospital">
         <MappingFragment StoreEntitySet="Hospital">
+          <ScalarProperty Name="IsOpenAlways" ColumnName="IsOpenAlways" />
+          <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
           <ScalarProperty Name="Address" ColumnName="Address" />
@@ -217,18 +221,6 @@
         <MappingFragment StoreEntitySet="Specialization">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserLikes">
-      <EntityTypeMapping TypeName="ecomModel.UserLike">
-        <MappingFragment StoreEntitySet="UserLike">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="Updated" ColumnName="Updated" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>

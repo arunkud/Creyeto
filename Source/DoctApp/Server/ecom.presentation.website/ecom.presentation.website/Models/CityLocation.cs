@@ -14,6 +14,7 @@ namespace ecom.presentation.website.Models
     
     public partial class CityLocation
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CityLocation()
         {
             this.Hospitals = new HashSet<Hospital>();
@@ -27,6 +28,7 @@ namespace ecom.presentation.website.Models
         public bool IsActive { get; set; }
     
         public virtual City City { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Hospital> Hospitals { get; set; }
     }
 }

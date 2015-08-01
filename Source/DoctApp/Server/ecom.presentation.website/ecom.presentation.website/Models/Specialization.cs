@@ -14,6 +14,7 @@ namespace ecom.presentation.website.Models
     
     public partial class Specialization
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Specialization()
         {
             this.Doctors = new HashSet<Doctor>();
@@ -23,6 +24,7 @@ namespace ecom.presentation.website.Models
         public string NameEN { get; set; }
         public bool IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Doctor> Doctors { get; set; }
     }
 }

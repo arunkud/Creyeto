@@ -5,89 +5,30 @@
     Layout = "~/Views/Shared/_ConfigLayout .cshtml";
 }
 
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.timepicker.min.js"></script>
+    <script src="~/Scripts/createdoctor.js"></script>
+}
+
+@Styles.Render("~/Content/timepicker")
+
+
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Doctor</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-
         <div class="form-group">
-            @Html.LabelFor(model => model.NameEN, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NameEN, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NameEN, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NameEN, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CityID, "CityID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CityLocationID, "CityLocationID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CityLocationID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CityLocationID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SecondNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SecondNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SecondNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SpecialityID, "SpecialityID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SpecialityID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SpecialityID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsActive)
-                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
-                </div>
             </div>
         </div>
 
@@ -108,8 +49,136 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.SpecialityID, "Speciality", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SpecialityID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SpecialityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExperienceFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExperienceFrom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExperienceFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HospitalID, "Hospital", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("HospitalID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.HospitalID, "", new { @class = "text-danger" })
+                <a>+ Hospital</a>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        Morning start
+                    </td>
+                    <td>
+                        Morning End
+                    </td>
+                    <td>
+                        Afternoon Start
+                    </td>
+                    <td>
+                        Afteroon End
+                    </td>
+                    <td>
+                        Evening Start
+                    </td>
+                    <td>
+                        Evening End
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Sunday
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.SundayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayEveningEndTime, new { @class = "scheduleTime" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        Monday
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.MondayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayEveningEndTime, new { @class = "scheduleTime" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        Tuesday
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayEveningEndTime, new { @class = "scheduleTime" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        Wednesday
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayEveningEndTime, new { @class = "scheduleTime" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        Thursday
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayEveningEndTime, new { @class = "scheduleTime" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        Friday
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.FridayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayEveningEndTime, new { @class = "scheduleTime" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        Saturday
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayEveningEndTime, new { @class = "scheduleTime" })</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Update" class="btn btn-default" />
             </div>
         </div>
     </div>

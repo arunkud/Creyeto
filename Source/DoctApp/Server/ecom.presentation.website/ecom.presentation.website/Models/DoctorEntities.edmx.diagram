@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="880b9355775644509df75ae9965bc7df" Name="Diagram1">
+        <EntityTypeShape EntityType="ecomModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Appointment" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Appointment_status" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.AspNetRole" Width="1.5" PointX="0.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.AspNetUser" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.City" Width="1.5" PointX="1.5" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.CityLocation" Width="1.5" PointX="1.5" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Country" Width="1.5" PointX="1.5" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Department" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.DepartmentReview" Width="1.5" PointX="8.25" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.DepartmentUserLike" Width="1.5" PointX="8.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.DeseaseSpecialization" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Disease" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Doctor" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.DoctorReview" Width="1.5" PointX="8.25" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.DoctorSchedule" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.DoctorUserLike" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Hospital" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.HospitalInsurance" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.HospitalReview" Width="1.5" PointX="5.25" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.HospitalSchedule" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.HospitalUserLike" Width="1.5" PointX="11.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Insurance" Width="1.5" PointX="0.75" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Qualification" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.Specialization" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.HospitalAdmin" Width="1.5" PointX="11.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecomModel.DoctorView" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="ecomModel.FK_appointment_AppointmentStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_appointment_doctor_schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_DepartmentReview_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_DepartmentUserLike_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_DoctorReview_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_HospitalAdmin_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_HospitalReview_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_HospitalUserLike_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_UserLike_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_city_country" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_city_location_city" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_Hospital_CityLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_DepartmentReview_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_DepartmentUserLike_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_Doctor_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_Doctor_Hospital" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_doctor_review_doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_doctor_schedule_doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_Doctor_specialization" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_UserLike_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_DoctorInsurance_Hospital" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_HospitalAdmin_Hospital" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_HospitalReview_Hospital" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_HospitalUserLike_Hospital" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.FK_doctor_insurance_insurance" ManuallyRouted="false" />
+        <AssociationConnector Association="ecomModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

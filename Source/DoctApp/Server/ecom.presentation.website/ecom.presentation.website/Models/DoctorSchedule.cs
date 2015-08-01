@@ -14,6 +14,7 @@ namespace ecom.presentation.website.Models
     
     public partial class DoctorSchedule
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DoctorSchedule()
         {
             this.Appointments = new HashSet<Appointment>();
@@ -36,6 +37,7 @@ namespace ecom.presentation.website.Models
         public System.DateTime Updated { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual Doctor Doctor { get; set; }
     }

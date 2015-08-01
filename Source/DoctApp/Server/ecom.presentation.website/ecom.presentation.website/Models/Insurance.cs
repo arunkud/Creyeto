@@ -14,6 +14,7 @@ namespace ecom.presentation.website.Models
     
     public partial class Insurance
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Insurance()
         {
             this.HospitalInsurances = new HashSet<HospitalInsurance>();
@@ -25,6 +26,7 @@ namespace ecom.presentation.website.Models
         public System.DateTime Updated { get; set; }
         public bool IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HospitalInsurance> HospitalInsurances { get; set; }
     }
 }

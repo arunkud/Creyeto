@@ -14,6 +14,7 @@ namespace ecom.presentation.website.Models
     
     public partial class City
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public City()
         {
             this.CityLocations = new HashSet<CityLocation>();
@@ -27,6 +28,7 @@ namespace ecom.presentation.website.Models
         public bool IsActive { get; set; }
     
         public virtual Country Country { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CityLocation> CityLocations { get; set; }
     }
 }

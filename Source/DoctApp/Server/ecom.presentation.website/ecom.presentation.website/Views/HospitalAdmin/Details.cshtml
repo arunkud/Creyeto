@@ -1,0 +1,35 @@
+﻿@model ecom.presentation.website.Models.HospitalAdmin
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_ConfigLayout .cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HospitalAdmin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hospital.NameEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hospital.NameEN)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

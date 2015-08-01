@@ -41,6 +41,11 @@ namespace ecom.presentation.website
 
 			bundles.Add(new StyleBundle("~/Content/avatar").Include(
 					  "~/Content/site.avatar.css"));
-		}
+
+            bundles.Add(new StyleBundle("~/Content/timepicker").Include(
+                      "~/Content/jquery.timepicker.css"));
+
+            
+        }
 	}
 }

@@ -1,0 +1,981 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ecomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScheduleID" Type="int" Nullable="false" />
+    <Property Name="PatientName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="SlotTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="StatusID" Type="smallint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointment_status">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CountryID" Type="int" Nullable="false" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CityLocation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="CityID" Type="int" Nullable="false" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ISOCode3" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="DialingCode" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="LikeCount" Type="int" Nullable="false" />
+    <Property Name="ReviewCount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepartmentReview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DepartmentID" Type="int" Nullable="false" />
+    <Property Name="Review" Type="text" Nullable="false" />
+    <Property Name="Rating" Type="smallint" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepartmentUserLike">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DepartmentID" Type="int" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DeseaseSpecialization">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeseaseID" Type="int" Nullable="false" />
+    <Property Name="SpecialityID" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Disease">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Description" Type="text" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Qualification" Type="varchar" MaxLength="150" />
+    <Property Name="Fee" Type="money" />
+    <Property Name="SpecialityID" Type="int" Nullable="false" />
+    <Property Name="HasImage" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ReviewCount" Type="int" Nullable="false" />
+    <Property Name="LikeCount" Type="int" Nullable="false" />
+    <Property Name="ExperienceFrom" Type="smalldatetime" />
+    <Property Name="HospitalID" Type="int" Nullable="false" />
+    <Property Name="DepartmentID" Type="int" />
+  </EntityType>
+  <EntityType Name="DoctorReview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+    <Property Name="DoctorID" Type="int" Nullable="false" />
+    <Property Name="Review" Type="text" />
+    <Property Name="Rating" Type="smallint" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DoctorSchedule">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DoctorID" Type="int" Nullable="false" />
+    <Property Name="DayInWeek" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="Duration" Type="time" Precision="7" Nullable="false" />
+    <Property Name="MorningStartTime" Type="time" Precision="7" />
+    <Property Name="MorningSlots" Type="int" />
+    <Property Name="MorningEndTime" Type="time" Precision="7" />
+    <Property Name="AfternoonStartTime" Type="time" Precision="7" />
+    <Property Name="AfternoonSlots" Type="int" />
+    <Property Name="AfternoonEndTime" Type="time" Precision="7" />
+    <Property Name="EveningStartTime" Type="time" Precision="7" />
+    <Property Name="EveningSlots" Type="int" />
+    <Property Name="EveningEndTime" Type="time" Precision="7" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="Updated" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="DoctorUserLike">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DoctorID" Type="int" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hospital">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="250" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="SecondNumber" Type="varchar" MaxLength="10" />
+    <Property Name="CityLocationID" Type="int" />
+    <Property Name="Latitude" Type="float" />
+    <Property Name="Longitude" Type="float" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="LikeCount" Type="int" Nullable="false" />
+    <Property Name="ReviewCount" Type="int" Nullable="false" />
+    <Property Name="IsOpenAlways" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ecom.dbo.HospitalAdmin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="HospitalAdmin">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="HospitalID" />
+      <PropertyRef Name="IsActive" />
+      <PropertyRef Name="Created" />
+      <PropertyRef Name="Updated" />
+    </Key>
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="HospitalID" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HospitalInsurance">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InsuranceID" Type="int" Nullable="false" />
+    <Property Name="HospitalID" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HospitalReview">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="HospitalID" Type="int" Nullable="false" />
+    <Property Name="Review" Type="text" Nullable="false" />
+    <Property Name="Rating" Type="smallint" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HospitalSchedule">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Day" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HospitalUserLike">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="HospitalID" Type="int" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Insurance">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Created" Type="smalldatetime" Nullable="false" />
+    <Property Name="Updated" Type="smalldatetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Qualification">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Specialization">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DoctorView">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="NameEN" />
+      <PropertyRef Name="ContactNumber" />
+      <PropertyRef Name="ReviewCount" />
+      <PropertyRef Name="SpecialityID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Qualification" Type="varchar" MaxLength="150" />
+    <Property Name="Location" Type="varchar" MaxLength="200" />
+    <Property Name="Latitude" Type="varchar" MaxLength="50" />
+    <Property Name="Longitude" Type="varchar" MaxLength="50" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Fee" Type="money" />
+    <Property Name="ReviewCount" Type="int" Nullable="false" />
+    <Property Name="HasImage" Type="bit" />
+    <Property Name="CityID" Type="int" />
+    <Property Name="CityLocationID" Type="int" />
+    <Property Name="SpecialityID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_appointment_AppointmentStatus">
+    <End Role="Appointment_status" Type="Self.Appointment_status" Multiplicity="1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment_status">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_appointment_doctor_schedule">
+    <End Role="DoctorSchedule" Type="Self.DoctorSchedule" Multiplicity="1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DoctorSchedule">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="ScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_city_country">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_city_location_city">
+    <End Role="City" Type="Self.City" Multiplicity="1" />
+    <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CityLocation">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DepartmentReview_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="DepartmentReview" Type="Self.DepartmentReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DepartmentReview">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DepartmentReview_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="DepartmentReview" Type="Self.DepartmentReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DepartmentReview">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DepartmentUserLike_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="DepartmentUserLike" Type="Self.DepartmentUserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DepartmentUserLike">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DepartmentUserLike_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="DepartmentUserLike" Type="Self.DepartmentUserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DepartmentUserLike">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_doctor_insurance_insurance">
+    <End Role="Insurance" Type="Self.Insurance" Multiplicity="1" />
+    <End Role="HospitalInsurance" Type="Self.HospitalInsurance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Insurance">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HospitalInsurance">
+        <PropertyRef Name="InsuranceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_doctor_review_doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="DoctorReview" Type="Self.DoctorReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DoctorReview">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_doctor_schedule_doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="DoctorSchedule" Type="Self.DoctorSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DoctorSchedule">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_specialization">
+    <End Role="Specialization" Type="Self.Specialization" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="SpecialityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorInsurance_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="HospitalInsurance" Type="Self.HospitalInsurance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HospitalInsurance">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorReview_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="DoctorReview" Type="Self.DoctorReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DoctorReview">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hospital_CityLocation">
+    <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="0..1" />
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityLocation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Hospital">
+        <PropertyRef Name="CityLocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HospitalAdmin_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="HospitalAdmin" Type="Self.HospitalAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HospitalAdmin">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HospitalAdmin_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="HospitalAdmin" Type="Self.HospitalAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HospitalAdmin">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HospitalReview_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="HospitalReview" Type="Self.HospitalReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HospitalReview">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HospitalReview_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="HospitalReview" Type="Self.HospitalReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HospitalReview">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HospitalUserLike_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="HospitalUserLike" Type="Self.HospitalUserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HospitalUserLike">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HospitalUserLike_Hospital">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="HospitalUserLike" Type="Self.HospitalUserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HospitalUserLike">
+        <PropertyRef Name="HospitalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLike_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="DoctorUserLike" Type="Self.DoctorUserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DoctorUserLike">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLike_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="DoctorUserLike" Type="Self.DoctorUserLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DoctorUserLike">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AddDepartmentReview" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="DepartmentId" Type="int" Mode="In" />
+    <Parameter Name="ReviewText" Type="text" Mode="In" />
+    <Parameter Name="Rating" Type="int" Mode="In" />
+    <Parameter Name="Like" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="AddDoctorReview" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="DoctorId" Type="int" Mode="In" />
+    <Parameter Name="ReviewText" Type="text" Mode="In" />
+    <Parameter Name="Rating" Type="int" Mode="In" />
+    <Parameter Name="Like" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="AddHospitalReview" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="HospitalId" Type="int" Mode="In" />
+    <Parameter Name="ReviewText" Type="text" Mode="In" />
+    <Parameter Name="Rating" Type="int" Mode="In" />
+    <Parameter Name="Like" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="AddNewDoctor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NameEN" Type="varchar" Mode="In" />
+    <Parameter Name="Qualification" Type="varchar" Mode="In" />
+    <Parameter Name="Fee" Type="money" Mode="In" />
+    <Parameter Name="SpecialityID" Type="int" Mode="In" />
+    <Parameter Name="HasImage" Type="bit" Mode="In" />
+    <Parameter Name="IsActive" Type="bit" Mode="In" />
+    <Parameter Name="ExperienceFrom" Type="smalldatetime" Mode="In" />
+    <Parameter Name="HospitalID" Type="int" Mode="In" />
+    <Parameter Name="Duration" Type="time" Mode="In" />
+    <Parameter Name="SundayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="SundayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="SundayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="SundayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="SundayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="SundayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="MondayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="MondayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="MondayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="MondayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="MondayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="MondayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="TuesdayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="WednesdayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="ThursdayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="FridayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="FridayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="FridayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="FridayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="FridayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="FridayEveningEndTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayMorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayMorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayAfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayAfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayEveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="SaturdayEveningEndTime" Type="time" Mode="In" />
+  </Function>
+  <Function Name="GetAllDoctors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SpecialityID" Type="int" Mode="In" />
+    <Parameter Name="Latitude" Type="float" Mode="In" />
+    <Parameter Name="Longitude" Type="float" Mode="In" />
+  </Function>
+  <Function Name="GetAllDoctorsByCity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SpecialityID" Type="int" Mode="In" />
+    <Parameter Name="CityID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UpdateDoctorSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DoctorID" Type="int" Mode="In" />
+    <Parameter Name="DayInWeek" Type="varchar" Mode="In" />
+    <Parameter Name="Duration" Type="time" Mode="In" />
+    <Parameter Name="MorningStartTime" Type="time" Mode="In" />
+    <Parameter Name="MorningEndTime" Type="time" Mode="In" />
+    <Parameter Name="AfernoonStartTime" Type="time" Mode="In" />
+    <Parameter Name="AfernoonEndTime" Type="time" Mode="In" />
+    <Parameter Name="EveningStartTime" Type="time" Mode="In" />
+    <Parameter Name="EveningEndTime" Type="time" Mode="In" />
+  </Function>
+  <EntityContainer Name="ecomModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointment_status" EntityType="Self.Appointment_status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CityLocation" EntityType="Self.CityLocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DepartmentReview" EntityType="Self.DepartmentReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DepartmentUserLike" EntityType="Self.DepartmentUserLike" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DeseaseSpecialization" EntityType="Self.DeseaseSpecialization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Disease" EntityType="Self.Disease" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorReview" EntityType="Self.DoctorReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorSchedule" EntityType="Self.DoctorSchedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorUserLike" EntityType="Self.DoctorUserLike" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hospital" EntityType="Self.Hospital" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HospitalInsurance" EntityType="Self.HospitalInsurance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HospitalReview" EntityType="Self.HospitalReview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HospitalSchedule" EntityType="Self.HospitalSchedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HospitalUserLike" EntityType="Self.HospitalUserLike" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Insurance" EntityType="Self.Insurance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HospitalAdmin" EntityType="Self.HospitalAdmin" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [HospitalAdmin].[UserID] AS [UserID], 
+    [HospitalAdmin].[HospitalID] AS [HospitalID], 
+    [HospitalAdmin].[IsActive] AS [IsActive], 
+    [HospitalAdmin].[Created] AS [Created], 
+    [HospitalAdmin].[Updated] AS [Updated]
+    FROM [dbo].[HospitalAdmin] AS [HospitalAdmin]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DoctorView" EntityType="Self.DoctorView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DoctorView].[ID] AS [ID], 
+    [DoctorView].[NameEN] AS [NameEN], 
+    [DoctorView].[Qualification] AS [Qualification], 
+    [DoctorView].[Location] AS [Location], 
+    [DoctorView].[Latitude] AS [Latitude], 
+    [DoctorView].[Longitude] AS [Longitude], 
+    [DoctorView].[ContactNumber] AS [ContactNumber], 
+    [DoctorView].[Fee] AS [Fee], 
+    [DoctorView].[ReviewCount] AS [ReviewCount], 
+    [DoctorView].[HasImage] AS [HasImage], 
+    [DoctorView].[CityID] AS [CityID], 
+    [DoctorView].[CityLocationID] AS [CityLocationID], 
+    [DoctorView].[SpecialityID] AS [SpecialityID]
+    FROM [dbo].[DoctorView] AS [DoctorView]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_appointment_AppointmentStatus" Association="Self.FK_appointment_AppointmentStatus">
+      <End Role="Appointment_status" EntitySet="Appointment_status" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_appointment_doctor_schedule" Association="Self.FK_appointment_doctor_schedule">
+      <End Role="DoctorSchedule" EntitySet="DoctorSchedule" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_city_country" Association="Self.FK_city_country">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_city_location_city" Association="Self.FK_city_location_city">
+      <End Role="City" EntitySet="City" />
+      <End Role="CityLocation" EntitySet="CityLocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DepartmentReview_AspNetUsers" Association="Self.FK_DepartmentReview_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="DepartmentReview" EntitySet="DepartmentReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DepartmentReview_Department" Association="Self.FK_DepartmentReview_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="DepartmentReview" EntitySet="DepartmentReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DepartmentUserLike_AspNetUsers" Association="Self.FK_DepartmentUserLike_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="DepartmentUserLike" EntitySet="DepartmentUserLike" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DepartmentUserLike_Department" Association="Self.FK_DepartmentUserLike_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="DepartmentUserLike" EntitySet="DepartmentUserLike" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Department" Association="Self.FK_Doctor_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Hospital" Association="Self.FK_Doctor_Hospital">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_doctor_insurance_insurance" Association="Self.FK_doctor_insurance_insurance">
+      <End Role="Insurance" EntitySet="Insurance" />
+      <End Role="HospitalInsurance" EntitySet="HospitalInsurance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_doctor_review_doctor" Association="Self.FK_doctor_review_doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="DoctorReview" EntitySet="DoctorReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK_doctor_schedule_doctor" Association="Self.FK_doctor_schedule_doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="DoctorSchedule" EntitySet="DoctorSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_specialization" Association="Self.FK_Doctor_specialization">
+      <End Role="Specialization" EntitySet="Specialization" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorInsurance_Hospital" Association="Self.FK_DoctorInsurance_Hospital">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="HospitalInsurance" EntitySet="HospitalInsurance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorReview_AspNetUsers" Association="Self.FK_DoctorReview_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="DoctorReview" EntitySet="DoctorReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hospital_CityLocation" Association="Self.FK_Hospital_CityLocation">
+      <End Role="CityLocation" EntitySet="CityLocation" />
+      <End Role="Hospital" EntitySet="Hospital" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HospitalAdmin_AspNetUsers" Association="Self.FK_HospitalAdmin_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="HospitalAdmin" EntitySet="HospitalAdmin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HospitalAdmin_Hospital" Association="Self.FK_HospitalAdmin_Hospital">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="HospitalAdmin" EntitySet="HospitalAdmin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HospitalReview_AspNetUsers" Association="Self.FK_HospitalReview_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="HospitalReview" EntitySet="HospitalReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HospitalReview_Hospital" Association="Self.FK_HospitalReview_Hospital">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="HospitalReview" EntitySet="HospitalReview" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HospitalUserLike_AspNetUsers" Association="Self.FK_HospitalUserLike_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="HospitalUserLike" EntitySet="HospitalUserLike" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HospitalUserLike_Hospital" Association="Self.FK_HospitalUserLike_Hospital">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="HospitalUserLike" EntitySet="HospitalUserLike" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLike_AspNetUsers" Association="Self.FK_UserLike_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="DoctorUserLike" EntitySet="DoctorUserLike" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLike_Doctor" Association="Self.FK_UserLike_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="DoctorUserLike" EntitySet="DoctorUserLike" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

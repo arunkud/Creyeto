@@ -14,11 +14,12 @@ namespace ecom.presentation.website.Models
     
     public partial class Doctor
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Doctor()
         {
             this.DoctorReviews = new HashSet<DoctorReview>();
             this.DoctorSchedules = new HashSet<DoctorSchedule>();
-            this.UserLikes = new HashSet<UserLike>();
+            this.DoctorUserLikes = new HashSet<DoctorUserLike>();
         }
     
         public int ID { get; set; }
@@ -32,11 +33,16 @@ namespace ecom.presentation.website.Models
         public int LikeCount { get; set; }
         public Nullable<System.DateTime> ExperienceFrom { get; set; }
         public int HospitalID { get; set; }
+        public Nullable<int> DepartmentID { get; set; }
     
+        public virtual Department Department { get; set; }
         public virtual Hospital Hospital { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorReview> DoctorReviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; }
         public virtual Specialization Specialization { get; set; }
-        public virtual ICollection<UserLike> UserLikes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DoctorUserLike> DoctorUserLikes { get; set; }
     }
 }

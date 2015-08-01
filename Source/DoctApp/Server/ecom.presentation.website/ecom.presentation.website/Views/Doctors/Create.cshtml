@@ -8,7 +8,12 @@
 @section scripts{
     <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="~/Scripts/maplocator.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.timepicker.min.js"></script>
+    <script src="~/Scripts/createdoctor.js"></script>    
 }
+
+@Styles.Render("~/Content/timepicker")
 
 <h4>Doctor</h4>
 <div class="form-horizontal">
@@ -103,162 +108,78 @@
                     <td>
                         Sunday
                     </td>
-                    <td>
-                        @Html.TextBox("txtSundayMorningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSundayMorningEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSundayAfternoonStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSundayAfternoonEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSundayEveningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSundayEveningEndTime")
-                    </td>
+                    <td>@Html.TextBoxFor(model => model.SundayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SundayEveningEndTime, new { @class = "scheduleTime" })</td>
                 </tr>
                 <tr>
                     <td>
                         Monday
                     </td>
-                    <td>
-                        @Html.TextBox("txtMondayMorningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtMondayMorningEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtMondayAfternoonStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtMondayAfternoonEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtMondayEveningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtMondayEveningEndTime")
-                    </td>
+                    <td>@Html.TextBoxFor(model => model.MondayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.MondayEveningEndTime, new { @class = "scheduleTime" })</td>
                 </tr>
                 <tr>
                     <td>
                         Tuesday
                     </td>
-                    <td>
-                        @Html.TextBox("txtTuesdayMorningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtTuesdayMorningEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtTuesdayAfternoonStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtTuesdayAfternoonEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtTuesdayEveningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtTuesdayEveningEndTime")
-                    </td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.TuesdayEveningEndTime, new { @class = "scheduleTime" })</td>
                 </tr>
                 <tr>
                     <td>
                         Wednesday
                     </td>
-                    <td>
-                        @Html.TextBox("txtWednesdayMorningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtWednesdayMorningEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtWednesdayAfternoonStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtWednesdayAfternoonEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtWednesdayEveningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtWednesdayEveningEndTime")
-                    </td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.WednesdayEveningEndTime, new { @class = "scheduleTime" })</td>
                 </tr>
                 <tr>
                     <td>
                         Thursday
                     </td>
-                    <td>
-                        @Html.TextBox("txtThursdayMorningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtThursdayMorningEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtThursdayAfternoonStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtThursdayAfternoonEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtThursdayEveningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtThursdayEveningEndTime")
-                    </td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.ThursdayEveningEndTime, new { @class = "scheduleTime" })</td>
                 </tr>
                 <tr>
                     <td>
                         Friday
                     </td>
-                    <td>
-                        @Html.TextBox("txtFridayMorningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtFridayMorningEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtFridayAfternoonStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtFridayAfternoonEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtFridayEveningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtFridayEveningEndTime")
-                    </td>
+                    <td>@Html.TextBoxFor(model => model.FridayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.FridayEveningEndTime, new { @class = "scheduleTime" })</td>
                 </tr>
                 <tr>
                     <td>
                         Saturday
                     </td>
-                    <td>
-                        @Html.TextBox("txtSaturdayMorningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSaturdayMorningEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSaturdayAfternoonStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSaturdayAfternoonEndTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSaturdayEveningStartTime")
-                    </td>
-                    <td>
-                        @Html.TextBox("txtSaturdayEveningEndTime")
-                    </td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayMorningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayMorningEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayAfternoonStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayAfternoonEndTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayEveningStartTime, new { @class = "scheduleTime" })</td>
+                    <td>@Html.TextBoxFor(model => model.SaturdayEveningEndTime, new { @class = "scheduleTime" })</td>
                 </tr>
             </table>
         </div>

@@ -6,6 +6,9 @@
 }
 
 <h2></h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -32,9 +35,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.NameEN) 
-            @Html.DisplayFor(modelItem => item.Qualification)
-            <i>(@Html.DisplayFor(modelItem => item.Hospital.NameEN))</i>
+            @Html.ActionLink(item.NameEN + " " + item.Qualification,
+                        "Details",
+                        new { id = item.ID }) 
+            <br>
+            <i>
+                @Html.ActionLink(item.Hospital.NameEN, "Details", "Hospitals", new { id= item.HospitalID }, null)                
+            </i>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Fee)
@@ -52,14 +59,14 @@
             @Html.DisplayFor(modelItem => item.Specialization.NameEN)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
+                <br />    
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            }
         </td>
     </tr>
 }
 
 </table>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>

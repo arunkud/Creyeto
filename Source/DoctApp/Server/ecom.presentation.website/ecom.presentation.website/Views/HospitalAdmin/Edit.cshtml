@@ -1,0 +1,38 @@
+﻿@model ecom.presentation.website.Models.HospitalAdmin
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_ConfigLayout .cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>HospitalAdmin</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserID)
+
+        @Html.HiddenFor(model => model.HospitalID)
+
+        @Html.HiddenFor(model => model.IsActive)
+
+        @Html.HiddenFor(model => model.Created)
+
+        @Html.HiddenFor(model => model.Updated)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

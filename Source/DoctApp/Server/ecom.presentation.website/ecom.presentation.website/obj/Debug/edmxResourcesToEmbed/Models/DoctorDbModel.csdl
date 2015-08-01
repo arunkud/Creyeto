@@ -142,6 +142,7 @@
     <NavigationProperty Name="DoctorSchedules" Relationship="Self.FK_doctor_schedule_doctor" FromRole="Doctor" ToRole="DoctorSchedule" />
     <NavigationProperty Name="Specialization" Relationship="Self.FK_Doctor_specialization" FromRole="Doctor" ToRole="Specialization" />
     <NavigationProperty Name="UserLikes" Relationship="Self.FK_UserLike_Doctor" FromRole="Doctor" ToRole="UserLike" />
+    <Property Name="DepartmentID" Type="Int32" />
   </EntityType>
   <EntityType Name="DoctorReview">
     <Key>
@@ -195,6 +196,9 @@
     <NavigationProperty Name="CityLocation" Relationship="Self.FK_Hospital_CityLocation" FromRole="Hospital" ToRole="CityLocation" />
     <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_Hospital" FromRole="Hospital" ToRole="Doctor" />
     <NavigationProperty Name="HospitalInsurances" Relationship="Self.FK_DoctorInsurance_Hospital" FromRole="Hospital" ToRole="HospitalInsurance" />
+    <Property Name="LikeCount" Type="Int32" Nullable="false" />
+    <Property Name="ReviewCount" Type="Int32" Nullable="false" />
+    <Property Name="IsOpenAlways" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="HospitalInsurance">
     <Key>
