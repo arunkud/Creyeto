@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ecomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ecomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -184,13 +184,13 @@
           <Property Name="Qualification" Type="varchar" MaxLength="150" />
           <Property Name="Fee" Type="money" />
           <Property Name="SpecialityID" Type="int" Nullable="false" />
-          <Property Name="HasImage" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="ReviewCount" Type="int" Nullable="false" />
           <Property Name="LikeCount" Type="int" Nullable="false" />
           <Property Name="ExperienceFrom" Type="smalldatetime" />
           <Property Name="HospitalID" Type="int" Nullable="false" />
           <Property Name="DepartmentID" Type="int" />
+          <Property Name="ImageExt" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="DoctorReview">
           <Key>
@@ -743,7 +743,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <Parameter Name="Qualification" Type="varchar" Mode="In" />
           <Parameter Name="Fee" Type="money" Mode="In" />
           <Parameter Name="SpecialityID" Type="int" Mode="In" />
-          <Parameter Name="HasImage" Type="bit" Mode="In" />
+          <Parameter Name="ImageExt" Type="varchar" Mode="In" />
           <Parameter Name="IsActive" Type="bit" Mode="In" />
           <Parameter Name="ExperienceFrom" Type="smalldatetime" Mode="In" />
           <Parameter Name="HospitalID" Type="int" Mode="In" />
@@ -983,8 +983,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             <End Role="DoctorUserLike" EntitySet="DoctorUserLike" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ecomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1187,7 +1186,6 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <Property Name="Qualification" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Fee" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="SpecialityID" Type="Int32" Nullable="false" />
-          <Property Name="HasImage" Type="Boolean" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="ReviewCount" Type="Int32" Nullable="false" />
           <Property Name="LikeCount" Type="Int32" Nullable="false" />
@@ -1200,6 +1198,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <NavigationProperty Name="DoctorSchedules" Relationship="Self.FK_doctor_schedule_doctor" FromRole="Doctor" ToRole="DoctorSchedule" />
           <NavigationProperty Name="Specialization" Relationship="Self.FK_Doctor_specialization" FromRole="Doctor" ToRole="Specialization" />
           <NavigationProperty Name="DoctorUserLikes" Relationship="Self.FK_UserLike_Doctor" FromRole="Doctor" ToRole="DoctorUserLike" />
+          <Property Name="ImageExt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DoctorReview">
           <Key>
@@ -1888,7 +1887,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             <Parameter Name="Qualification" Mode="In" Type="String" />
             <Parameter Name="Fee" Mode="In" Type="Decimal" />
             <Parameter Name="SpecialityID" Mode="In" Type="Int32" />
-            <Parameter Name="HasImage" Mode="In" Type="Boolean" />
+            <Parameter Name="ImageExt" Mode="In" Type="String" />
             <Parameter Name="IsActive" Mode="In" Type="Boolean" />
             <Parameter Name="ExperienceFrom" Mode="In" Type="DateTime" />
             <Parameter Name="HospitalID" Mode="In" Type="Int32" />
@@ -2169,12 +2168,12 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="ecomModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
                 <ScalarProperty Name="Qualification" ColumnName="Qualification" />
                 <ScalarProperty Name="Fee" ColumnName="Fee" />
                 <ScalarProperty Name="SpecialityID" ColumnName="SpecialityID" />
-                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
                 <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />

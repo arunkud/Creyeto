@@ -58,11 +58,11 @@ namespace ecom.presentation.website
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "813595573750-b989e2juaj4al9rprh97jtl4lte5fjd2.apps.googleusercontent.com",
+                ClientSecret = "ex1-TLbyhTaj9PB_C8p7Af9A"
+            });
         }
     }
 }

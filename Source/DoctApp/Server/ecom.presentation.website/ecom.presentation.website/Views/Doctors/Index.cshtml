@@ -9,54 +9,50 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Doctor
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fee)
-        </th>
-        <th>
-            Contacts
-        </th>
-        <th>
-            Reviews
-        </th>
-        <th>
-            Likes
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Specialization.NameEN)
-        </th>
-        <th></th>
-    </tr>
-
+<div>
+    <span><input type="text" name="ads" class="form-control has-icon" placeholder="I'm looking for ..." value=""></span>
+    <span><input type="button" value="Find" class="btn btn-default" /></span>
+</div>
+<table class="table">    
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @if (!string.IsNullOrEmpty(item.ImageExt))
+            {
+                <img src="@Url.Content("~/Images/" + item.HospitalID + "/" + item.ID + item.ImageExt)" alt="@item.NameEN" />                
+            }
+            else
+            {
+                <img src="~/Images/no-photo-available-icon.jpg" alt="Image not available" />
+            }            
+        </td>
         <td>
             @Html.ActionLink(item.NameEN + " " + item.Qualification,
                         "Details",
                         new { id = item.ID }) 
             <br>
-            <i>
-                @Html.ActionLink(item.Hospital.NameEN, "Details", "Hospitals", new { id= item.HospitalID }, null)                
-            </i>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fee)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hospital.ContactNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LikeCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReviewCount)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Specialization.NameEN)
+            <br>
+            <i>
+                <a>Hospital:</a> @Html.ActionLink(item.Hospital.NameEN, "Details", "Hospitals", new { id = item.HospitalID }, null)                
+            </i>
+            @if (item.Fee.HasValue)
+            {
+                <br />
+                <a>Fee:</a> @Html.DisplayFor(modelItem => item.Fee)
+            }
+
+            @if (!string.IsNullOrEmpty(item.Hospital.ContactNumber))
+            {
+                <br />
+                <a>Phone:</a> @Html.DisplayFor(modelItem => item.Hospital.ContactNumber)
+            }
+
+            <br />
+            <a>Likes : </a> @Html.DisplayFor(modelItem => item.LikeCount)
+
+            <br />
+            <a>Reviews : </a> @Html.DisplayFor(modelItem => item.ReviewCount)
         </td>
         <td>
             @if (User.IsInRole("Admin"))

@@ -178,12 +178,12 @@
     <EntitySetMapping Name="Doctors">
       <EntityTypeMapping TypeName="ecomModel.Doctor">
         <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
           <ScalarProperty Name="Qualification" ColumnName="Qualification" />
           <ScalarProperty Name="Fee" ColumnName="Fee" />
           <ScalarProperty Name="SpecialityID" ColumnName="SpecialityID" />
-          <ScalarProperty Name="HasImage" ColumnName="HasImage" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
           <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />

@@ -16,25 +16,10 @@
             @Html.DisplayNameFor(model => model.NameEN)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Latitude)
+            Likes
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LikeCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReviewCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsOpenAlways)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CityLocation.NameEN)
+            Reviews
         </th>
         <th></th>
     </tr>
@@ -47,16 +32,13 @@
                 @Html.DisplayFor(modelItem => item.Address)
                 <p>@Html.DisplayFor(modelItem => item.ContactNumber) </p>
                 <p>@Html.DisplayFor(modelItem => item.SecondNumber)</p>
+                <p>@Html.DisplayFor(modelItem => item.CityLocation.NameEN)</p>                
+                <p>@Html.DisplayFor(modelItem => item.Latitude), @Html.DisplayFor(modelItem => item.Longitude)</p>                
             </address>            
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Latitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Longitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
+            @if (item.IsOpenAlways)
+            {
+                <i>24 * 7</i>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LikeCount)
@@ -65,14 +47,12 @@
             @Html.DisplayFor(modelItem => item.ReviewCount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsOpenAlways)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CityLocation.NameEN)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @if (User.IsInRole("Admin"))
+            {
+             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
+             <br />
+             @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            }
         </td>
     </tr>
 }

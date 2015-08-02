@@ -179,13 +179,13 @@
     <Property Name="Qualification" Type="varchar" MaxLength="150" />
     <Property Name="Fee" Type="money" />
     <Property Name="SpecialityID" Type="int" Nullable="false" />
-    <Property Name="HasImage" Type="bit" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
     <Property Name="ReviewCount" Type="int" Nullable="false" />
     <Property Name="LikeCount" Type="int" Nullable="false" />
     <Property Name="ExperienceFrom" Type="smalldatetime" />
     <Property Name="HospitalID" Type="int" Nullable="false" />
     <Property Name="DepartmentID" Type="int" />
+    <Property Name="ImageExt" Type="varchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="DoctorReview">
     <Key>
@@ -738,7 +738,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
     <Parameter Name="Qualification" Type="varchar" Mode="In" />
     <Parameter Name="Fee" Type="money" Mode="In" />
     <Parameter Name="SpecialityID" Type="int" Mode="In" />
-    <Parameter Name="HasImage" Type="bit" Mode="In" />
+    <Parameter Name="ImageExt" Type="varchar" Mode="In" />
     <Parameter Name="IsActive" Type="bit" Mode="In" />
     <Parameter Name="ExperienceFrom" Type="smalldatetime" Mode="In" />
     <Parameter Name="HospitalID" Type="int" Mode="In" />

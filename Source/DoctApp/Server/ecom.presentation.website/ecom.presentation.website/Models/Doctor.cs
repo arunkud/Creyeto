@@ -27,13 +27,13 @@ namespace ecom.presentation.website.Models
         public string Qualification { get; set; }
         public Nullable<decimal> Fee { get; set; }
         public int SpecialityID { get; set; }
-        public bool HasImage { get; set; }
         public bool IsActive { get; set; }
         public int ReviewCount { get; set; }
         public int LikeCount { get; set; }
         public Nullable<System.DateTime> ExperienceFrom { get; set; }
         public int HospitalID { get; set; }
         public Nullable<int> DepartmentID { get; set; }
+        public string ImageExt { get; set; }
     
         public virtual Department Department { get; set; }
         public virtual Hospital Hospital { get; set; }

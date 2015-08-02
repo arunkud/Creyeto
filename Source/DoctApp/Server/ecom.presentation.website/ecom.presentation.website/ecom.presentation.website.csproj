@@ -16,7 +16,8 @@
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -253,6 +254,7 @@
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\Hospitals.cs" />
+    <Compile Include="Models\Extensions\Specializations.cs" />
     <Compile Include="Models\GetAllDoctorsByCity_Result.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>

@@ -10,6 +10,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using ecom.presentation.website.Models;
 using ecom.presentation.website.Utility;
+using System.Web.Hosting;
 
 namespace ecom.presentation.website.Controllers
 {
@@ -83,8 +84,10 @@ namespace ecom.presentation.website.Controllers
             if (ModelState.IsValid && doctor.HospitalID != 0 && doctor.SpecialityID != 0)
 			{
 				db.Doctors.Add(doctor);
+                string imageLocation = (string)TempData["SavedImageLocation"];
+                doctor.ImageExt = Path.GetExtension(imageLocation);
                 db.AddNewDoctor(doctor.NameEN, doctor.Qualification, doctor.Fee, doctor.SpecialityID,
-                    doctor.HasImage, true, doctor.ExperienceFrom, doctor.HospitalID, new TimeSpan(0, 15, 0),
+                    doctor.ImageExt, true, doctor.ExperienceFrom, doctor.HospitalID, new TimeSpan(0, 15, 0),
                     doctor.SundayMorningStartTime, doctor.SundayMorningEndTime, doctor.SundayAfternoonStartTime, doctor.SundayAfternoonEndTime, doctor.SundayEveningStartTime, doctor.SundayEveningEndTime,
                     doctor.MondayMorningStartTime, doctor.MondayMorningEndTime, doctor.MondayAfternoonStartTime, doctor.MondayAfternoonEndTime, doctor.MondayEveningStartTime, doctor.MondayEveningEndTime,
                     doctor.TuesdayMorningStartTime, doctor.TuesdayMorningEndTime, doctor.TuesdayAfternoonStartTime, doctor.TuesdayAfternoonEndTime, doctor.TuesdayEveningStartTime, doctor.TuesdayEveningEndTime,
@@ -93,12 +96,32 @@ namespace ecom.presentation.website.Controllers
                     doctor.FridayMorningStartTime, doctor.FridayMorningEndTime, doctor.FridayAfternoonStartTime, doctor.FridayAfternoonEndTime, doctor.FridayEveningStartTime, doctor.FridayEveningEndTime,
                     doctor.SaturdayMorningStartTime, doctor.SaturdayMorningEndTime, doctor.SaturdayAfternoonStartTime, doctor.SaturdayAfternoonEndTime, doctor.SaturdayEveningStartTime, doctor.SaturdayEveningEndTime);
                 db.SaveChanges();
+                GetImagePath(doctor, imageLocation);
+
                 return RedirectToAction("Index");
 			}
 
 			ViewBag.HospitalID = new SelectList(db.Hospitals, "ID", "NameEN", doctor.HospitalID);
 			ViewBag.SpecialityID = new SelectList(db.Specializations, "ID", "NameEN", doctor.SpecialityID);
 			return View(doctor);
+        }
+
+        private void GetImagePath(Doctor doctor, string imageTempPath)
+        {
+            string imagePath = string.Empty;
+            if (!string.IsNullOrEmpty(doctor.ImageExt))
+            {
+                imagePath = HostingEnvironment.MapPath(@"~/Images/");
+                imagePath += Path.DirectorySeparatorChar + doctor.HospitalID.ToString();
+                if (!Directory.Exists(imagePath))
+                    Directory.CreateDirectory(imagePath);
+
+                imagePath += Path.DirectorySeparatorChar + doctor.ID.ToString() + Path.GetExtension(imageTempPath);
+                if (System.IO.File.Exists(imagePath))
+                    System.IO.File.Delete(imagePath);
+
+                System.IO.File.Move(imageTempPath, imagePath);
+            }            
         }
 
         // GET: Doctors/Edit/5
@@ -249,10 +272,11 @@ namespace ecom.presentation.website.Controllers
 				// ... and save the new one.
 				var newFileName = Path.Combine(AvatarPath, Path.GetFileName(fn));
 				var newFileLocation = HttpContext.Server.MapPath(newFileName);
-				if (Directory.Exists(Path.GetDirectoryName(newFileLocation)) == false)
+				if (!Directory.Exists(Path.GetDirectoryName(newFileLocation)))
 					Directory.CreateDirectory(Path.GetDirectoryName(newFileLocation));
 
 				img.Save(newFileLocation);
+                TempData["SavedImageLocation"] = newFileLocation;
 				return Json(new { success = true, avatarFileLocation = newFileName });
 			}
 			catch (Exception ex)

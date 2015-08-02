@@ -199,7 +199,6 @@
     <Property Name="Qualification" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Fee" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="SpecialityID" Type="Int32" Nullable="false" />
-    <Property Name="HasImage" Type="Boolean" Nullable="false" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <Property Name="ReviewCount" Type="Int32" Nullable="false" />
     <Property Name="LikeCount" Type="Int32" Nullable="false" />
@@ -212,6 +211,7 @@
     <NavigationProperty Name="DoctorSchedules" Relationship="Self.FK_doctor_schedule_doctor" FromRole="Doctor" ToRole="DoctorSchedule" />
     <NavigationProperty Name="Specialization" Relationship="Self.FK_Doctor_specialization" FromRole="Doctor" ToRole="Specialization" />
     <NavigationProperty Name="DoctorUserLikes" Relationship="Self.FK_UserLike_Doctor" FromRole="Doctor" ToRole="DoctorUserLike" />
+    <Property Name="ImageExt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="DoctorReview">
     <Key>
@@ -900,7 +900,7 @@
       <Parameter Name="Qualification" Mode="In" Type="String" />
       <Parameter Name="Fee" Mode="In" Type="Decimal" />
       <Parameter Name="SpecialityID" Mode="In" Type="Int32" />
-      <Parameter Name="HasImage" Mode="In" Type="Boolean" />
+      <Parameter Name="ImageExt" Mode="In" Type="String" />
       <Parameter Name="IsActive" Mode="In" Type="Boolean" />
       <Parameter Name="ExperienceFrom" Mode="In" Type="DateTime" />
       <Parameter Name="HospitalID" Mode="In" Type="Int32" />

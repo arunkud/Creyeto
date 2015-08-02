@@ -53,7 +53,7 @@ namespace ecom.presentation.website.Models
         public TimeSpan? SaturdayAfternoonStartTime { get; set; }
         public TimeSpan? SaturdayAfternoonEndTime { get; set; }
         public TimeSpan? SaturdayEveningStartTime { get; set; }
-        public TimeSpan? SaturdayEveningEndTime { get; set; }
+        public TimeSpan? SaturdayEveningEndTime { get; set; }        
     }
 
 	public class DoctorMetaData
@@ -79,8 +79,9 @@ namespace ecom.presentation.website.Models
         public int SpecialityID { get; set; }
 
         [Required]
-        public int HospitalID { get; set; }     
-        
-           
-    }    
+        public int HospitalID { get; set; }
+
+        [Display(Name ="Experience since")]
+        public Nullable<System.DateTime> ExperienceFrom { get; set; }
+    }
 }
