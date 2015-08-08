@@ -54,8 +54,8 @@ namespace ecom.presentation.website.Models
         public virtual DbSet<Insurance> Insurances { get; set; }
         public virtual DbSet<Qualification> Qualifications { get; set; }
         public virtual DbSet<Specialization> Specializations { get; set; }
-        public virtual DbSet<HospitalAdmin> HospitalAdmins { get; set; }
         public virtual DbSet<DoctorView> DoctorViews { get; set; }
+        public virtual DbSet<HospitalAdmin> HospitalAdmins { get; set; }
     
         public virtual int AddDepartmentReview(string userID, Nullable<int> departmentId, string reviewText, Nullable<int> rating, Nullable<bool> like)
         {
@@ -410,6 +410,11 @@ namespace ecom.presentation.website.Models
                 new ObjectParameter("EveningEndTime", typeof(System.TimeSpan));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateDoctorSchedule", doctorIDParameter, dayInWeekParameter, durationParameter, morningStartTimeParameter, morningEndTimeParameter, afernoonStartTimeParameter, afernoonEndTimeParameter, eveningStartTimeParameter, eveningEndTimeParameter);
+        }
+    
+        public virtual ObjectResult<GetAllSearchInputs_Result> GetAllSearchInputs()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllSearchInputs_Result>("GetAllSearchInputs");
         }
     }
 }

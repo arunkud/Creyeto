@@ -247,16 +247,11 @@
     <Property Name="ReviewCount" Type="int" Nullable="false" />
     <Property Name="IsOpenAlways" Type="bit" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'ecom.dbo.HospitalAdmin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="HospitalAdmin">
     <Key>
-      <PropertyRef Name="UserID" />
-      <PropertyRef Name="HospitalID" />
-      <PropertyRef Name="IsActive" />
-      <PropertyRef Name="Created" />
-      <PropertyRef Name="Updated" />
+      <PropertyRef Name="ID" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="HospitalID" Type="int" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -795,6 +790,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
     <Parameter Name="SpecialityID" Type="int" Mode="In" />
     <Parameter Name="CityID" Type="int" Mode="In" />
   </Function>
+  <Function Name="GetAllSearchInputs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="UpdateDoctorSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="DoctorID" Type="int" Mode="In" />
     <Parameter Name="DayInWeek" Type="varchar" Mode="In" />
@@ -828,6 +824,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
     <EntitySet Name="DoctorSchedule" EntityType="Self.DoctorSchedule" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DoctorUserLike" EntityType="Self.DoctorUserLike" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Hospital" EntityType="Self.Hospital" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HospitalAdmin" EntityType="Self.HospitalAdmin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HospitalInsurance" EntityType="Self.HospitalInsurance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HospitalReview" EntityType="Self.HospitalReview" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HospitalSchedule" EntityType="Self.HospitalSchedule" Schema="dbo" store:Type="Tables" />
@@ -835,15 +832,6 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
     <EntitySet Name="Insurance" EntityType="Self.Insurance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="HospitalAdmin" EntityType="Self.HospitalAdmin" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [HospitalAdmin].[UserID] AS [UserID], 
-    [HospitalAdmin].[HospitalID] AS [HospitalID], 
-    [HospitalAdmin].[IsActive] AS [IsActive], 
-    [HospitalAdmin].[Created] AS [Created], 
-    [HospitalAdmin].[Updated] AS [Updated]
-    FROM [dbo].[HospitalAdmin] AS [HospitalAdmin]</DefiningQuery>
-    </EntitySet>
     <EntitySet Name="DoctorView" EntityType="Self.DoctorView" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [DoctorView].[ID] AS [ID], 

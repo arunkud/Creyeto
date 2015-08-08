@@ -2,12 +2,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
+using System.Web.Security;
 
-namespace ecom.presentation.website.Utility
+namespace ecom.presentation.website.helper
 {
     public static class ScheduleHelper
     {
+        //public static bool IsAdminOf(this IPrincipal userObject, int hospitalId)
+        //{
+        //    Entities db = new Entities();
+        //    MembershipUser user = Membership.GetUser(HttpContext.Current.User.Identity.Name);
+        //    Guid guid = (Guid)user.ProviderUserKey;
+        //    return db.HospitalAdmins.Any(itm => itm.HospitalID == hospitalId && itm.UserID == guid.ToString());            
+        //}
+
+        //public static bool IsHospitalAdmin(this IPrincipal userObject)
+        //{
+        //    Entities db = new Entities();
+        //    MembershipUser user = Membership.GetUser(HttpContext.Current.User.Identity.Name);
+        //    Guid guid = (Guid)user.ProviderUserKey;
+        //    return db.HospitalAdmins.Any(itm => itm.UserID == guid.ToString());
+        //}
+
         public static void UpdateScheduleTimeStampInfo(Doctor doctor, HttpRequestBase request)
         {
             doctor.SundayMorningStartTime = GetScheduleTimeStamp(request.Form["SundayMorningStartTime"]);
@@ -92,7 +110,7 @@ namespace ecom.presentation.website.Utility
             {
                 foreach (var doctorShedule in doctor.DoctorSchedules)
                 {
-                    switch(doctorShedule.DayInWeek.ToUpper())
+                    switch (doctorShedule.DayInWeek.ToUpper())
                     {
                         case "SUN":
                             doctor.SundayMorningStartTime = doctorShedule.MorningStartTime;
@@ -155,7 +173,7 @@ namespace ecom.presentation.website.Utility
                             doctor.SaturdayAfternoonEndTime = doctorShedule.AfternoonEndTime;
                             doctor.SaturdayEveningStartTime = doctorShedule.EveningStartTime;
                             doctor.SaturdayEveningEndTime = doctorShedule.EveningEndTime;
-                            break;                        
+                            break;
                     }
                 }
             }

@@ -333,17 +333,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HospitalAdmins">
-      <EntityTypeMapping TypeName="ecomModel.HospitalAdmin">
-        <MappingFragment StoreEntitySet="HospitalAdmin">
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="Updated" ColumnName="Updated" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="DoctorViews">
       <EntityTypeMapping TypeName="ecomModel.DoctorView">
         <MappingFragment StoreEntitySet="DoctorView">
@@ -413,5 +402,26 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="UpdateDoctorSchedule" FunctionName="ecomModel.Store.UpdateDoctorSchedule" />
+    <EntitySetMapping Name="HospitalAdmins">
+      <EntityTypeMapping TypeName="ecomModel.HospitalAdmin">
+        <MappingFragment StoreEntitySet="HospitalAdmin">
+          <ScalarProperty Name="Updated" ColumnName="Updated" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetAllSearchInputs" FunctionName="ecomModel.Store.GetAllSearchInputs">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ecomModel.GetAllSearchInputs_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

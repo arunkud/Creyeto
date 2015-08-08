@@ -9,8 +9,9 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using ecom.presentation.website.Models;
-using ecom.presentation.website.Utility;
 using System.Web.Hosting;
+using System.Web.Security;
+using ecom.presentation.website.helper;
 
 namespace ecom.presentation.website.Controllers
 {

@@ -5,64 +5,75 @@
     Layout = "~/Views/Shared/_ConfigLayout .cshtml";
 }
 
+@section scripts{
+    <script src="~/Scripts/jquery.autocomplete.js"></script>
+    <script src="~/Scripts/doctorlist.js"></script>
+}
+
 <h2></h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
 </p>
-<div>
-    <span><input type="text" name="ads" class="form-control has-icon" placeholder="I'm looking for ..." value=""></span>
-    <span><input type="button" value="Find" class="btn btn-default" /></span>
+<div style="position: relative; height: 80px;">
+    <input type="text" name="country" id="autocomplete-ajax" style="position: absolute; z-index: 2; background: transparent;" />
+    <input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;" />    
 </div>
-<table class="table">    
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @if (!string.IsNullOrEmpty(item.ImageExt))
-            {
-                <img src="@Url.Content("~/Images/" + item.HospitalID + "/" + item.ID + item.ImageExt)" alt="@item.NameEN" />                
-            }
-            else
-            {
-                <img src="~/Images/no-photo-available-icon.jpg" alt="Image not available" />
-            }            
-        </td>
-        <td>
-            @Html.ActionLink(item.NameEN + " " + item.Qualification,
+<input type="button" id="findDoctor" value="Find" />
+<div id="selction-ajax"></div>
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (!string.IsNullOrEmpty(item.ImageExt))
+                {
+                    <img src="@Url.Content("~/Images/" + item.HospitalID + "/" + item.ID + item.ImageExt)" alt="@item.NameEN" />
+                }
+                else
+                {
+                    <img src="~/Images/no-photo-available-icon.jpg" alt="Image not available" />
+                }
+            </td>
+            <td>
+                @Html.ActionLink(item.NameEN + " " + item.Qualification,
                         "Details",
-                        new { id = item.ID }) 
-            <br>
-            @Html.DisplayFor(modelItem => item.Specialization.NameEN)
-            <br>
-            <i>
-                <a>Hospital:</a> @Html.ActionLink(item.Hospital.NameEN, "Details", "Hospitals", new { id = item.HospitalID }, null)                
-            </i>
-            @if (item.Fee.HasValue)
-            {
+                        new { id = item.ID })
+                <br>
+                @Html.DisplayFor(modelItem => item.Specialization.NameEN)
+                <br>
+                <i>
+                    <a>Hospital:</a> @Html.ActionLink(item.Hospital.NameEN, "Details", "Hospitals", new { id = item.HospitalID }, null)
+                </i>
+                @if (item.Fee.HasValue)
+                {
+                    <br />
+                    <a>Fee:</a> @Html.DisplayFor(modelItem => item.Fee)
+                }
+
+                @if (!string.IsNullOrEmpty(item.Hospital.ContactNumber))
+                {
+                    <br />
+                    <a>Phone:</a> @Html.DisplayFor(modelItem => item.Hospital.ContactNumber)
+                }
+
                 <br />
-                <a>Fee:</a> @Html.DisplayFor(modelItem => item.Fee)
-            }
+                <a>Likes : </a> @Html.DisplayFor(modelItem => item.LikeCount)
 
-            @if (!string.IsNullOrEmpty(item.Hospital.ContactNumber))
-            {
                 <br />
-                <a>Phone:</a> @Html.DisplayFor(modelItem => item.Hospital.ContactNumber)
-            }
-
-            <br />
-            <a>Likes : </a> @Html.DisplayFor(modelItem => item.LikeCount)
-
-            <br />
-            <a>Reviews : </a> @Html.DisplayFor(modelItem => item.ReviewCount)
-        </td>
-        <td>
-            @if (User.IsInRole("Admin"))
-            {
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) 
-                <br />    
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            }
-        </td>
-    </tr>
-}
+                <a>Reviews : </a> @Html.DisplayFor(modelItem => item.ReviewCount)
+            </td>
+            <td>
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                    <br />
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

@@ -7,22 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ecom.presentation.website.Models;
+using System.Security.Principal;
 
-namespace ecom.presentation.website.Controllers
+namespace ecom.presentation.website
 {
-    [Authorize(Roles= "Admin")]
     public class HospitalAdminController : Controller
     {
         private Entities db = new Entities();
 
-        // GET: HospitalAdmin
+        // GET: HospitalAdmins
         public ActionResult Index()
         {
             var hospitalAdmins = db.HospitalAdmins.Include(h => h.AspNetUser).Include(h => h.Hospital);
             return View(hospitalAdmins.ToList());
         }
 
-        // GET: HospitalAdmin/Details/5
+        // GET: HospitalAdmins/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -37,7 +37,7 @@ namespace ecom.presentation.website.Controllers
             return View(hospitalAdmin);
         }
 
-        // GET: HospitalAdmin/Create
+        // GET: HospitalAdmins/Create
         public ActionResult Create()
         {
             ViewBag.UserID = new SelectList(db.AspNetUsers, "Id", "Email");
@@ -45,15 +45,17 @@ namespace ecom.presentation.website.Controllers
             return View();
         }
 
-        // POST: HospitalAdmin/Create
+        // POST: HospitalAdmins/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,HospitalID,IsActive,Created,Updated")] HospitalAdmin hospitalAdmin)
+        public ActionResult Create([Bind(Include = "UserID,HospitalID")] HospitalAdmin hospitalAdmin)
         {
             if (ModelState.IsValid)
             {
+                hospitalAdmin.Created = DateTime.Now;
+                hospitalAdmin.Updated = DateTime.Now;
                 db.HospitalAdmins.Add(hospitalAdmin);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -64,7 +66,7 @@ namespace ecom.presentation.website.Controllers
             return View(hospitalAdmin);
         }
 
-        // GET: HospitalAdmin/Edit/5
+        // GET: HospitalAdmins/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -81,12 +83,12 @@ namespace ecom.presentation.website.Controllers
             return View(hospitalAdmin);
         }
 
-        // POST: HospitalAdmin/Edit/5
+        // POST: HospitalAdmins/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,HospitalID,IsActive,Created,Updated")] HospitalAdmin hospitalAdmin)
+        public ActionResult Edit([Bind(Include = "UserID,HospitalID,IsActive,Created,Updated,ID")] HospitalAdmin hospitalAdmin)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +101,7 @@ namespace ecom.presentation.website.Controllers
             return View(hospitalAdmin);
         }
 
-        // GET: HospitalAdmin/Delete/5
+        // GET: HospitalAdmins/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -114,7 +116,7 @@ namespace ecom.presentation.website.Controllers
             return View(hospitalAdmin);
         }
 
-        // POST: HospitalAdmin/Delete/5
+        // POST: HospitalAdmins/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

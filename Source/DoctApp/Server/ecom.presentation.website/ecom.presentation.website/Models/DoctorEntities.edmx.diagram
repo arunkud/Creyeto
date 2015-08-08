@@ -32,7 +32,6 @@
         <EntityTypeShape EntityType="ecomModel.Insurance" Width="1.5" PointX="0.75" PointY="31.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ecomModel.Qualification" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ecomModel.Specialization" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecomModel.HospitalAdmin" Width="1.5" PointX="11.25" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ecomModel.DoctorView" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="ecomModel.FK_appointment_AppointmentStatus" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_appointment_doctor_schedule" ManuallyRouted="false" />
@@ -41,7 +40,6 @@
         <AssociationConnector Association="ecomModel.FK_DepartmentReview_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_DepartmentUserLike_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_DoctorReview_AspNetUsers" ManuallyRouted="false" />
-        <AssociationConnector Association="ecomModel.FK_HospitalAdmin_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_HospitalReview_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_HospitalUserLike_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_UserLike_AspNetUsers" ManuallyRouted="false" />
@@ -57,11 +55,13 @@
         <AssociationConnector Association="ecomModel.FK_Doctor_specialization" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_UserLike_Doctor" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_DoctorInsurance_Hospital" ManuallyRouted="false" />
-        <AssociationConnector Association="ecomModel.FK_HospitalAdmin_Hospital" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_HospitalReview_Hospital" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_HospitalUserLike_Hospital" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.FK_doctor_insurance_insurance" ManuallyRouted="false" />
         <AssociationConnector Association="ecomModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ecomModel.HospitalAdmin" Width="1.5" PointX="11.25" PointY="11" />
+        <AssociationConnector Association="ecomModel.FK_HospitalAdmin_AspNetUsers" />
+        <AssociationConnector Association="ecomModel.FK_HospitalAdmin_Hospital" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

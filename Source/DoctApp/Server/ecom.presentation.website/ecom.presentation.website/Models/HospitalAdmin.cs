@@ -14,6 +14,7 @@ namespace ecom.presentation.website.Models
     
     public partial class HospitalAdmin
     {
+        public int ID { get; set; }
         public string UserID { get; set; }
         public int HospitalID { get; set; }
         public bool IsActive { get; set; }
