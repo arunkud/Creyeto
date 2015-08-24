@@ -72,7 +72,7 @@ namespace ecom.presentation.website.Views.Search
 					}				
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
 				return null;
 			}

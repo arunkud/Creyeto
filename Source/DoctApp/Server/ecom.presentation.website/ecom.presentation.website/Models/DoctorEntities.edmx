@@ -4,17 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ecomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
+      <Schema Namespace="Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Appointment">
           <Key>
             <PropertyRef Name="ID" />
@@ -191,6 +181,7 @@
           <Property Name="HospitalID" Type="int" Nullable="false" />
           <Property Name="DepartmentID" Type="int" />
           <Property Name="ImageExt" Type="varchar" MaxLength="5" />
+          <Property Name="Description" Type="text" />
         </EntityType>
         <EntityType Name="DoctorReview">
           <Key>
@@ -244,7 +235,7 @@
           <Property Name="Address" Type="varchar" MaxLength="250" />
           <Property Name="ContactNumber" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="SecondNumber" Type="varchar" MaxLength="10" />
-          <Property Name="CityLocationID" Type="int" />
+          <Property Name="CityLocationID" Type="int" Nullable="false" />
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -330,6 +321,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="200" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -605,7 +597,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Hospital_CityLocation">
-          <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="0..1" />
+          <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="1" />
           <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CityLocation">
@@ -795,6 +787,10 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <Parameter Name="SpecialityID" Type="int" Mode="In" />
           <Parameter Name="CityID" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetAllDoctorsByHospital" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HospitalID" Type="int" Mode="In" />
+          <Parameter Name="specialityID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetAllSearchInputs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="UpdateDoctorSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DoctorID" Type="int" Mode="In" />
@@ -807,8 +803,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <Parameter Name="EveningStartTime" Type="time" Mode="In" />
           <Parameter Name="EveningEndTime" Type="time" Mode="In" />
         </Function>
-        <EntityContainer Name="ecomModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="EntitiesStoreContainer">
           <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Appointment_status" EntityType="Self.Appointment_status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -971,20 +966,11 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             <End Role="DoctorUserLike" EntitySet="DoctorUserLike" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ecomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
+      <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Appointment">
           <Key>
             <PropertyRef Name="ID" />
@@ -1059,11 +1045,11 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <NavigationProperty Name="DepartmentReviews" Relationship="Self.FK_DepartmentReview_AspNetUsers" FromRole="AspNetUsers" ToRole="DepartmentReview" />
           <NavigationProperty Name="DepartmentUserLikes" Relationship="Self.FK_DepartmentUserLike_AspNetUsers" FromRole="AspNetUsers" ToRole="DepartmentUserLike" />
           <NavigationProperty Name="DoctorReviews" Relationship="Self.FK_DoctorReview_AspNetUsers" FromRole="AspNetUsers" ToRole="DoctorReview" />
+          <NavigationProperty Name="HospitalAdmins" Relationship="Self.FK_HospitalAdmin_AspNetUsers" FromRole="AspNetUsers" ToRole="HospitalAdmin" />
           <NavigationProperty Name="HospitalReviews" Relationship="Self.FK_HospitalReview_AspNetUsers" FromRole="AspNetUsers" ToRole="HospitalReview" />
           <NavigationProperty Name="HospitalUserLikes" Relationship="Self.FK_HospitalUserLike_AspNetUsers" FromRole="AspNetUsers" ToRole="HospitalUserLike" />
           <NavigationProperty Name="DoctorUserLikes" Relationship="Self.FK_UserLike_AspNetUsers" FromRole="AspNetUsers" ToRole="DoctorUserLike" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="HospitalAdmins" Relationship="ecomModel.FK_HospitalAdmin_AspNetUsers" FromRole="AspNetUser" ToRole="HospitalAdmin" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -1180,13 +1166,14 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <Property Name="ExperienceFrom" Type="DateTime" Precision="0" />
           <Property Name="HospitalID" Type="Int32" Nullable="false" />
           <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="ImageExt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Department" Relationship="Self.FK_Doctor_Department" FromRole="Doctor" ToRole="Department" />
           <NavigationProperty Name="Hospital" Relationship="Self.FK_Doctor_Hospital" FromRole="Doctor" ToRole="Hospital" />
           <NavigationProperty Name="DoctorReviews" Relationship="Self.FK_doctor_review_doctor" FromRole="Doctor" ToRole="DoctorReview" />
           <NavigationProperty Name="DoctorSchedules" Relationship="Self.FK_doctor_schedule_doctor" FromRole="Doctor" ToRole="DoctorSchedule" />
           <NavigationProperty Name="Specialization" Relationship="Self.FK_Doctor_specialization" FromRole="Doctor" ToRole="Specialization" />
           <NavigationProperty Name="DoctorUserLikes" Relationship="Self.FK_UserLike_Doctor" FromRole="Doctor" ToRole="DoctorUserLike" />
-          <Property Name="ImageExt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DoctorReview">
           <Key>
@@ -1246,7 +1233,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ContactNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SecondNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CityLocationID" Type="Int32" />
+          <Property Name="CityLocationID" Type="Int32" Nullable="false" />
           <Property Name="Latitude" Type="Double" />
           <Property Name="Longitude" Type="Double" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
@@ -1256,9 +1243,22 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <NavigationProperty Name="CityLocation" Relationship="Self.FK_Hospital_CityLocation" FromRole="Hospital" ToRole="CityLocation" />
           <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_Hospital" FromRole="Hospital" ToRole="Doctor" />
           <NavigationProperty Name="HospitalInsurances" Relationship="Self.FK_DoctorInsurance_Hospital" FromRole="Hospital" ToRole="HospitalInsurance" />
+          <NavigationProperty Name="HospitalAdmins" Relationship="Self.FK_HospitalAdmin_Hospital" FromRole="Hospital" ToRole="HospitalAdmin" />
           <NavigationProperty Name="HospitalReviews" Relationship="Self.FK_HospitalReview_Hospital" FromRole="Hospital" ToRole="HospitalReview" />
           <NavigationProperty Name="HospitalUserLikes" Relationship="Self.FK_HospitalUserLike_Hospital" FromRole="Hospital" ToRole="HospitalUserLike" />
-          <NavigationProperty Name="HospitalAdmins" Relationship="ecomModel.FK_HospitalAdmin_Hospital" FromRole="Hospital" ToRole="HospitalAdmin" />
+        </EntityType>
+        <EntityType Name="HospitalAdmin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HospitalID" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Updated" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_HospitalAdmin_AspNetUsers" FromRole="HospitalAdmin" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Hospital" Relationship="Self.FK_HospitalAdmin_Hospital" FromRole="HospitalAdmin" ToRole="Hospital" />
         </EntityType>
         <EntityType Name="HospitalInsurance">
           <Key>
@@ -1334,6 +1334,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_specialization" FromRole="Specialization" ToRole="Doctor" />
         </EntityType>
@@ -1447,6 +1448,18 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HospitalAdmin_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="HospitalAdmin" Type="Self.HospitalAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalAdmin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HospitalReview_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="HospitalReview" Type="Self.HospitalReview" Multiplicity="*" />
@@ -1508,7 +1521,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Hospital_CityLocation">
-          <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="0..1" />
+          <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="1" />
           <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CityLocation">
@@ -1627,6 +1640,18 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HospitalAdmin_Hospital">
+          <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+          <End Role="HospitalAdmin" Type="Self.HospitalAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HospitalAdmin">
+              <PropertyRef Name="HospitalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HospitalReview_Hospital">
           <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
           <End Role="HospitalReview" Type="Self.HospitalReview" Multiplicity="*" />
@@ -1668,7 +1693,6 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Appointments" EntityType="Self.Appointment" />
           <EntitySet Name="Appointment_status" EntityType="Self.Appointment_status" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
@@ -1688,6 +1712,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <EntitySet Name="DoctorSchedules" EntityType="Self.DoctorSchedule" />
           <EntitySet Name="DoctorUserLikes" EntityType="Self.DoctorUserLike" />
           <EntitySet Name="Hospitals" EntityType="Self.Hospital" />
+          <EntitySet Name="HospitalAdmins" EntityType="Self.HospitalAdmin" />
           <EntitySet Name="HospitalInsurances" EntityType="Self.HospitalInsurance" />
           <EntitySet Name="HospitalReviews" EntityType="Self.HospitalReview" />
           <EntitySet Name="HospitalSchedules" EntityType="Self.HospitalSchedule" />
@@ -1723,6 +1748,10 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <AssociationSet Name="FK_DoctorReview_AspNetUsers" Association="Self.FK_DoctorReview_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="DoctorReview" EntitySet="DoctorReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalAdmin_AspNetUsers" Association="Self.FK_HospitalAdmin_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="HospitalAdmin" EntitySet="HospitalAdmins" />
           </AssociationSet>
           <AssociationSet Name="FK_HospitalReview_AspNetUsers" Association="Self.FK_HospitalReview_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1783,6 +1812,10 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <AssociationSet Name="FK_DoctorInsurance_Hospital" Association="Self.FK_DoctorInsurance_Hospital">
             <End Role="Hospital" EntitySet="Hospitals" />
             <End Role="HospitalInsurance" EntitySet="HospitalInsurances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalAdmin_Hospital" Association="Self.FK_HospitalAdmin_Hospital">
+            <End Role="Hospital" EntitySet="Hospitals" />
+            <End Role="HospitalAdmin" EntitySet="HospitalAdmins" />
           </AssociationSet>
           <AssociationSet Name="FK_HospitalReview_Hospital" Association="Self.FK_HospitalReview_Hospital">
             <End Role="Hospital" EntitySet="Hospitals" />
@@ -1874,15 +1907,20 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             <Parameter Name="SaturdayEveningStartTime" Mode="In" Type="Time" />
             <Parameter Name="SaturdayEveningEndTime" Mode="In" Type="Time" />
           </FunctionImport>
-          <FunctionImport Name="GetAllDoctors" ReturnType="Collection(ecomModel.GetAllDoctors_Result)">
+          <FunctionImport Name="GetAllDoctors" ReturnType="Collection(Entities.GetAllDoctors_Result)">
             <Parameter Name="SpecialityID" Mode="In" Type="Int32" />
             <Parameter Name="Latitude" Mode="In" Type="Double" />
             <Parameter Name="Longitude" Mode="In" Type="Double" />
           </FunctionImport>
-          <FunctionImport Name="GetAllDoctorsByCity" ReturnType="Collection(ecomModel.GetAllDoctorsByCity_Result)">
+          <FunctionImport Name="GetAllDoctorsByCity" ReturnType="Collection(Entities.GetAllDoctorsByCity_Result)">
             <Parameter Name="SpecialityID" Mode="In" Type="Int32" />
             <Parameter Name="CityID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetAllDoctorsByHospital" ReturnType="Collection(Entities.GetAllDoctorsByHospital_Result)">
+            <Parameter Name="HospitalID" Mode="In" Type="Int32" />
+            <Parameter Name="specialityID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllSearchInputs" ReturnType="Collection(Entities.GetAllSearchInputs_Result)" />
           <FunctionImport Name="UpdateDoctorSchedule">
             <Parameter Name="DoctorID" Mode="In" Type="Int32" />
             <Parameter Name="DayInWeek" Mode="In" Type="String" />
@@ -1894,16 +1932,6 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             <Parameter Name="EveningStartTime" Mode="In" Type="Time" />
             <Parameter Name="EveningEndTime" Mode="In" Type="Time" />
           </FunctionImport>
-          <EntitySet Name="HospitalAdmins" EntityType="ecomModel.HospitalAdmin" />
-          <AssociationSet Name="FK_HospitalAdmin_AspNetUsers" Association="ecomModel.FK_HospitalAdmin_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="HospitalAdmin" EntitySet="HospitalAdmins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HospitalAdmin_Hospital" Association="ecomModel.FK_HospitalAdmin_Hospital">
-            <End Role="Hospital" EntitySet="Hospitals" />
-            <End Role="HospitalAdmin" EntitySet="HospitalAdmins" />
-          </AssociationSet>
-          <FunctionImport Name="GetAllSearchInputs" ReturnType="Collection(ecomModel.GetAllSearchInputs_Result)" />
         </EntityContainer>
         <ComplexType Name="GetAllDoctors_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1912,7 +1940,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <Property Type="String" Name="ContactNumber" Nullable="false" MaxLength="10" />
           <Property Type="Decimal" Name="Fee" Nullable="true" Precision="19" />
           <Property Type="Int32" Name="ReviewCount" Nullable="false" />
-          <Property Type="Boolean" Name="HasImage" Nullable="false" />
+          <Property Type="String" Name="ImageExt" Nullable="true" MaxLength="5" />
           <Property Type="Int32" Name="LikeCount" Nullable="false" />
           <Property Type="DateTime" Name="ExperienceFrom" Nullable="true" Precision="16" />
           <Property Type="String" Name="Location" Nullable="false" MaxLength="302" />
@@ -1925,52 +1953,35 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
           <Property Type="String" Name="NameEN" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Qualification" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="ContactNumber" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="HospitalName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="HospitalID" Nullable="false" />
+          <Property Type="String" Name="Speciality" Nullable="false" MaxLength="100" />
           <Property Type="Decimal" Name="Fee" Nullable="true" Precision="19" />
           <Property Type="Int32" Name="ReviewCount" Nullable="false" />
-          <Property Type="Boolean" Name="HasImage" Nullable="false" />
+          <Property Type="String" Name="ImageExt" Nullable="true" MaxLength="5" />
           <Property Type="Int32" Name="LikeCount" Nullable="false" />
           <Property Type="DateTime" Name="ExperienceFrom" Nullable="true" Precision="16" />
           <Property Type="String" Name="Location" Nullable="false" MaxLength="302" />
           <Property Type="Double" Name="Latitude" Nullable="true" />
           <Property Type="Double" Name="Longitude" Nullable="true" />
         </ComplexType>
-        <EntityType Name="HospitalAdmin">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="HospitalID" Type="Int32" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Updated" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="AspNetUser" Relationship="ecomModel.FK_HospitalAdmin_AspNetUsers" FromRole="HospitalAdmin" ToRole="AspNetUser" />
-          <NavigationProperty Name="Hospital" Relationship="ecomModel.FK_HospitalAdmin_Hospital" FromRole="HospitalAdmin" ToRole="Hospital" />
-        </EntityType>
-        <Association Name="FK_HospitalAdmin_AspNetUsers">
-          <End Type="ecomModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="ecomModel.HospitalAdmin" Role="HospitalAdmin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HospitalAdmin">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HospitalAdmin_Hospital">
-          <End Type="ecomModel.Hospital" Role="Hospital" Multiplicity="1" />
-          <End Type="ecomModel.HospitalAdmin" Role="HospitalAdmin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hospital">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="HospitalAdmin">
-              <PropertyRef Name="HospitalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <ComplexType Name="GetAllDoctorsByHospital_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NameEN" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Qualification" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ContactNumber" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="HospitalName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="HospitalID" Nullable="false" />
+          <Property Type="String" Name="Speciality" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="Fee" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="ReviewCount" Nullable="false" />
+          <Property Type="String" Name="ImageExt" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="LikeCount" Nullable="false" />
+          <Property Type="DateTime" Name="ExperienceFrom" Nullable="true" Precision="16" />
+          <Property Type="String" Name="Location" Nullable="false" MaxLength="302" />
+          <Property Type="Double" Name="Latitude" Nullable="true" />
+          <Property Type="Double" Name="Longitude" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="GetAllSearchInputs_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
@@ -1981,19 +1992,9 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ecomModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="ecomModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="EntitiesStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Appointments">
-            <EntityTypeMapping TypeName="ecomModel.Appointment">
+            <EntityTypeMapping TypeName="Entities.Appointment">
               <MappingFragment StoreEntitySet="Appointment">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
@@ -2007,7 +2008,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Appointment_status">
-            <EntityTypeMapping TypeName="ecomModel.Appointment_status">
+            <EntityTypeMapping TypeName="Entities.Appointment_status">
               <MappingFragment StoreEntitySet="Appointment_status">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2016,7 +2017,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="ecomModel.AspNetRole">
+            <EntityTypeMapping TypeName="Entities.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2024,7 +2025,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="ecomModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="Entities.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -2034,7 +2035,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="ecomModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="Entities.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -2043,7 +2044,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="ecomModel.AspNetUser">
+            <EntityTypeMapping TypeName="Entities.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -2061,7 +2062,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cities">
-            <EntityTypeMapping TypeName="ecomModel.City">
+            <EntityTypeMapping TypeName="Entities.City">
               <MappingFragment StoreEntitySet="City">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2073,7 +2074,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CityLocations">
-            <EntityTypeMapping TypeName="ecomModel.CityLocation">
+            <EntityTypeMapping TypeName="Entities.CityLocation">
               <MappingFragment StoreEntitySet="CityLocation">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2085,7 +2086,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Countries">
-            <EntityTypeMapping TypeName="ecomModel.Country">
+            <EntityTypeMapping TypeName="Entities.Country">
               <MappingFragment StoreEntitySet="Country">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2096,7 +2097,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="ecomModel.Department">
+            <EntityTypeMapping TypeName="Entities.Department">
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2107,7 +2108,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DepartmentReviews">
-            <EntityTypeMapping TypeName="ecomModel.DepartmentReview">
+            <EntityTypeMapping TypeName="Entities.DepartmentReview">
               <MappingFragment StoreEntitySet="DepartmentReview">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -2121,7 +2122,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DepartmentUserLikes">
-            <EntityTypeMapping TypeName="ecomModel.DepartmentUserLike">
+            <EntityTypeMapping TypeName="Entities.DepartmentUserLike">
               <MappingFragment StoreEntitySet="DepartmentUserLike">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -2133,7 +2134,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DeseaseSpecializations">
-            <EntityTypeMapping TypeName="ecomModel.DeseaseSpecialization">
+            <EntityTypeMapping TypeName="Entities.DeseaseSpecialization">
               <MappingFragment StoreEntitySet="DeseaseSpecialization">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DeseaseID" ColumnName="DeseaseID" />
@@ -2145,7 +2146,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Diseases">
-            <EntityTypeMapping TypeName="ecomModel.Disease">
+            <EntityTypeMapping TypeName="Entities.Disease">
               <MappingFragment StoreEntitySet="Disease">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2157,9 +2158,8 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Doctors">
-            <EntityTypeMapping TypeName="ecomModel.Doctor">
+            <EntityTypeMapping TypeName="Entities.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
-                <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
                 <ScalarProperty Name="Qualification" ColumnName="Qualification" />
@@ -2171,11 +2171,13 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
                 <ScalarProperty Name="ExperienceFrom" ColumnName="ExperienceFrom" />
                 <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoctorReviews">
-            <EntityTypeMapping TypeName="ecomModel.DoctorReview">
+            <EntityTypeMapping TypeName="Entities.DoctorReview">
               <MappingFragment StoreEntitySet="DoctorReview">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -2187,7 +2189,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoctorSchedules">
-            <EntityTypeMapping TypeName="ecomModel.DoctorSchedule">
+            <EntityTypeMapping TypeName="Entities.DoctorSchedule">
               <MappingFragment StoreEntitySet="DoctorSchedule">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
@@ -2209,7 +2211,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoctorUserLikes">
-            <EntityTypeMapping TypeName="ecomModel.DoctorUserLike">
+            <EntityTypeMapping TypeName="Entities.DoctorUserLike">
               <MappingFragment StoreEntitySet="DoctorUserLike">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -2221,7 +2223,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hospitals">
-            <EntityTypeMapping TypeName="ecomModel.Hospital">
+            <EntityTypeMapping TypeName="Entities.Hospital">
               <MappingFragment StoreEntitySet="Hospital">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2238,8 +2240,20 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HospitalAdmins">
+            <EntityTypeMapping TypeName="Entities.HospitalAdmin">
+              <MappingFragment StoreEntitySet="HospitalAdmin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HospitalInsurances">
-            <EntityTypeMapping TypeName="ecomModel.HospitalInsurance">
+            <EntityTypeMapping TypeName="Entities.HospitalInsurance">
               <MappingFragment StoreEntitySet="HospitalInsurance">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="InsuranceID" ColumnName="InsuranceID" />
@@ -2251,7 +2265,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HospitalReviews">
-            <EntityTypeMapping TypeName="ecomModel.HospitalReview">
+            <EntityTypeMapping TypeName="Entities.HospitalReview">
               <MappingFragment StoreEntitySet="HospitalReview">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -2265,7 +2279,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HospitalSchedules">
-            <EntityTypeMapping TypeName="ecomModel.HospitalSchedule">
+            <EntityTypeMapping TypeName="Entities.HospitalSchedule">
               <MappingFragment StoreEntitySet="HospitalSchedule">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Day" ColumnName="Day" />
@@ -2274,7 +2288,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HospitalUserLikes">
-            <EntityTypeMapping TypeName="ecomModel.HospitalUserLike">
+            <EntityTypeMapping TypeName="Entities.HospitalUserLike">
               <MappingFragment StoreEntitySet="HospitalUserLike">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -2286,7 +2300,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Insurances">
-            <EntityTypeMapping TypeName="ecomModel.Insurance">
+            <EntityTypeMapping TypeName="Entities.Insurance">
               <MappingFragment StoreEntitySet="Insurance">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2297,7 +2311,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Qualifications">
-            <EntityTypeMapping TypeName="ecomModel.Qualification">
+            <EntityTypeMapping TypeName="Entities.Qualification">
               <MappingFragment StoreEntitySet="Qualification">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2306,16 +2320,17 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Specializations">
-            <EntityTypeMapping TypeName="ecomModel.Specialization">
+            <EntityTypeMapping TypeName="Entities.Specialization">
               <MappingFragment StoreEntitySet="Specialization">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoctorViews">
-            <EntityTypeMapping TypeName="ecomModel.DoctorView">
+            <EntityTypeMapping TypeName="Entities.DoctorView">
               <MappingFragment StoreEntitySet="DoctorView">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -2333,7 +2348,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ecomModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Entities.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
@@ -2341,20 +2356,20 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="AddDepartmentReview" FunctionName="ecomModel.Store.AddDepartmentReview" />
-          <FunctionImportMapping FunctionImportName="AddDoctorReview" FunctionName="ecomModel.Store.AddDoctorReview" />
-          <FunctionImportMapping FunctionImportName="AddHospitalReview" FunctionName="ecomModel.Store.AddHospitalReview" />
-          <FunctionImportMapping FunctionImportName="AddNewDoctor" FunctionName="ecomModel.Store.AddNewDoctor" />
-          <FunctionImportMapping FunctionImportName="GetAllDoctors" FunctionName="ecomModel.Store.GetAllDoctors">
+          <FunctionImportMapping FunctionImportName="AddDepartmentReview" FunctionName="Entities.Store.AddDepartmentReview" />
+          <FunctionImportMapping FunctionImportName="AddDoctorReview" FunctionName="Entities.Store.AddDoctorReview" />
+          <FunctionImportMapping FunctionImportName="AddHospitalReview" FunctionName="Entities.Store.AddHospitalReview" />
+          <FunctionImportMapping FunctionImportName="AddNewDoctor" FunctionName="Entities.Store.AddNewDoctor" />
+          <FunctionImportMapping FunctionImportName="GetAllDoctors" FunctionName="Entities.Store.GetAllDoctors">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ecomModel.GetAllDoctors_Result">
+              <ComplexTypeMapping TypeName="Entities.GetAllDoctors_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
                 <ScalarProperty Name="Qualification" ColumnName="Qualification" />
                 <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
                 <ScalarProperty Name="Fee" ColumnName="Fee" />
                 <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
-                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+                <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
                 <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
                 <ScalarProperty Name="ExperienceFrom" ColumnName="ExperienceFrom" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
@@ -2364,16 +2379,19 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllDoctorsByCity" FunctionName="ecomModel.Store.GetAllDoctorsByCity">
+          <FunctionImportMapping FunctionImportName="GetAllDoctorsByCity" FunctionName="Entities.Store.GetAllDoctorsByCity">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ecomModel.GetAllDoctorsByCity_Result">
+              <ComplexTypeMapping TypeName="Entities.GetAllDoctorsByCity_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameEN" ColumnName="NameEN" />
                 <ScalarProperty Name="Qualification" ColumnName="Qualification" />
                 <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="Speciality" ColumnName="Speciality" />
                 <ScalarProperty Name="Fee" ColumnName="Fee" />
                 <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
-                <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+                <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
                 <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
                 <ScalarProperty Name="ExperienceFrom" ColumnName="ExperienceFrom" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
@@ -2382,28 +2400,37 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="UpdateDoctorSchedule" FunctionName="ecomModel.Store.UpdateDoctorSchedule" />
-          <EntitySetMapping Name="HospitalAdmins">
-            <EntityTypeMapping TypeName="ecomModel.HospitalAdmin">
-              <MappingFragment StoreEntitySet="HospitalAdmin">
-                <ScalarProperty Name="Updated" ColumnName="Updated" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllSearchInputs" FunctionName="ecomModel.Store.GetAllSearchInputs">
+          <FunctionImportMapping FunctionImportName="GetAllDoctorsByHospital" FunctionName="Entities.Store.GetAllDoctorsByHospital">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ecomModel.GetAllSearchInputs_Result">
+              <ComplexTypeMapping TypeName="Entities.GetAllDoctorsByHospital_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameEN" ColumnName="NameEN" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="Speciality" ColumnName="Speciality" />
+                <ScalarProperty Name="Fee" ColumnName="Fee" />
+                <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
+                <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="ExperienceFrom" ColumnName="ExperienceFrom" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllSearchInputs" FunctionName="Entities.Store.GetAllSearchInputs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Entities.GetAllSearchInputs_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateDoctorSchedule" FunctionName="Entities.Store.UpdateDoctorSchedule" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

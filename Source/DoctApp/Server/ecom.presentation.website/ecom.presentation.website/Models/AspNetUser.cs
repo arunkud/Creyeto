@@ -22,11 +22,11 @@ namespace ecom.presentation.website.Models
             this.DepartmentReviews = new HashSet<DepartmentReview>();
             this.DepartmentUserLikes = new HashSet<DepartmentUserLike>();
             this.DoctorReviews = new HashSet<DoctorReview>();
+            this.HospitalAdmins = new HashSet<HospitalAdmin>();
             this.HospitalReviews = new HashSet<HospitalReview>();
             this.HospitalUserLikes = new HashSet<HospitalUserLike>();
             this.DoctorUserLikes = new HashSet<DoctorUserLike>();
             this.AspNetRoles = new HashSet<AspNetRole>();
-            this.HospitalAdmins = new HashSet<HospitalAdmin>();
         }
     
         public string Id { get; set; }
@@ -53,6 +53,8 @@ namespace ecom.presentation.website.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorReview> DoctorReviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HospitalAdmin> HospitalAdmins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HospitalReview> HospitalReviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HospitalUserLike> HospitalUserLikes { get; set; }
@@ -60,7 +62,5 @@ namespace ecom.presentation.website.Models
         public virtual ICollection<DoctorUserLike> DoctorUserLikes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HospitalAdmin> HospitalAdmins { get; set; }
     }
 }

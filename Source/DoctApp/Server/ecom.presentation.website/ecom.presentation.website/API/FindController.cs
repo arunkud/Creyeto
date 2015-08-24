@@ -1,11 +1,6 @@
 ﻿using ecom.presentation.website.helper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace ecom.presentation.website.API

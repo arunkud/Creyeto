@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ecomModelStoreContainer" CdmEntityContainer="Entities">
-    <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="ecomModel.C__MigrationHistory">
-        <MappingFragment StoreEntitySet="__MigrationHistory">
-          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+  <EntityContainerMapping StorageEntityContainer="EntitiesStoreContainer" CdmEntityContainer="Entities">
     <EntitySetMapping Name="Appointments">
-      <EntityTypeMapping TypeName="ecomModel.Appointment">
+      <EntityTypeMapping TypeName="Entities.Appointment">
         <MappingFragment StoreEntitySet="Appointment">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
@@ -26,7 +16,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Appointment_status">
-      <EntityTypeMapping TypeName="ecomModel.Appointment_status">
+      <EntityTypeMapping TypeName="Entities.Appointment_status">
         <MappingFragment StoreEntitySet="Appointment_status">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -35,7 +25,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="ecomModel.AspNetRole">
+      <EntityTypeMapping TypeName="Entities.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -43,7 +33,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="ecomModel.AspNetUserClaim">
+      <EntityTypeMapping TypeName="Entities.AspNetUserClaim">
         <MappingFragment StoreEntitySet="AspNetUserClaims">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -53,7 +43,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="ecomModel.AspNetUserLogin">
+      <EntityTypeMapping TypeName="Entities.AspNetUserLogin">
         <MappingFragment StoreEntitySet="AspNetUserLogins">
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
           <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -62,7 +52,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="ecomModel.AspNetUser">
+      <EntityTypeMapping TypeName="Entities.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -80,7 +70,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Cities">
-      <EntityTypeMapping TypeName="ecomModel.City">
+      <EntityTypeMapping TypeName="Entities.City">
         <MappingFragment StoreEntitySet="City">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -92,7 +82,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CityLocations">
-      <EntityTypeMapping TypeName="ecomModel.CityLocation">
+      <EntityTypeMapping TypeName="Entities.CityLocation">
         <MappingFragment StoreEntitySet="CityLocation">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -104,7 +94,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Countries">
-      <EntityTypeMapping TypeName="ecomModel.Country">
+      <EntityTypeMapping TypeName="Entities.Country">
         <MappingFragment StoreEntitySet="Country">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -115,7 +105,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Departments">
-      <EntityTypeMapping TypeName="ecomModel.Department">
+      <EntityTypeMapping TypeName="Entities.Department">
         <MappingFragment StoreEntitySet="Department">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -126,7 +116,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DepartmentReviews">
-      <EntityTypeMapping TypeName="ecomModel.DepartmentReview">
+      <EntityTypeMapping TypeName="Entities.DepartmentReview">
         <MappingFragment StoreEntitySet="DepartmentReview">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -140,7 +130,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DepartmentUserLikes">
-      <EntityTypeMapping TypeName="ecomModel.DepartmentUserLike">
+      <EntityTypeMapping TypeName="Entities.DepartmentUserLike">
         <MappingFragment StoreEntitySet="DepartmentUserLike">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -152,7 +142,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DeseaseSpecializations">
-      <EntityTypeMapping TypeName="ecomModel.DeseaseSpecialization">
+      <EntityTypeMapping TypeName="Entities.DeseaseSpecialization">
         <MappingFragment StoreEntitySet="DeseaseSpecialization">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="DeseaseID" ColumnName="DeseaseID" />
@@ -164,7 +154,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Diseases">
-      <EntityTypeMapping TypeName="ecomModel.Disease">
+      <EntityTypeMapping TypeName="Entities.Disease">
         <MappingFragment StoreEntitySet="Disease">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -176,9 +166,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Doctors">
-      <EntityTypeMapping TypeName="ecomModel.Doctor">
+      <EntityTypeMapping TypeName="Entities.Doctor">
         <MappingFragment StoreEntitySet="Doctor">
-          <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
           <ScalarProperty Name="Qualification" ColumnName="Qualification" />
@@ -190,11 +179,13 @@
           <ScalarProperty Name="ExperienceFrom" ColumnName="ExperienceFrom" />
           <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DoctorReviews">
-      <EntityTypeMapping TypeName="ecomModel.DoctorReview">
+      <EntityTypeMapping TypeName="Entities.DoctorReview">
         <MappingFragment StoreEntitySet="DoctorReview">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -206,7 +197,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DoctorSchedules">
-      <EntityTypeMapping TypeName="ecomModel.DoctorSchedule">
+      <EntityTypeMapping TypeName="Entities.DoctorSchedule">
         <MappingFragment StoreEntitySet="DoctorSchedule">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
@@ -228,7 +219,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DoctorUserLikes">
-      <EntityTypeMapping TypeName="ecomModel.DoctorUserLike">
+      <EntityTypeMapping TypeName="Entities.DoctorUserLike">
         <MappingFragment StoreEntitySet="DoctorUserLike">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -240,7 +231,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Hospitals">
-      <EntityTypeMapping TypeName="ecomModel.Hospital">
+      <EntityTypeMapping TypeName="Entities.Hospital">
         <MappingFragment StoreEntitySet="Hospital">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -257,8 +248,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="HospitalAdmins">
+      <EntityTypeMapping TypeName="Entities.HospitalAdmin">
+        <MappingFragment StoreEntitySet="HospitalAdmin">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Updated" ColumnName="Updated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="HospitalInsurances">
-      <EntityTypeMapping TypeName="ecomModel.HospitalInsurance">
+      <EntityTypeMapping TypeName="Entities.HospitalInsurance">
         <MappingFragment StoreEntitySet="HospitalInsurance">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="InsuranceID" ColumnName="InsuranceID" />
@@ -270,7 +273,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="HospitalReviews">
-      <EntityTypeMapping TypeName="ecomModel.HospitalReview">
+      <EntityTypeMapping TypeName="Entities.HospitalReview">
         <MappingFragment StoreEntitySet="HospitalReview">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -284,7 +287,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="HospitalSchedules">
-      <EntityTypeMapping TypeName="ecomModel.HospitalSchedule">
+      <EntityTypeMapping TypeName="Entities.HospitalSchedule">
         <MappingFragment StoreEntitySet="HospitalSchedule">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Day" ColumnName="Day" />
@@ -293,7 +296,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="HospitalUserLikes">
-      <EntityTypeMapping TypeName="ecomModel.HospitalUserLike">
+      <EntityTypeMapping TypeName="Entities.HospitalUserLike">
         <MappingFragment StoreEntitySet="HospitalUserLike">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -305,7 +308,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Insurances">
-      <EntityTypeMapping TypeName="ecomModel.Insurance">
+      <EntityTypeMapping TypeName="Entities.Insurance">
         <MappingFragment StoreEntitySet="Insurance">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -316,7 +319,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Qualifications">
-      <EntityTypeMapping TypeName="ecomModel.Qualification">
+      <EntityTypeMapping TypeName="Entities.Qualification">
         <MappingFragment StoreEntitySet="Qualification">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -325,16 +328,17 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Specializations">
-      <EntityTypeMapping TypeName="ecomModel.Specialization">
+      <EntityTypeMapping TypeName="Entities.Specialization">
         <MappingFragment StoreEntitySet="Specialization">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="DoctorViews">
-      <EntityTypeMapping TypeName="ecomModel.DoctorView">
+      <EntityTypeMapping TypeName="Entities.DoctorView">
         <MappingFragment StoreEntitySet="DoctorView">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
@@ -352,7 +356,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AspNetUserRoles" TypeName="ecomModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="Entities.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
@@ -360,20 +364,20 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
-    <FunctionImportMapping FunctionImportName="AddDepartmentReview" FunctionName="ecomModel.Store.AddDepartmentReview" />
-    <FunctionImportMapping FunctionImportName="AddDoctorReview" FunctionName="ecomModel.Store.AddDoctorReview" />
-    <FunctionImportMapping FunctionImportName="AddHospitalReview" FunctionName="ecomModel.Store.AddHospitalReview" />
-    <FunctionImportMapping FunctionImportName="AddNewDoctor" FunctionName="ecomModel.Store.AddNewDoctor" />
-    <FunctionImportMapping FunctionImportName="GetAllDoctors" FunctionName="ecomModel.Store.GetAllDoctors">
+    <FunctionImportMapping FunctionImportName="AddDepartmentReview" FunctionName="Entities.Store.AddDepartmentReview" />
+    <FunctionImportMapping FunctionImportName="AddDoctorReview" FunctionName="Entities.Store.AddDoctorReview" />
+    <FunctionImportMapping FunctionImportName="AddHospitalReview" FunctionName="Entities.Store.AddHospitalReview" />
+    <FunctionImportMapping FunctionImportName="AddNewDoctor" FunctionName="Entities.Store.AddNewDoctor" />
+    <FunctionImportMapping FunctionImportName="GetAllDoctors" FunctionName="Entities.Store.GetAllDoctors">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="ecomModel.GetAllDoctors_Result">
+        <ComplexTypeMapping TypeName="Entities.GetAllDoctors_Result">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
           <ScalarProperty Name="Qualification" ColumnName="Qualification" />
           <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
           <ScalarProperty Name="Fee" ColumnName="Fee" />
           <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
-          <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+          <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
           <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
           <ScalarProperty Name="ExperienceFrom" ColumnName="ExperienceFrom" />
           <ScalarProperty Name="Location" ColumnName="Location" />
@@ -383,16 +387,19 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GetAllDoctorsByCity" FunctionName="ecomModel.Store.GetAllDoctorsByCity">
+    <FunctionImportMapping FunctionImportName="GetAllDoctorsByCity" FunctionName="Entities.Store.GetAllDoctorsByCity">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="ecomModel.GetAllDoctorsByCity_Result">
+        <ComplexTypeMapping TypeName="Entities.GetAllDoctorsByCity_Result">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="NameEN" ColumnName="NameEN" />
           <ScalarProperty Name="Qualification" ColumnName="Qualification" />
           <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+          <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+          <ScalarProperty Name="Speciality" ColumnName="Speciality" />
           <ScalarProperty Name="Fee" ColumnName="Fee" />
           <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
-          <ScalarProperty Name="HasImage" ColumnName="HasImage" />
+          <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
           <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
           <ScalarProperty Name="ExperienceFrom" ColumnName="ExperienceFrom" />
           <ScalarProperty Name="Location" ColumnName="Location" />
@@ -401,27 +408,36 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="UpdateDoctorSchedule" FunctionName="ecomModel.Store.UpdateDoctorSchedule" />
-    <EntitySetMapping Name="HospitalAdmins">
-      <EntityTypeMapping TypeName="ecomModel.HospitalAdmin">
-        <MappingFragment StoreEntitySet="HospitalAdmin">
-          <ScalarProperty Name="Updated" ColumnName="Updated" />
-          <ScalarProperty Name="Created" ColumnName="Created" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="GetAllSearchInputs" FunctionName="ecomModel.Store.GetAllSearchInputs">
+    <FunctionImportMapping FunctionImportName="GetAllDoctorsByHospital" FunctionName="Entities.Store.GetAllDoctorsByHospital">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="ecomModel.GetAllSearchInputs_Result">
+        <ComplexTypeMapping TypeName="Entities.GetAllDoctorsByHospital_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NameEN" ColumnName="NameEN" />
+          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+          <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+          <ScalarProperty Name="Speciality" ColumnName="Speciality" />
+          <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="ReviewCount" ColumnName="ReviewCount" />
+          <ScalarProperty Name="ImageExt" ColumnName="ImageExt" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+          <ScalarProperty Name="ExperienceFrom" ColumnName="ExperienceFrom" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllSearchInputs" FunctionName="Entities.Store.GetAllSearchInputs">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Entities.GetAllSearchInputs_Result">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Category" ColumnName="Category" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateDoctorSchedule" FunctionName="Entities.Store.UpdateDoctorSchedule" />
   </EntityContainerMapping>
 </Mapping>

@@ -15,8 +15,8 @@ namespace ecom.presentation.website.helper
     {
         #region Private Members
 
-        private static List<SearchInfo> _allSpearchInputs = new List<SearchInfo>();
-        private static Dictionary<string, SearchInfo> _searchInput_IDDictionary = new Dictionary<string, SearchInfo>();
+        private static List<SearchInputInfo> _allSpearchInputs = new List<SearchInputInfo>();
+        private static Dictionary<string, SearchInputInfo> _searchInput_IDDictionary = new Dictionary<string, SearchInputInfo>();
 
         private static ReaderWriterLock rwlock = new ReaderWriterLock();
         private static DateTime? _lastUpdated;
@@ -41,9 +41,9 @@ namespace ecom.presentation.website.helper
             Entities db = new Entities();
             foreach (var item in db.GetAllSearchInputs())
             {
-                _allSpearchInputs.Add(new SearchInfo
+                _allSpearchInputs.Add(new SearchInputInfo
                 {
-                    ID = item.ID.ToString() + item.Category,
+                    ID = item.Category + "|"  + item.ID.ToString(),
                     Name = item.Name                    
                 });
 
@@ -61,7 +61,7 @@ namespace ecom.presentation.website.helper
         /// Gets objects from the database
         /// </summary> 
         /// <returns>List(Specialization)</returns>
-        public static List<SearchInfo> GetAll()
+        public static List<SearchInputInfo> GetAll()
         {
             rwlock.AcquireReaderLock(Timeout.Infinite);
             try
@@ -80,7 +80,7 @@ namespace ecom.presentation.website.helper
                     }
                 }
 
-                List<SearchInfo> returnedSearches = new List<SearchInfo>();
+                List<SearchInputInfo> returnedSearches = new List<SearchInputInfo>();
                 returnedSearches.AddRange(_allSpearchInputs);
 
                 return returnedSearches;
@@ -92,7 +92,7 @@ namespace ecom.presentation.website.helper
         }
 
 
-        public static IEnumerable<SearchInfo> GetByName(string searchText)
+        public static IEnumerable<SearchInputInfo> GetByName(string searchText)
         {
             rwlock.AcquireReaderLock(Timeout.Infinite);
             try

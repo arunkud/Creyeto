@@ -185,29 +185,15 @@
     <Compile Include="API\CityLocationController.cs" />
     <Compile Include="API\DoctorController.cs" />
     <Compile Include="API\FindController.cs" />
+    <Compile Include="Controllers\SpecializationsController.cs" />
     <Compile Include="Helpers\DataAccess\SearchInputHelper.cs" />
-    <Compile Include="Models\GetAllSearchInputs_Result.cs">
-      <DependentUpon>DoctorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SearchInfo.cs" />
-    <Compile Include="API\SpecialityController.cs" />
-    <Compile Include="Controllers\HospitalAdminController.cs" />
-    <Compile Include="Helpers\DataAccess\CacheHelper.cs" />
-    <Compile Include="Helpers\DataAccess\SpecialityHelper.cs" />
-    <Compile Include="Helpers\DataAccess\LocationHelper.cs" />
-    <Compile Include="Helpers\Log\LogHelper.cs" />
-    <Compile Include="HospitalsController.cs" />
+    <Compile Include="Helpers\DataAccess\DoctorHelper.cs" />
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Appointment_status.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
@@ -226,16 +212,7 @@
     <Compile Include="Models\CityLocation.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DoctorReviewsController.cs" />
-    <Compile Include="Controllers\DoctorsController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Models\Country.cs">
-      <DependentUpon>DoctorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Department.cs">
@@ -277,22 +254,24 @@
     <Compile Include="Models\DoctorSchedule.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DoctorSearchResponseInfo.cs" />
     <Compile Include="Models\DoctorUserLike.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DoctorView.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Extensions\Hospitals.cs" />
-    <Compile Include="Models\Extensions\Specializations.cs" />
     <Compile Include="Models\GetAllDoctorsByCity_Result.cs">
+      <DependentUpon>DoctorEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllDoctorsByHospital_Result.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetAllDoctors_Result.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
+    <Compile Include="Models\GetAllSearchInputs_Result.cs">
+      <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Hospital.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
@@ -315,19 +294,43 @@
     <Compile Include="Models\Insurance.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Qualification.cs">
+      <DependentUpon>DoctorEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SearchInputInfo.cs" />
+    <Compile Include="API\SpecialityController.cs" />
+    <Compile Include="Controllers\HospitalAdminController.cs" />
+    <Compile Include="Helpers\DataAccess\CacheHelper.cs" />
+    <Compile Include="Helpers\DataAccess\SpecialityHelper.cs" />
+    <Compile Include="Helpers\DataAccess\LocationHelper.cs" />
+    <Compile Include="Helpers\Log\LogHelper.cs" />
+    <Compile Include="HospitalsController.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DoctorReviewsController.cs" />
+    <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Models\Extensions\Hospitals.cs" />
+    <Compile Include="Models\Extensions\Specializations.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Extensions\Doctors.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Qualification.cs">
-      <DependentUpon>DoctorEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Search\SearchDoctor.cs" />
-    <Compile Include="Search\SearchRequestModel.cs" />
     <Compile Include="Models\Specialization.cs">
       <DependentUpon>DoctorEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\SearchDoctor.cs" />
+    <Compile Include="Search\SearchRequestModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\SearchDoctorController.cs" />
     <Compile Include="Helpers\ScheduleHelper.cs" />
@@ -350,16 +353,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.avatar.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DoctorEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DoctorEntities.edmx</DependentUpon>
-      <LastGenOutput>DoctorEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DoctorEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DoctorEntities.edmx</DependentUpon>
-      <LastGenOutput>DoctorEntities.cs</LastGenOutput>
-    </Content>
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -373,6 +367,16 @@
       <DependentUpon>DoctorEntities.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\SmartASPNET.pubxml" />
+    <Content Include="Models\DoctorEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DoctorEntities.edmx</DependentUpon>
+      <LastGenOutput>DoctorEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DoctorEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DoctorEntities.edmx</DependentUpon>
+      <LastGenOutput>DoctorEntities.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -469,6 +473,11 @@
     <Content Include="Views\HospitalAdmin\Details.cshtml" />
     <Content Include="Views\HospitalAdmin\Edit.cshtml" />
     <Content Include="Views\HospitalAdmin\Index.cshtml" />
+    <Content Include="Views\Specializations\Create.cshtml" />
+    <Content Include="Views\Specializations\Delete.cshtml" />
+    <Content Include="Views\Specializations\Details.cshtml" />
+    <Content Include="Views\Specializations\Edit.cshtml" />
+    <Content Include="Views\Specializations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

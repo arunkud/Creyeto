@@ -1,44 +1,85 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
+﻿/*
+ * DoctAPP Basic Styles
+ */
+ *{margin:0;padding:0;font-weight:normal}
+ body{ font-family: Roboto-Regular;font-size: 13px;background: #FFFFFF;}
+ a{font-family: Roboto-Regular;font-size: 11px;color: #009688;line-height: 14px;text-decoration:none}
+ em,dfn{font-style:normal}
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
 
-/* styles for validation helpers */
-.field-validation-error {
-    color: #b94a48;
-}
 
-.field-validation-valid {
-    display: none;
-}
+/*
+ * Icons
+ */
+.icon{display:inline-block;width:16px;height:18px;font-size:0;vertical-align:top}
+.iconBack{background:url(../Images/iconBack.png) no-repeat 0 0;}
+.iconMenu{position:absolute;right:20px;top:100px;width:56px;height:56px;background: #FF5252;box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1), 0px 4px 4px 0px rgba(0, 0, 0, 0.06);border-radius:100%;border:1px solid #979797;  line-height: 69px;text-align: center;}
+.iconMenu i{background:url(../Images/menu.png) no-repeat 0 0;width:24px;height:17px;display:inline-block}
 
-input.input-validation-error {
-    border: 1px solid #b94a48;
-}
 
-input[type="checkbox"].input-validation-error {
-    border: 0 none;
-}
+/*
+ * Header
+ */
 
-.validation-summary-errors {
-    color: #b94a48;
-}
+header{background:#0ED1DD;box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.12), 0px 4px 4px 0px rgba(0,0,0,0.24);padding:18px 15px}
+header h1{font-family: Roboto-Medium;font-size: 20px;color: #FFFFFF;line-height:19px;display:inline-block;margin-left:25px}
+header span.location{font-family: Roboto-Medium;font-size: 14px;color: #FFFFFF;margin:15px 0 5px 43px;display:block}
 
-.validation-summary-valid {
-    display: none;
+
+/*
+ * Actionbar
+ */
+.actionbar{background: #0097A7;box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.12), 0px 2px 2px 0px rgba(0,0,0,0.24);color:#fff;min-height:40px;line-height:40px;padding:0 15px}
+.actionbar a{color:#fff;line-height:16px;font-size:14px;padding-right:10px}
+
+
+/*
+ * map
+ */
+.map{height:178px;background-image: linear-gradient(-180deg, rgba(0,0,0,0.44) 18%, rgba(0,0,0,0.35) 100%)}
+
+
+
+/*
+ * Listing
+ */
+ .listingWrapper{background:#f9f9f9;padding:8px}
+ .listingWrapper ul li{padding:10px 10px 0;background: #FFFFFF;border: 1px solid #DDDDDD;border-radius: 4px;list-style:none;margin-bottom: 7px}
+ .listingWrapper ul li p{font-family: Roboto-Regular;position:relative}
+ .listingWrapper ul li p em, .listingWrapper ul li p dfn{display:block}
+ .listingWrapper ul li p em{font-size: 15px;color: #000000;line-height: 16px;max-width: 235px;margin-bottom:2px}
+ .listingWrapper ul li p dfn{font-size: 11px;color: #515151;line-height: 11px;}
+ .listingWrapper ul li p span{position:absolute;right:0;top:0;font-size:11px;color: #9B9B9B;line-height: 13px}
+ .listingWrapper ul li p span a{margin-left:3px}
+ .listingWrapper ul li p.action span{top:-13px;}
+ .listingWrapper ul li p.action a{color: #9B9B9B;font-size: 12px;display: inline-block;vertical-align: top}
+ .listingWrapper ul li p a.review{background:url(../Images/Review.png) no-repeat 0 0;display:inline-block;height:15px;padding-left:22px;margin-right:15px}
+ .listingWrapper ul li p a.like{background:url(../Images/Likes.png) no-repeat 0 0;display:inline-block;height:15px;padding-left:22px}
+ .listingWrapper ul li img{margin-right:16px;float: left;width:60px;height:60px;background-color: #F9F9F9;}
+ .listingWrapper ul li div{margin-top:3px;padding:10px 0 0}
+ .listingWrapper ul li div p{border-top: 1px solid #DDDDDD;margin:0 -10px;padding:10px}
+ .listingWrapper ul li p.action{margin-top:12px}
+ .call{background: #50E3C2 url(../Images/Call.png) no-repeat center center;width: 28px;height: 28px;border-radius: 100%}
+ .listingWrapper ul li div p em{font-size: 11px;color: #515151;width:195px;line-height:13px;  text-overflow: ellipsis;  white-space: nowrap;overflow: hidden;}
+ .listingWrapper ul li div p span{right:10px;top:10px}
+ .book{background: #FF5252;border-radius: 4px;font-family: Roboto-Regular;font-size: 13px;color: #FFFFFF!important;line-height: 16px;padding:7px 13px;text-transform: uppercase;margin-left: 5px!important}
+
+
+
+/*
+ * Media - Iphone 5,4, Max- 320 width
+ */
+ @media only screen and (max-width: 321px){
+
+.listingWrapper ul li{padding:10px 7px 0;}
+.listingWrapper ul li div p{margin:0 -8px;padding:10px 8px}
+.listingWrapper ul li p em{max-width:185px}
+.listingWrapper ul li img{width:50px;height:50px}
+.listingWrapper ul li div{margin-top: 5px}
+.listingWrapper ul li div p em{width:135px;line-height:13px;  text-overflow: ellipsis;  white-space: nowrap;overflow: hidden;}
+.listingWrapper ul li div p span{right:7px;top:8px}
+
 }
 
 /*# Added for AutoComplete: Arun */

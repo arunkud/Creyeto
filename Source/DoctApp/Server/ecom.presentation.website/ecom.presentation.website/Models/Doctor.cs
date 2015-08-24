@@ -34,6 +34,7 @@ namespace ecom.presentation.website.Models
         public int HospitalID { get; set; }
         public Nullable<int> DepartmentID { get; set; }
         public string ImageExt { get; set; }
+        public string Description { get; set; }
     
         public virtual Department Department { get; set; }
         public virtual Hospital Hospital { get; set; }

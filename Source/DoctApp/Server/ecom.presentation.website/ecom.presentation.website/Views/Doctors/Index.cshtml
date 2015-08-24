@@ -1,27 +1,37 @@
-﻿@model IEnumerable<ecom.presentation.website.Models.Doctor>
+﻿@model IEnumerable<ecom.presentation.website.Models.DoctorSearchResponseInfo>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ConfigLayout .cshtml";
 }
 
-@section scripts{
-    <script src="~/Scripts/jquery.autocomplete.js"></script>
-    <script src="~/Scripts/doctorlist.js"></script>
-}
 
-<h2></h2>
-<p>
+<a href="" class="iconMenu"><i></i></a>
+<header>
+    <a href="~/Specializations/Index" class="icon iconBack">back</a><h1>Dentist</h1>
+    <span class="location">Al Rolla - Sharjah</span>
+</header>
+<div class="actionbar"><a href="">Common Specialities</a>›</div>
+<section class="map"></section>
+<section class="listingWrapper">
+    <ul>
+@foreach (var item in Model) {
+        <li>
+            <img src="@Url.Content(item.Image)" alt="@item.Name" />
+            <p><em>Dr @item.Name</em><dfn>@item.Qualification - @item.Specialization</dfn><span>Insurance<a href="">Yes</a></span></p>
+            <p class="action"><a href="" class="review">@item.ReviewCount</a><a href="" class="like">@item.LikeCount</a><span><a href="" class="call"></a><a href="" class="book">Book</a></span></p>
+            <div><p><em>@item.Hospital&nbsp;  @item.Address</em><span>Consultation Fee<a href="">AED @item.Fee</a></span></p></div>
+        </li>       
+}
+    </ul>
+</section>
+
+@*<p>
     @if (User.IsInRole("Admin"))
     {
         @Html.ActionLink("Create New", "Create")
     }
 </p>
-<div style="position: relative; height: 80px;">
-    <input type="text" name="country" id="autocomplete-ajax" style="position: absolute; z-index: 2; background: transparent;" />
-    <input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" style="color: #CCC; position: absolute; background: transparent; z-index: 1;" />    
-</div>
-<input type="button" id="findDoctor" value="Find" />
 <div id="selction-ajax"></div>
 <table class="table">
     @foreach (var item in Model)
@@ -76,4 +86,4 @@
         </tr>
     }
 
-</table>
+</table>*@

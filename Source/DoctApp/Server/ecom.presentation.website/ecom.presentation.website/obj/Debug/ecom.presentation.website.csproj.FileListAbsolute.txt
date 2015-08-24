@@ -114,6 +114,7 @@ I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentatio
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Antlr3.Runtime.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\EntityFramework.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\EntityFramework.SqlServer.dll
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\log4net.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Microsoft.AspNet.Identity.Core.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -131,7 +132,10 @@ I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentatio
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Owin.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\PagedList.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\PagedList.Mvc.dll
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Net.Http.Formatting.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Helpers.dll
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Http.dll
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Http.WebHost.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Mvc.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Optimization.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Razor.dll
@@ -141,8 +145,12 @@ I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentatio
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\WebGrease.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\EntityFramework.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\EntityFramework.SqlServer.xml
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\log4net.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\PagedList.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\PagedList.Mvc.xml
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Net.Http.Formatting.xml
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Http.xml
+I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Http.WebHost.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Helpers.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Mvc.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Optimization.xml
@@ -166,12 +174,3 @@ I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentatio
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.dll
 I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.pdb
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\log4net.dll
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\log4net.xml
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Net.Http.Formatting.dll
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Http.dll
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Http.WebHost.dll
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Net.Http.Formatting.xml
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Http.xml
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\bin\System.Web.Http.WebHost.xml
-I:\Work\Creyeto\Source\DoctApp\Server\ecom.presentation.website\ecom.presentation.website\obj\Debug\ecom.presentation.website.csprojResolveAssemblyReference.cache

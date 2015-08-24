@@ -27,7 +27,6 @@ namespace ecom.presentation.website.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Appointment_status> Appointment_status { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
@@ -47,6 +46,7 @@ namespace ecom.presentation.website.Models
         public virtual DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public virtual DbSet<DoctorUserLike> DoctorUserLikes { get; set; }
         public virtual DbSet<Hospital> Hospitals { get; set; }
+        public virtual DbSet<HospitalAdmin> HospitalAdmins { get; set; }
         public virtual DbSet<HospitalInsurance> HospitalInsurances { get; set; }
         public virtual DbSet<HospitalReview> HospitalReviews { get; set; }
         public virtual DbSet<HospitalSchedule> HospitalSchedules { get; set; }
@@ -55,7 +55,6 @@ namespace ecom.presentation.website.Models
         public virtual DbSet<Qualification> Qualifications { get; set; }
         public virtual DbSet<Specialization> Specializations { get; set; }
         public virtual DbSet<DoctorView> DoctorViews { get; set; }
-        public virtual DbSet<HospitalAdmin> HospitalAdmins { get; set; }
     
         public virtual int AddDepartmentReview(string userID, Nullable<int> departmentId, string reviewText, Nullable<int> rating, Nullable<bool> like)
         {
@@ -371,6 +370,24 @@ namespace ecom.presentation.website.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDoctorsByCity_Result>("GetAllDoctorsByCity", specialityIDParameter, cityIDParameter);
         }
     
+        public virtual ObjectResult<GetAllDoctorsByHospital_Result> GetAllDoctorsByHospital(Nullable<int> hospitalID, Nullable<int> specialityID)
+        {
+            var hospitalIDParameter = hospitalID.HasValue ?
+                new ObjectParameter("HospitalID", hospitalID) :
+                new ObjectParameter("HospitalID", typeof(int));
+    
+            var specialityIDParameter = specialityID.HasValue ?
+                new ObjectParameter("specialityID", specialityID) :
+                new ObjectParameter("specialityID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDoctorsByHospital_Result>("GetAllDoctorsByHospital", hospitalIDParameter, specialityIDParameter);
+        }
+    
+        public virtual ObjectResult<GetAllSearchInputs_Result> GetAllSearchInputs()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllSearchInputs_Result>("GetAllSearchInputs");
+        }
+    
         public virtual int UpdateDoctorSchedule(Nullable<int> doctorID, string dayInWeek, Nullable<System.TimeSpan> duration, Nullable<System.TimeSpan> morningStartTime, Nullable<System.TimeSpan> morningEndTime, Nullable<System.TimeSpan> afernoonStartTime, Nullable<System.TimeSpan> afernoonEndTime, Nullable<System.TimeSpan> eveningStartTime, Nullable<System.TimeSpan> eveningEndTime)
         {
             var doctorIDParameter = doctorID.HasValue ?
@@ -410,11 +427,6 @@ namespace ecom.presentation.website.Models
                 new ObjectParameter("EveningEndTime", typeof(System.TimeSpan));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateDoctorSchedule", doctorIDParameter, dayInWeekParameter, durationParameter, morningStartTimeParameter, morningEndTimeParameter, afernoonStartTimeParameter, afernoonEndTimeParameter, eveningStartTimeParameter, eveningEndTimeParameter);
-        }
-    
-        public virtual ObjectResult<GetAllSearchInputs_Result> GetAllSearchInputs()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllSearchInputs_Result>("GetAllSearchInputs");
         }
     }
 }

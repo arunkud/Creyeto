@@ -19,7 +19,7 @@ namespace ecom.presentation.website.Models
         public string ContactNumber { get; set; }
         public Nullable<decimal> Fee { get; set; }
         public int ReviewCount { get; set; }
-        public bool HasImage { get; set; }
+        public string ImageExt { get; set; }
         public int LikeCount { get; set; }
         public Nullable<System.DateTime> ExperienceFrom { get; set; }
         public string Location { get; set; }

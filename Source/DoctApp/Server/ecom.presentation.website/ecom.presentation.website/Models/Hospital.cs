@@ -19,9 +19,9 @@ namespace ecom.presentation.website.Models
         {
             this.Doctors = new HashSet<Doctor>();
             this.HospitalInsurances = new HashSet<HospitalInsurance>();
+            this.HospitalAdmins = new HashSet<HospitalAdmin>();
             this.HospitalReviews = new HashSet<HospitalReview>();
             this.HospitalUserLikes = new HashSet<HospitalUserLike>();
-            this.HospitalAdmins = new HashSet<HospitalAdmin>();
         }
     
         public int ID { get; set; }
@@ -29,7 +29,7 @@ namespace ecom.presentation.website.Models
         public string Address { get; set; }
         public string ContactNumber { get; set; }
         public string SecondNumber { get; set; }
-        public Nullable<int> CityLocationID { get; set; }
+        public int CityLocationID { get; set; }
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longitude { get; set; }
         public bool IsActive { get; set; }
@@ -43,10 +43,10 @@ namespace ecom.presentation.website.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HospitalInsurance> HospitalInsurances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HospitalAdmin> HospitalAdmins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HospitalReview> HospitalReviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HospitalUserLike> HospitalUserLikes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HospitalAdmin> HospitalAdmins { get; set; }
     }
 }

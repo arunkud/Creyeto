@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="ecomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="__MigrationHistory">
-    <Key>
-      <PropertyRef Name="MigrationId" />
-      <PropertyRef Name="ContextKey" />
-    </Key>
-    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-  </EntityType>
+<Schema Namespace="Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Appointment">
     <Key>
       <PropertyRef Name="ID" />
@@ -186,6 +176,7 @@
     <Property Name="HospitalID" Type="int" Nullable="false" />
     <Property Name="DepartmentID" Type="int" />
     <Property Name="ImageExt" Type="varchar" MaxLength="5" />
+    <Property Name="Description" Type="text" />
   </EntityType>
   <EntityType Name="DoctorReview">
     <Key>
@@ -239,7 +230,7 @@
     <Property Name="Address" Type="varchar" MaxLength="250" />
     <Property Name="ContactNumber" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="SecondNumber" Type="varchar" MaxLength="10" />
-    <Property Name="CityLocationID" Type="int" />
+    <Property Name="CityLocationID" Type="int" Nullable="false" />
     <Property Name="Latitude" Type="float" />
     <Property Name="Longitude" Type="float" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -325,6 +316,7 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NameEN" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Image" Type="varchar" MaxLength="200" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
@@ -600,7 +592,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Hospital_CityLocation">
-    <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="0..1" />
+    <End Role="CityLocation" Type="Self.CityLocation" Multiplicity="1" />
     <End Role="Hospital" Type="Self.Hospital" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CityLocation">
@@ -790,6 +782,10 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
     <Parameter Name="SpecialityID" Type="int" Mode="In" />
     <Parameter Name="CityID" Type="int" Mode="In" />
   </Function>
+  <Function Name="GetAllDoctorsByHospital" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="HospitalID" Type="int" Mode="In" />
+    <Parameter Name="specialityID" Type="int" Mode="In" />
+  </Function>
   <Function Name="GetAllSearchInputs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="UpdateDoctorSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="DoctorID" Type="int" Mode="In" />
@@ -802,8 +798,7 @@ warning 6002: The table/view 'ecom.dbo.DoctorView' does not have a primary key d
     <Parameter Name="EveningStartTime" Type="time" Mode="In" />
     <Parameter Name="EveningEndTime" Type="time" Mode="In" />
   </Function>
-  <EntityContainer Name="ecomModelStoreContainer">
-    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+  <EntityContainer Name="EntitiesStoreContainer">
     <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Appointment_status" EntityType="Self.Appointment_status" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />

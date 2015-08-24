@@ -10,7 +10,6 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using ecom.presentation.website.Models;
 using System.Web.Hosting;
-using System.Web.Security;
 using ecom.presentation.website.helper;
 
 namespace ecom.presentation.website.Controllers
@@ -31,8 +30,106 @@ namespace ecom.presentation.website.Controllers
         // GET: Doctors
         public ActionResult Index()
         {
-			var doctors = db.Doctors.Include(d => d.Hospital).Include(d => d.Specialization);
-			return View(doctors.ToList());
+            //var doctors = db.Doctors.Include(d => d.Hospital).Include(d => d.Specialization);
+            //return View(doctors.ToList());
+            int? cityId = 0;
+            int? cityLocationId = null;
+            int? specialityId = null;
+            int? checkSumVal = null;
+            double? latitude = null;
+            double? longitude = null;
+            int? hospitalId = null;
+
+            string strCityID = Request.QueryString["cid"] != null ? Request.QueryString["cid"].ToString() : null;
+            string strCityLocationId = Request.QueryString["clid"] != null ? Request.QueryString["cid"].ToString() : null;
+            string strSpecialityId = Request.QueryString["sid"] != null ? Request.QueryString["sid"].ToString() : null;
+            string strCheckSum = Request.QueryString["cs"] != null ? Request.QueryString["cs"].ToString() : null;
+            string strLatitude = Request.QueryString["lt"] != null ? Request.QueryString["lt"].ToString() : null;
+            string strLongitude = Request.QueryString["lg"] != null ? Request.QueryString["lg"].ToString() : null;
+            string strHospitalId = Request.QueryString["hid"] != null ? Request.QueryString["hid"].ToString() : null;
+
+            if (!string.IsNullOrEmpty(strCityID))
+                cityId = int.Parse(strCityID);
+
+            if (!string.IsNullOrEmpty(strCityLocationId))
+                cityLocationId = int.Parse(strCityLocationId);
+
+            if (!string.IsNullOrEmpty(strSpecialityId))
+                specialityId = int.Parse(strSpecialityId);
+
+            if (!string.IsNullOrEmpty(strCheckSum))
+                checkSumVal = int.Parse(strCheckSum);
+
+            if (!string.IsNullOrEmpty(strLatitude))
+                latitude = double.Parse(strLatitude);
+
+            if (!string.IsNullOrEmpty(strLongitude))
+                longitude = double.Parse(strLongitude);
+
+            if (!string.IsNullOrEmpty(strHospitalId))
+                hospitalId = int.Parse(strHospitalId);
+
+            Entities dbContext = new Entities();
+            List<DoctorSearchResponseInfo> doctorResults = new List<DoctorSearchResponseInfo>();
+            if (latitude.HasValue && longitude.HasValue && specialityId != 0)
+            {
+                var doctors = from d in dbContext.GetAllDoctors(specialityId, latitude, longitude) select d;
+                foreach(var item in doctors)
+                {
+                    doctorResults.Add(new DoctorSearchResponseInfo()
+                    {
+                        Name = item.NameEN,
+                        Qualification = item.Qualification,
+                    });
+                }                
+            }
+            else if (specialityId != 0 && cityId.HasValue && cityId.Value != 0)
+            {
+                var doctors = from d in dbContext.GetAllDoctorsByCity(specialityId, cityId) select d;
+                foreach (var item in doctors)
+                {
+                    doctorResults.Add(new DoctorSearchResponseInfo()
+                    {
+                        Name = item.NameEN,
+                        Qualification = item.Qualification,
+                        Image = !string.IsNullOrEmpty(item.ImageExt) ?
+                                        "~/Images/" + item.HospitalID + "/" + item.ID + item.ImageExt :
+                                        "~/Images/no-photo-available-icon.jpg",
+                        Hospital = item.HospitalName,
+                        Specialization = item.Speciality,
+                        ContactNumber = item.ContactNumber,
+                        Fee = item.Fee,
+                        LikeCount = item.LikeCount,
+                        ReviewCount = item.ReviewCount,
+                        Location = new string[] { item.Latitude.ToString(), item.Longitude.ToString() },
+                        Address = "addresss"
+                    });
+                }                
+            }
+            else if (hospitalId.HasValue)
+            {
+                var doctors = from d in dbContext.GetAllDoctorsByHospital(hospitalId, specialityId) select d;
+                foreach (var item in doctors)
+                {
+                    doctorResults.Add(new DoctorSearchResponseInfo()
+                    {
+                        Name = item.NameEN,
+                        Qualification = item.Qualification,
+                        Image = !string.IsNullOrEmpty(item.ImageExt) ? 
+                                        "~/Images/" + item.HospitalID + "/" + item.ID + item.ImageExt : 
+                                        "~/Images/no-photo-available-icon.jpg" ,
+                        Hospital  = item.HospitalName,
+                        Specialization = item.Speciality,
+                        ContactNumber = item.ContactNumber,
+                        Fee = item.Fee,
+                        LikeCount = item.LikeCount,
+                        ReviewCount = item.ReviewCount,
+                        Location = new string[] { item.Latitude.ToString(), item.Longitude.ToString() },                        
+                        Address = "addresss"
+                    });
+                }
+            }
+            return View(doctorResults.ToList());
         }
 
 		public ActionResult About()

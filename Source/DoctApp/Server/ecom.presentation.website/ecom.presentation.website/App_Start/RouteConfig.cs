@@ -22,7 +22,7 @@ namespace ecom.presentation.website
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Doctors", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Specializations", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
